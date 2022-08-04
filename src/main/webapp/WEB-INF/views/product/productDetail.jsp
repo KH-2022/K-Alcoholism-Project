@@ -61,7 +61,7 @@
 				<table class="table">
 					<tbody>
 						<tr>
-							<td>상품명</td>
+							<td>상품명1</td>
 							<td>${detail.pd_name}</td>
 						</tr>
 						<tr>
