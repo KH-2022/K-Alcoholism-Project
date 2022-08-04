@@ -24,7 +24,7 @@
 						$("#loginForm").submit();
 					}
 				});
-			});
+			});  
 		</script>
 	</head>
 	<body>

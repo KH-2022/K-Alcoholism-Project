@@ -12,7 +12,7 @@
 	    
 			#detail-product{
 				float:left;
-				width:500px;
+				width:500px;  
 			}
 		</style>
 		<script type="text/javascript">
