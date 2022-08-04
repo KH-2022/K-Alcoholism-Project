@@ -5,6 +5,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
+	<!-- hikariConfig DB Connection (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
 	<!-- Oracle 18c DB Connection
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
@@ -21,21 +22,17 @@
 		<property name="password" value="kap1234" />
 	</bean> -->
 	
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<!-- dataSource (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
+	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
-	</bean>
+	</bean> -->
 	
-	<!-- MyBatis Setting -->
-	<!--
-		SqlSessionFactory: 데이터베이스와의 연결과 SQL의 실행에 대한 모든 것을 가진 가장 중요한 객체
-		SqlSessionFactoryBean 클래스: SqlSessionFactory를 생성해주는 객체를 설정해줌
-		SqlSession: 이를 통해 Connection을 생성하거나 원하는 SQL을 전달하고 결과를 리턴 받는 구조로 작성함
-	-->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:config/mybatis-config.xml" /><!-- mybatis의 설정 파일 위치 -->
-		<property name="mapperLocations" value="classpath:query/*.xml" /><!-- mybatis mapper xml 파일 위치 -->
-	</bean>
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:query/*.xml" />
+	</bean> -->
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"><value>com.kap.**.**.dao</value></property>
