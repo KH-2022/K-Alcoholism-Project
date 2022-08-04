@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.kap.client.signUp.vo.SignUpVO" alias="signUp" />
+		<typeAlias type="com.kap.client.login.vo.LoginVO" alias="login" />
+		<typeAlias type="com.kap.client.product.vo.ProductVO" alias="product"/>
+		<typeAlias type="com.kap.client.brewery.vo.BreweryVO" alias="brewery"/>
+		
+		<typeAlias type="com.kap.admin.login.vo.AdminLoginVO" alias="adminLogin"/>
+	</typeAliases>
+</configuration>

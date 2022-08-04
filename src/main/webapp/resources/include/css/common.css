@@ -1,0 +1,46 @@
+@charset "UTF-8";
+
+/* 전체 */
+* {font-family: 'Noto Sans KR', sans-serif;}
+.btn.btn-primary {background-color: #00204a;}
+.required{color:red;}
+#b_content{resize:none;}
+#item-template{display:none;}
+#r_content{resize:none;}
+.table-height { min-height: 407px; }
+.image_size { width: 80px; height: 113px; }
+
+/* header */
+div.menu-bg-wrap {background-color: #00204a;}
+.site-nav .site-navigation .site-menu {
+	margin-top: 50px;
+	font-weight: 400;
+}
+.site-nav .site-navigation .site-menu .has-children > .dropdown > li > a {text-decoration: none;}
+img#logo {height: 100px;}
+.hero .form-search .btn {
+	background-color: #00204a;
+	font-size: 15px;
+}
+
+select#search {
+	outline: none;
+	margin-right: 10px;
+	border-radius: 30px;
+	padding: 10px;
+}
+.hero .heading {
+	font-size: 40px;
+	font-weight: 700;
+}
+
+/* body */
+.section .heading {
+	font-size: 30px;
+	font-weight: 700;
+}
+.reply_count { font-size: 10px; color: red; }
+
+/* footer */
+.site-footer a {text-decoration: none;}
+#footer-copyright {font-size: 9px;}

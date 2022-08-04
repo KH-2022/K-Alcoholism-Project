@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+  
+<tiles-definitions>
+	<definition name="home" template="/WEB-INF/views/template/client/mainLayout.jsp"><!-- 여기서 name은 컨트롤러에서 리턴받는 값 -->
+		<put-attribute name="title" value="전통주 플랫폼, 전통酒의" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+
+	<definition name="content" template="/WEB-INF/views/template/client/contentLayout.jsp">
+		<put-attribute name="title" value="전통주 플랫폼, 전통酒의" />
+		<put-attribute name="header" value="/WEB-INF/views/template/client/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/template/client/footer.jsp" />
+	</definition>
+	
+	<definition name="error/*" extends="content">
+		<put-attribute name="title" value="" />
+		<put-attribute name="body" value="/WEB-INF/views/error/{1}.jsp" />
+	</definition>
+	
+	<definition name="signUp/*" extends="content">
+		<put-attribute name="title" value="회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views/signUp/{1}.jsp" />
+	</definition>
+	
+	<definition name="client/*" extends="content">
+		<put-attribute name="title" value="로그인" />
+		<put-attribute name="body" value="/WEB-INF/views/client/{1}.jsp" />
+	</definition>
+	
+	<definition name="findId/*" extends="content">
+		<put-attribute name="title" value="아이디/비밀번호 찾기" />
+		<put-attribute name="body" value="/WEB-INF/views/findId/{1}.jsp" />
+	</definition>
+	
+	<definition name="product/*" extends="content">
+		<put-attribute name="title" value="전통주 마켓" />
+		<put-attribute name="body" value="/WEB-INF/views/product/{1}.jsp" />
+	</definition>
+	
+	<definition name="brewery/*" extends="content">
+		<put-attribute name="title" value="양조장 체험" />
+		<put-attribute name="body" value="/WEB-INF/views/brewery/{1}.jsp" />
+	</definition>
+</tiles-definitions>

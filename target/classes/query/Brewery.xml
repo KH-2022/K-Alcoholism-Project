@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.brewery.dao.BreweryDao">
+
+	<!-- 양조장 리스트 기본 조회 -->
+	<select id="breweryList" parameterType="brewery" resultType="brewery">
+		SELECT br_id, br_name, br_program, to_char(br_date, 'YYYY-MM-DD') as br_date
+		FROM brewery
+		ORDER BY br_id desc
+	</select>
+	
+	<!-- 양조장 등록 -->
+	<insert id="breweryInsert" parameterType="brewery">
+		/* Brewery - breweryInsert */
+		<selectKey keyProperty="br_id" resultType="int" order="BEFORE">
+			select brewery_seq.nextval from dual
+		</selectKey>
+		
+		INSERT INTO brewery(br_id, br_name, br_region, br_addr, br_tel, br_site, br_info, br_type, br_program, br_time, br_price)
+		VALUES(#{br_id}, #{br_name}, #{br_region}, #{br_addr}, #{br_tel}, #{br_site}, #{br_info}, #{br_type}, #{br_program}, #{br_time}, #{br_price})
+	</insert>
+	
+	<!--  양조장 상세 조회 -->
+	<select id="breweryDetail" parameterType="brewery" resultType="brewery">
+		/* Brewery - breweryDetail */
+		SELECT br_id, br_name, br_region, br_addr, br_tel, br_site, br_info, br_type, br_image, br_program, br_time, br_price, 
+		to_char(br_date, 'YYYY-MM-DD') as br_date, br_image, br_thumb
+		FROM brewery
+		WHERE br_id = #{br_id}
+	</select>
+	
+	<!-- 양조장 수정 -->
+	<update id="breweryUpdate" parameterType="brewery" >
+		/* Brewery - breweryUpdate */
+		UPDATE brewery
+		SET br_name = #{br_name}, 
+			br_region = #{br_region},  
+			br_addr = #{br_addr}, 
+			br_tel = #{br_tel}, 
+			br_site = #{br_site}, 
+			br_info = #{br_info}, 
+			br_type = #{br_type}, 
+			br_program = #{br_program}, 
+			br_time = #{br_time}, 
+			br_price = #{br_price},
+			br_date = sysdate
+			<if test="br_thumb != ''">
+				, br_thumb = #{br_thumb}
+			</if>
+			<if test="br_image != ''">
+				, br_image = #{br_image}
+			</if>
+		WHERE br_id = #{br_id}
+	</update>
+	
+	<!-- 양조장 삭제 -->
+	<delete id="breweryDelete" parameterType="brewery">
+		/* Brewery - breweryDelete */
+		DELETE FROM brewery WHERE br_id=#{br_id}
+	</delete>
+
+</mapper>
