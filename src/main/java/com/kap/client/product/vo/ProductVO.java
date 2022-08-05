@@ -23,7 +23,7 @@ public class ProductVO extends CommonVO {
 	private String pd_date;
 	private String pd_update;
 	
-	private MultipartFile file; //파일 업로드를 위한 필드
-	private String b_thumb = ""; //실제 서버에 저장할 썸네일 이미지 파일명
-	private String b_file = ""; //실제 서버에 저장할 파일명
+	private MultipartFile file;
+	private String b_thumb = "";
+	private String b_file = ""; 
 }

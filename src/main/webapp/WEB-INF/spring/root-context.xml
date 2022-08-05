@@ -6,11 +6,11 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	<!-- hikariConfig DB Connection (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
-	<!-- Oracle 18c DB Connection
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	<!--  Oracle 18c DB Connection -->
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xepdb1" />
-		<property name="username" value="kapuser" />
+		<property name="username" value="c##kapuser" />
 		<property name="password" value="kap1234" />
 	</bean> -->
 	
@@ -27,7 +27,7 @@
 		<constructor-arg ref="hikariConfig" />
 	</bean> -->
 	
-	<!-- MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
+	<!--  MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
 	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
