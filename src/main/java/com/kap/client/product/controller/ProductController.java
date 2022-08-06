@@ -7,9 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kap.client.product.service.ProductService;
 import com.kap.client.product.vo.ProductVO;
+import com.kap.common.vo.PageDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -24,7 +26,7 @@ public class ProductController {
 	/*******************************************************
 	 * 상품 리스트 구현하기
 	 *******************************************************/
-	@GetMapping("/productList")
+	/* @GetMapping("/productList")
 	public String productList(@ModelAttribute ProductVO pvo, Model model) {
 		log.info("productList 호출 성공");
 		
@@ -33,8 +35,30 @@ public class ProductController {
 		model.addAttribute("productList",productList);
 		
 		return "product/productList";
+	} */
+	
+	/***************************************************
+	 * 글 목록 구현하기(페이징 처리 목록 조회)
+	 * 요청 URL : http://localhost:8080/product/productList
+	 ***************************************************/
+	@RequestMapping(value="/productList", method = RequestMethod.GET)
+	public String productList(@ModelAttribute ProductVO pvo, Model model) {
+		log.info("productList 호출 성공");
+		// 전체 레코드 조회
+		List<ProductVO> productList = productService.productList(pvo);
+		model.addAttribute("productList", productList);
+		
+		// 전체 레코드 수 구현
+		int total = productService.productListCnt(pvo);
+		
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(total, pvo)); // new PageDTO(CommonVO 하위 클래스위 인스턴스(ProductVO), 총 레코드수)
+		
+		return "product/productList"; // /WEB-INF/views/product/productList.jsp
 	}
 	
+	
+
 	/*******************************************************
 	 * 상품 상세보기
 	 *******************************************************/

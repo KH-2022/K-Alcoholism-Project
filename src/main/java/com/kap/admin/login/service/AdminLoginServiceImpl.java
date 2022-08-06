@@ -13,7 +13,7 @@ public class AdminLoginServiceImpl implements AdminLoginService {
 	
 	private AdminLoginDao adminLoginDao;
 
-	/* ê´€ë¦¬ì ë¡œê·¸ì¸ */
+	/* °ü¸®ÀÚ ·Î±×ÀÎ */
 	@Override
 	public AdminLoginVO loginProcess(AdminLoginVO login) {
 		AdminLoginVO adminLogin = adminLoginDao.loginProcess(login);

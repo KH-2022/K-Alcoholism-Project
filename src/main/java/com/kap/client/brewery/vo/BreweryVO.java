@@ -23,7 +23,7 @@ public class BreweryVO extends CommonVO {
 	private int br_price;
 	private String br_date;
 	
-	private MultipartFile file; //íŒŒì¼ ì—…ë¡œë“œë¥¼ ìœ„í•œ í•„ë“œ
-	private String br_thumb = ""; //ì‹¤ì œ ì„œë²„ì— ì €ì¥í•  ì¸ë„¤ì¼ ì´ë¯¸ì§€ íŒŒì¼ëª…
-	private String br_image = ""; //ì‹¤ì œ ì„œë²„ì— ì €ì¥í•  íŒŒì¼ëª…
+	private MultipartFile file; //ÆÄÀÏ ¾÷·Îµå¸¦ À§ÇÑ ÇÊµå
+	private String br_thumb = ""; //½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåÇÒ ½æ³×ÀÏ ÀÌ¹ÌÁö ÆÄÀÏ¸í
+	private String br_image = ""; //½ÇÁ¦ ¼­¹ö¿¡ ÀúÀåÇÒ ÆÄÀÏ¸í
 }

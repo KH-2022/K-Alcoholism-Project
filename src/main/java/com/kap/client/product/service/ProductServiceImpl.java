@@ -16,14 +16,15 @@ public class ProductServiceImpl implements ProductService {
 	@Setter(onMethod_ = @Autowired)
 	private ProductDao productDao;
 
-	//ìƒí’ˆë¦¬ìŠ¤íŠ¸ êµ¬í˜„
+	//»óÇ°¸®½ºÆ® ±¸Çö
 	@Override
 	public List<ProductVO> productList(ProductVO pvo) {
 		List<ProductVO> list = null;
 		list = productDao.productList(pvo);
 		return list;
 	}
-	//ìƒí’ˆë¦¬ìŠ¤íŠ¸ ìƒì„¸ êµ¬í˜„
+	
+	//»óÇ°¸®½ºÆ® »ó¼¼ ±¸Çö
 	@Override
 	public ProductVO productDetail(ProductVO pvo) {
 		ProductVO detail = null;
@@ -34,5 +35,10 @@ public class ProductServiceImpl implements ProductService {
 		return detail;
 	}
 	
+	// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
+	@Override
+	public int productListCnt(ProductVO pvo) {
+		return productDao.productListCnt(pvo);
+	}
 	
 }

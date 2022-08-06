@@ -17,11 +17,7 @@
 		</style>
 		<script type="text/javascript">
 			$(function(){
-				/* 좋아요 버튼 클릭시 처리 이벤트 */
-				$("#wishListBtn").click(function(){
-					
-				});
-				
+
 				/* 장바구니 버튼 클릭 시 처리 이벤트 */
 				$("#addCartBtn").click(function(){
 					
@@ -31,9 +27,7 @@
 				$("#orderListBtn").click(function(){
 					
 				});
-				
-				
-			});
+			}); // 함수 종료 
 		</script>
 		
 	</head>
@@ -52,9 +46,14 @@
 		<div class="contentContainer container">
 			<div><h3>상품 상세리스트</h3></div>
 			
-			<%--============삼품 상세 리스트 시작===================== --%>
+			<%-- ===================== 삼품 상세 리스트 시작 ===================== --%>
 			<div id="product-image">
-				<img src="/resources/images/product/pd1.jpg"  class="img-responsive" alt="Responsive image"/>
+				<c:if test="${not empty product.pd_thumb}">
+					<img src="/uploadStorage/product/thumbnail/${product.pd_thumb}" class="img-responsive" />
+				</c:if>
+				<c:if test="${empty product.pd_thumb}">
+					<img src="/resources/images/common/noImage.jpg" />
+				</c:if>
 			</div>
 			
 			<div id="detail-product">
@@ -70,23 +69,18 @@
 						</tr>
 						<tr>
 							<td>배송비</td>
-							<td>3,000원(3만원이상 결제시 무료배송)</td>
+							<td>3,000원 <small>(3만원이상 결제시 무료배송)</small></td>
 						</tr>
 						<tr>
 							<td>구매수량</td>
 							<td>
-								<select id="orders_count">
-									<c:forEach begin="1" end="10" var="i">
-										<option value="${i}">${i}</option>
-									</c:forEach>
-								</select>
+								<input type="number" name="productCount" min="1" max="100" value="1" />
 							</td>
 						</tr>
 					</tbody>
 				</table>
-				<%--============버튼 출력 시작===================== --%>
+				<%-- ===================== 버튼 출력 시작 ===================== --%>
 				<div class="contentBtn text-right">
-					<input type="button" value="좋아요" id="wishListBtn" class="btn btn-success"/>
 					<input type="button" value="장바구니" id="addCartBtn" class="btn btn-success"/>
 					<input type="button" value="구매하기" id="orderListBtn" class="btn btn-success"/>
 				</div>

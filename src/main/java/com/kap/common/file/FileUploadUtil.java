@@ -13,31 +13,31 @@ import lombok.extern.log4j.Log4j;
 
 @Log4j
 public class FileUploadUtil {
-	/***** íŒŒì¼ì„ ì—…ë¡œë“œí•  í´ë” ìƒì„± *****/
+	/***** ÆÄÀÏÀ» ¾÷·ÎµåÇÒ Æú´õ »ý¼º *****/
 	public static void makeDir(String docRoot) {
 		File fileDir = new File(docRoot);
 		if (fileDir.exists()) {
 			return;
 		}
-		fileDir.mkdirs(); //í´ë”ê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ê²½ìš°ì—ë§Œ ìƒˆë¡œ ìƒì„±
+		fileDir.mkdirs(); //Æú´õ°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì¿¡¸¸ »õ·Î »ý¼º
 	}
 	
-	/***** íŒŒì¼ ì—…ë¡œë“œ ë©”ì„œë“œ *****
-	 * íŒŒì¼ëª… ì¤‘ë³µ ì‹œ í•´ê²°ë°©ë²•
-	 * System.currentTimeMillis()ë¥¼ ì‚¬ìš©í•˜ê±°ë‚˜ 128ë¹„íŠ¸ì˜ ìˆ˜ì¸ UUID ì‚¬ìš©
-	 * í‘œì¤€ í˜•ì‹ì—ì„œ UUIDëŠ” 32ê°œì˜ 16ì§„ìˆ˜ë¡œ í‘œí˜„ë˜ë©° ì´ 36ê°œ ë¬¸ìž(32ê°œ ë¬¸ìžì™€ 4ê°œì˜ í•˜ì´í”ˆ)ë¡œ ëœ 8-4-4-4-12ë¼ëŠ” 5ê°œì˜ ê·¸ë£¹ì„ í•˜ì´í”ˆìœ¼ë¡œ êµ¬ë¶„í•œë‹¤.
-	 * ì´ë•Œ UUID.randomUUID().toString()ì„ ì´ìš©í•´ì„œ ì–»ëŠ”ë‹¤.
-	 * ì˜ˆì‹œ) 50e8400-e29b-41d4-a716-446655440000
+	/***** ÆÄÀÏ ¾÷·Îµå ¸Þ¼­µå *****
+	 * ÆÄÀÏ¸í Áßº¹ ½Ã ÇØ°á¹æ¹ý
+	 * System.currentTimeMillis()¸¦ »ç¿ëÇÏ°Å³ª 128ºñÆ®ÀÇ ¼öÀÎ UUID »ç¿ë
+	 * Ç¥ÁØ Çü½Ä¿¡¼­ UUID´Â 32°³ÀÇ 16Áø¼ö·Î Ç¥ÇöµÇ¸ç ÃÑ 36°³ ¹®ÀÚ(32°³ ¹®ÀÚ¿Í 4°³ÀÇ ÇÏÀÌÇÂ)·Î µÈ 8-4-4-4-12¶ó´Â 5°³ÀÇ ±×·ìÀ» ÇÏÀÌÇÂÀ¸·Î ±¸ºÐÇÑ´Ù.
+	 * ÀÌ¶§ UUID.randomUUID().toString()À» ÀÌ¿ëÇØ¼­ ¾ò´Â´Ù.
+	 * ¿¹½Ã) 50e8400-e29b-41d4-a716-446655440000
 	 * */
 	public static String fileUpload(MultipartFile file, String fileName) throws IOException {
-		log.info("fileUpload() í˜¸ì¶œ ì„±ê³µ");
+		log.info("fileUpload() È£Ãâ ¼º°ø");
 		String real_name = "";
 		
-		// MultipartFile í´ëž˜ìŠ¤ì˜ getFile() ë©”ì„œë“œë¡œ í´ë¼ì´ì–¸íŠ¸ê°€ ì—…ë¡œë“œí•œ íŒŒì¼
+		// MultipartFile Å¬·¡½ºÀÇ getFile() ¸Þ¼­µå·Î Å¬¶óÀÌ¾ðÆ®°¡ ¾÷·ÎµåÇÑ ÆÄÀÏ
 		String org_name = file.getOriginalFilename();
-		log.info("ì—…ë¡œë“œ íŒŒì¼ëª…: " + org_name);
+		log.info("¾÷·Îµå ÆÄÀÏ¸í: " + org_name);
 		
-		// ì¤‘ë³µë˜ì§€ ì•Šë„ë¡ íŒŒì¼ëª… ë³€ê²½
+		// Áßº¹µÇÁö ¾Êµµ·Ï ÆÄÀÏ¸í º¯°æ
 		if (org_name != null && (!org_name.equals(""))) {
 			real_name = fileName + "_" + System.currentTimeMillis() + "_" + org_name; //board_1658205347977_dog.jpg
 			
@@ -45,26 +45,26 @@ public class FileUploadUtil {
 			makeDir(docRoot);
 			
 			File fileAdd = new File(docRoot + "/" + real_name);
-			log.info("ì—…ë¡œë“œí•  íŒŒì¼: " + fileAdd);
+			log.info("¾÷·ÎµåÇÒ ÆÄÀÏ: " + fileAdd);
 			
-			file.transferTo(fileAdd); //ì´ ë©”ì„œë“œì— ì˜í•´ ì‹¤ì§ˆì ìœ¼ë¡œ ê²½ë¡œì— íŒŒì¼ ìƒì„±
+			file.transferTo(fileAdd); //ÀÌ ¸Þ¼­µå¿¡ ÀÇÇØ ½ÇÁúÀûÀ¸·Î °æ·Î¿¡ ÆÄÀÏ »ý¼º
 		}
 		
-		return real_name; //ì„œë²„ì— ì €ìž¥ëœ íŒŒì¼ëª… ë°˜í™˜ -> board_1658205347977_dog.jpg
+		return real_name; //¼­¹ö¿¡ ÀúÀåµÈ ÆÄÀÏ¸í ¹ÝÈ¯ -> board_1658205347977_dog.jpg
 	}
 	
-	/***** íŒŒì¼ ì‚­ì œ ë©”ì„œë“œ *****
-	 * ê²½ë¡œ ë° íŒŒì¼ëª…: board/board_1658205347977_dog.jpg
-	 * ì¸ë„¤ì¼ ê²½ë¡œ ë° íŒŒì¼ëª…: board/thumbnail/thumbnail_board_1658205347977_dog.jpg
+	/***** ÆÄÀÏ »èÁ¦ ¸Þ¼­µå *****
+	 * °æ·Î ¹× ÆÄÀÏ¸í: board/board_1658205347977_dog.jpg
+	 * ½æ³×ÀÏ °æ·Î ¹× ÆÄÀÏ¸í: board/thumbnail/thumbnail_board_1658205347977_dog.jpg
 	 * */
 	public static void fileDelete(String fileName) throws IOException {
-		log.info("fileDelete() í˜¸ì¶œ ì„±ê³µ");
+		log.info("fileDelete() È£Ãâ ¼º°ø");
 		boolean result = false;
 		String startDirName = "", docRoot = "";
-		String dirName = fileName.substring(0, fileName.indexOf("_")); //íŒŒì¼ëª… thumbnail_board_1658205347977_dog.jpg -> "thumbnail"
+		String dirName = fileName.substring(0, fileName.indexOf("_")); //ÆÄÀÏ¸í thumbnail_board_1658205347977_dog.jpg -> "thumbnail"
 		
 		if (dirName.equals("thumbnail")) {
-			startDirName = fileName.substring(dirName.length() + 1, fileName.indexOf("_", dirName.length()+1)); //íŒŒì¼ëª… thumbnail_board_1658205347977_dog.jpg -> "board"
+			startDirName = fileName.substring(dirName.length() + 1, fileName.indexOf("_", dirName.length()+1)); //ÆÄÀÏ¸í thumbnail_board_1658205347977_dog.jpg -> "board"
 			docRoot = "/Library/UploadStorage/" + startDirName + "/" + dirName; //docRoot = /Library/UploadStorage/board/thumbnail
 		} else {
 			docRoot = "/Library/UploadStorage/" + dirName; //docRoot = /Library/UploadStorage/board
@@ -75,34 +75,34 @@ public class FileUploadUtil {
 			result = fileDelete.delete();
 		}
 		
-		log.info("íŒŒì¼ ì‚­ì œ ì—¬ë¶€: " + result);
+		log.info("ÆÄÀÏ »èÁ¦ ¿©ºÎ: " + result);
 	}
 	
-	/***** ì¸ë„¤ì¼ ìƒì„± ë©”ì„œë“œ *****/
+	/***** ½æ³×ÀÏ »ý¼º ¸Þ¼­µå *****/
 	public static String makeThumbnail(String fileName) throws Exception {
-		// ì´ë¯¸ì§€ê°€ ì¡´ìž¬í•˜ëŠ” í´ë” ì¶”ì¶œ
-		String dirName = fileName.substring(0, fileName.indexOf("_")); //íŒŒì¼ëª… board_1658205347977_dog.jpg -> "board"
-		// ì¶”ì¶œëœ í´ë”ì˜ ì‹¤ì œ ê²½ë¡œ(ë¬¼ë¦¬ì  ìœ„ì¹˜)
+		// ÀÌ¹ÌÁö°¡ Á¸ÀçÇÏ´Â Æú´õ ÃßÃâ
+		String dirName = fileName.substring(0, fileName.indexOf("_")); //ÆÄÀÏ¸í board_1658205347977_dog.jpg -> "board"
+		// ÃßÃâµÈ Æú´õÀÇ ½ÇÁ¦ °æ·Î(¹°¸®Àû À§Ä¡)
 		String imgPath = "/Library/UploadStorage/" + dirName;
 		
 		File fileAdd = new File(imgPath, fileName); //fileAdd = /Library/UploadStorage/board/board_1658205347977_dog.jpg
-		log.info("ì›ë³¸ ì´ë¯¸ì§€ íŒŒì¼(fileAdd):" + fileAdd);
+		log.info("¿øº» ÀÌ¹ÌÁö ÆÄÀÏ(fileAdd):" + fileAdd);
 		
-		BufferedImage sourceImg = ImageIO.read(fileAdd); //fileAddì— í•´ë‹¹í•˜ëŠ” ì´ë¯¸ì§€ íŒŒì¼ì„ ì½ì–´ì™€ì„œ ë°ì´í„°ë¡œ ì €ìž¥
-		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 133); //í¬ê¸°ë¥¼ ì¡°ì •í•˜ì—¬ ì´ë¯¸ì§€ ë°ì´í„° ì €ìž¥
-									//resize(BufferedImage íƒ€ìž… ì›ë³¸ ì´ë¯¸ì§€, ì›ë³¸ ê°€ë¡œì„¸ë¡œ ë¹„ìœ¨, ë†’ì´ ë˜ëŠ” ë„ˆë¹„, í¬ê¸°)
+		BufferedImage sourceImg = ImageIO.read(fileAdd); //fileAdd¿¡ ÇØ´çÇÏ´Â ÀÌ¹ÌÁö ÆÄÀÏÀ» ÀÐ¾î¿Í¼­ µ¥ÀÌÅÍ·Î ÀúÀå
+		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 133); //Å©±â¸¦ Á¶Á¤ÇÏ¿© ÀÌ¹ÌÁö µ¥ÀÌÅÍ ÀúÀå
+									//resize(BufferedImage Å¸ÀÔ ¿øº» ÀÌ¹ÌÁö, ¿øº» °¡·Î¼¼·Î ºñÀ², ³ôÀÌ ¶Ç´Â ³Êºñ, Å©±â)
 		
 		String thumbnailName = "thumbnail_" + fileName; //thumbnailName = thumbnail_board_1658205347977_dog.jpg
 		String docRoot = imgPath + "/thumbnail"; //docRoot = /Library/UploadStorage/board/thumbnail
 		makeDir(docRoot);
 		
 		File newFile = new File(docRoot, thumbnailName); //newFile = /Library/UploadStorage/board/thumbnail/thumbnail_board_1658205347977_dog.jpg
-		log.info("ì—…ë¡œë“œí•  íŒŒì¼: " + newFile);
+		log.info("¾÷·ÎµåÇÒ ÆÄÀÏ: " + newFile);
 		
-		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); //ë§ˆì§€ë§‰ .ì˜ ìœ„ì¹˜ ë‹¤ìŒë¶€í„° ëê¹Œì§€ ìžë¦„ -> "jpg"
-		log.info("í™•ìž¥ìž: " + formatName);
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); //¸¶Áö¸· .ÀÇ À§Ä¡ ´ÙÀ½ºÎÅÍ ³¡±îÁö ÀÚ¸§ -> "jpg"
+		log.info("È®ÀåÀÚ: " + formatName);
 		
-		ImageIO.write(destImg, formatName, newFile); //ì¸ë„¤ì¼ìš©ìœ¼ë¡œ ì¡°ì •í•œ ì´ë¯¸ì§€ ë°ì´í„°ë¥¼ ìƒì„±í•œ íŒŒì¼ì— ì €ìž¥
-		return thumbnailName; //ì„œë²„ì— ì €ìž¥ëœ íŒŒì¼ëª… ë°˜í™˜ -> thumbnail_board_1658205347977_dog.jpg
+		ImageIO.write(destImg, formatName, newFile); //½æ³×ÀÏ¿ëÀ¸·Î Á¶Á¤ÇÑ ÀÌ¹ÌÁö µ¥ÀÌÅÍ¸¦ »ý¼ºÇÑ ÆÄÀÏ¿¡ ÀúÀå
+		return thumbnailName; //¼­¹ö¿¡ ÀúÀåµÈ ÆÄÀÏ¸í ¹ÝÈ¯ -> thumbnail_board_1658205347977_dog.jpg
 	}
 }

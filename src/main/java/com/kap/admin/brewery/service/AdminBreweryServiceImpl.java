@@ -57,7 +57,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return updateData;
 	}
 	
-	//글수정 구현
+	//글수정구현
 	@Override
 	public int breweryUpdate(BreweryVO bvo) throws Exception{
 		int result = 0;
@@ -88,11 +88,4 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		result = breweryDao.breweryDelete(bvo.getBr_id());
 		return result;
 	}
-
-	
-	
-
-	
-
-
 }

@@ -19,7 +19,7 @@
 					else {
 						$("#loginForm").attr({
 							"method" :"post",
-							"action" : "/client/login"
+							"action" : "/login/login"
 						});
 						$("#loginForm").submit();
 					}

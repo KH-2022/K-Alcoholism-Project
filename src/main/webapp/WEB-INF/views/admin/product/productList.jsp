@@ -56,6 +56,13 @@
 					});
 					$("#detailForm").submit();
 				})
+				
+				$(".paginate_button a").click(function(e) {
+					e.preventDefault();
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href"));
+					goPage();
+				});
+				
 			}); //$함수 종료
 			
 			/* 게시물 검색을 위한 함수 */
@@ -70,7 +77,7 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header"><h3 class="text-center">상품 관리 목록</h3></div>
+			<div class="contentTit page-header"><h2 class="text-center">상품 관리</h2></div>
 			
 			<form id="detailForm">
 				<input type="hidden" id="pd_id" name="pd_id"/>
@@ -84,11 +91,11 @@
 			<%-- ================= 검색기능 시작 ================= --%>
 			<div id="productSearch" class="text-right">
 				<form id="searchForm" name="searchForm" class="form-inline">
-					<%-- 페이징 처리를 위한 파라미터
+					<%-- 페이징 처리를 위한 파라미터 --%>
 					<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
-					<input type="hidden" name="amount" value="${pageMaker.cvo.amount}"> --%>
+					<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
 					
-					<h3><span class="label label-success">검색조건</span></h3>
+					<%-- <h3><span class="label label-success">검색조건</span></h3>
 					<div class="form-group">
 						<select id="search" class="form-control">
 							<option value="pd_name">이름</option>
@@ -98,7 +105,7 @@
 							<input type="text" name="keyword" id="keyword" class="form-control" placeholder="검색어를 입력하세요" />
 						</div>
 						<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
-					</div>
+					</div>--%>
 				</form>
 			</div>
 			<%-- ================= 검색기능 종료 ================= --%>
@@ -110,7 +117,7 @@
 						<tr>
 							<th data-value="pd_id" class="order text-center col-md-1">상품 번호</th>
 							<th class="text-center col-md-1">양조장 번호</th>
-							<th class="text-center col-md-1">상품명</th>
+							<th class="text-center col-md-2">상품명</th>
 							<th class="text-center col-md-1">상품 가격</th>
 							<th class="text-center col-md-1">상품 분류</th>
 							<th class="text-center col-md-1">상품 도수(%)</th>
@@ -153,11 +160,10 @@
 				</table>
 			</div>
 			
-			<%-- 페이징 처리를 커스텀태그(pagination) 정의
+			<%-- 페이징 처리를 커스텀태그(pagination) 정의 --%>
 			<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
 							startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
 							prev="${pageMaker.prev}" next="${pageMaker.next}" />
-			--%>
 		</div>
 	</body>
 </html>

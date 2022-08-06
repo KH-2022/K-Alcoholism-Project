@@ -32,7 +32,27 @@
 					});
 					$("#detailForm").submit();
 				});
-			});
+				
+				/* 페이징 처리 */
+				$(".paginate_button a").click(function(e) {
+					e.preventDefault();
+					$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+					goPage();
+				})
+			}); // 함수 종료
+			
+			/* 게시물 검색을 위한 함수 */
+			function goPage() {
+				if($("#search").val() == "all") {
+					$("#keyword").val("");
+				}
+				$("#f_search").attr({
+					"method" : "get",
+					"action" : "/product/productList"
+				});
+				$("#f_search").submit();
+			}
+
 		</script>
 		
 	</head>
@@ -55,10 +75,27 @@
 				<input type="hidden" id="pd_id" name="pd_id" />
 			</form>
 			
-			<%--============================================= --%>
+			<%--============검색기능 시작===================== --%>
+			<div id="productSearch" class="text-right">
+				<form id="f_search" name="f_search" class="form-inline">
+					<%-- 페이징 처리를 위한 파라미터 --%>
+					<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
+					<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
+					<div class="form-group">
+						<label>검색조건 </label>
+						<select id="search" name="search" class="form-control">
+							<option value="all">전체</option>
+							<option value="pd_degree">도수</option>
+							<option value="pd_price">가격</option>
+							<option value="pd_sort">종류</option>
+						</select>
+						<input type="text" name="keyword" id="keyword" value="검색어를 입력하세요" class="form-control" />
+						<button type="button" id="searchData" class="btn btn-success">검색</button>
+					</div>
+				</form>
+			</div>
 			
-			
-			<%--============삼품 리스트 시작===================== --%>
+			<%--============상품 리스트 시작===================== --%>
 			<div id="products">
 				<ul id="product-list">
 					<c:choose>
@@ -87,6 +124,10 @@
 				</ul>
 			</div>
 			
+			<%-- 페이징 처리를 커스텀태그(pagination)를 정의 --%>
+			<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
+							startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
+							prev="${pageMaker.prev}" next="${pageMaker.next}" />
 		</div>
 	</body>
 </html>
