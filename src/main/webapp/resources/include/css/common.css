@@ -3,7 +3,6 @@
 /* 전체 */
 * {font-family: 'Noto Sans KR', sans-serif;}
 .btn.btn-primary {background-color: #00204a;}
-.required{color:red;}
 #b_content{resize:none;}
 #item-template{display:none;}
 #r_content{resize:none;}

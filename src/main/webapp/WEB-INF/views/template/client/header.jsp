@@ -26,7 +26,7 @@
 				<a href="/signUp/signUpForm">회원가입</a>
 			</li>
 			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/client/login')}">class="active"</c:if>>
-				<a href="/client/login">로그인</a>
+				<a href="/login/login">로그인</a>
 			</li>
 			<li>
 				<a href="#">마이페이지</a>

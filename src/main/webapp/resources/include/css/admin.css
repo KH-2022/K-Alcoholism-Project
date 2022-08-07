@@ -6,6 +6,7 @@
 /* 게시판 관리 */
 .well .form-inline h3{display: inline;}
 #list > tr > td > .listImage {width: 200px;}
+.required{color:red;}
 
 /* 페이징 출력 div 부분 */
 #boardPage{width:96%; margin-top:10px;}

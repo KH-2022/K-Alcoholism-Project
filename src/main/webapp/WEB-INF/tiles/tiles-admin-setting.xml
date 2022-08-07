@@ -22,4 +22,10 @@
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/brewery/{1}.jsp" />
  	</definition>
+ 	
+ 	<definition name="admin/reserve/*" extends="basic">  
+ 		<put-attribute name="title" value="관리자 체험 예약 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/reserve/{1}.jsp" />
+ 	</definition>
 </tiles-definitions>
