@@ -40,17 +40,17 @@ public class AdminBreweryController {
 	 ******************************************************/
 	@RequestMapping(value="/brewery/writeForm")
 	public String writeForm(@ModelAttribute("data") BreweryVO bvo) {
-		log.info("admin writeForm 호출 성공");
+		log.info("admin writeForm 호출성공");
 		
 		return "admin/brewery/writeForm";
 	}
 	
 	/******************************************************
 	 * 글쓰기 구현하기
-	 ******************************************************/
+	 ******************************************************/	
 	@RequestMapping(value="/brewery/breweryInsert", method=RequestMethod.POST)
 	public String breweryInsert(BreweryVO bvo, Model model) throws Exception{
-		log.info("admin breweryInsert 호출 성공");
+		log.info("admin breweryInsert 호출성공");
 		
 		int result = 0;
 		String url = "";
@@ -69,7 +69,7 @@ public class AdminBreweryController {
 	 ****************************************************/
 	@RequestMapping(value="/brewery/breweryDetail",method=RequestMethod.GET)
 	public String breweryDetail(@ModelAttribute BreweryVO bvo, Model model) {
-		log.info("admin breweryDetail 호출 성공");
+		log.info("admin breweryDetail호출성공");
 		
 		BreweryVO detail = adminBreweryService.breweryDetail(bvo);
 		model.addAttribute("detail",detail);
@@ -82,7 +82,7 @@ public class AdminBreweryController {
 	 ****************************************************/
 	@RequestMapping(value="/brewery/updateForm")
 	public String updateForm(@ModelAttribute("data") BreweryVO bvo, Model model) {
-		log.info("admin writeForm 호출 성공");
+		log.info("admin writeForm 호출성공");
 		log.info("br_id = " + bvo.getBr_id());
 		
 		BreweryVO updateData = adminBreweryService.updateForm(bvo);
