@@ -17,7 +17,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Setter(onMethod_ = @Autowired)
 	private ProductDao productDao;
 	
-	// 목록조회
+	//목록조회
 	@Override
 	public List<ProductVO> productList(ProductVO pvo) {
 		List<ProductVO> aList = null;
@@ -25,7 +25,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return aList;
 	}
 	
-	// 전체 레코드 수 표현
+	//전체 레코드 수 표현
 	@Override
 	public int productListCnt(ProductVO pvo) {
 		int countNum = 0;
@@ -33,7 +33,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return countNum;
 	}
 	
-	// 글입력
+	//입력
 	@Override
 	public int productInsert(ProductVO pvo) throws Exception {
 		int result = 0;
@@ -49,7 +49,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return result;
 	}
 	
-	// 상세조회
+	//상세조회
 	@Override
 	public ProductVO productDetail(ProductVO pvo) {
 		ProductVO detail = null;

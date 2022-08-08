@@ -19,7 +19,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @SessionAttributes("login")
 @Log4j
-@RequestMapping("/client/*")
+@RequestMapping("/login/*")
 @AllArgsConstructor
 public class LoginController {
 	private LoginService loginService;
@@ -34,7 +34,7 @@ public class LoginController {
 	   public String loginForm() {
 	      log.info("로그인 화면 호출");
 	      
-	      return "client/login";
+	      return "login/login";
 	   }
 	   
 	   /* 로그인 처리 메서드 */
@@ -42,13 +42,14 @@ public class LoginController {
 	   public String loginProcess(LoginVO login, Model model, RedirectAttributes ras) {
 	      String url = "";
 	      LoginVO clientLogin = loginService.loginProcess(login);
+	      log.info("clientlogin:" + clientLogin);
 	      
 	      if(clientLogin != null) {
-	         model.addAttribute("clientlogin",clientLogin);
-	         url = "/client/login";
+	         model.addAttribute("login",clientLogin);
+	         url = "/";
 	      } else {
 	         ras.addFlashAttribute("errorMsg", "로그인 실패");
-	         url = "/client/login";
+	         url = "/login/login";
 	      }
 	      return "redirect:"+url;
 	   }
@@ -58,6 +59,6 @@ public class LoginController {
 	   public String logout(SessionStatus sessionStatus) {
 	      log.info("로그아웃 처리");
 	      sessionStatus.setComplete();
-	      return "redirect:/client/login";
+	      return "redirect:/login/login";
 	   }
 }

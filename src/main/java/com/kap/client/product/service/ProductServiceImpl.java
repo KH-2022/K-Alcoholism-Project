@@ -35,10 +35,9 @@ public class ProductServiceImpl implements ProductService {
 		return detail;
 	}
 	
-	// 전체 레코드 수 구현
+	//전체 레코드 수 구현
 	@Override
 	public int productListCnt(ProductVO pvo) {
 		return productDao.productListCnt(pvo);
 	}
-	
 }

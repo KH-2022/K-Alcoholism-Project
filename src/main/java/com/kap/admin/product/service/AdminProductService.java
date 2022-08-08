@@ -5,11 +5,12 @@ import java.util.List;
 import com.kap.client.product.vo.ProductVO;
 
 public interface AdminProductService {
+	
 	public List<ProductVO> productList(ProductVO pvo);
 	
-	public ProductVO productDetail(ProductVO pvo);
-	
 	public int productInsert(ProductVO pvo) throws Exception;
+	
+	public ProductVO productDetail(ProductVO pvo);
 	
 	public int productListCnt(ProductVO pvo);
 	
