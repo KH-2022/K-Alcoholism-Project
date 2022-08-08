@@ -55,7 +55,7 @@ public class SignUpController {
 		
 		result = signUpService.signUpInsert(svo);
 		if(result ==1) {
-			url = "/signUp/signUpForm";
+			url = "/";
 		} else {
 			url = "/signUp/signUpForm";
 		}

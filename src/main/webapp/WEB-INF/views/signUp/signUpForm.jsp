@@ -334,88 +334,11 @@
 			</div>
 		</div>
 	
-		 <!-- <div class="container">
-		    <div class="input-form-backgroud row">
-		      <div class="input-form col-md-12 mx-auto">
-		        <h4 class="mb-3">회원가입</h4>
-		        
-		        <form class="validation-form needs-validation" id = "signUpForm">
-		          <div id="row">
-		            <div class="mb-3">
-		              <label for="name">아이디</label>
-		              <input type="text" class="form-control" id="user_id" name="user_id" required>
-		              <span id="idMsg"></span>
-		            </div>
-		            <div class="mb-3">
-		              <input type="button" value="중복확인" id="idCheckBtn" name="idCheckBtn"/>
-		              <input type="hidden" id="idCheck" name="idCheck" value="" />  
-		              <span id="idCheckMsg"></span>
-		            </div>
-		          </div>
-		            
-		            <div class="mb-3">
-		              <label for="user_pwd">비밀번호</label>
-		              <input type="password" class="form-control" id="user_pwd" name="user_pwd" required>
-		              <span id="pwdMsg"></span>
-		            </div>
-		            <div class="mb-3">
-		              <label for="pwdChk">비밀번호 확인</label>
-		              <input type="password" class="form-control" id="pwdChk" name="pwdChk" required>
-		              <span id="pwdChkMsg"></span>
-		            </div>
-		
-		          <div class="mb-3">
-		            <label for="user_name">이름</label>
-		            <input type="text" class="form-control" id="user_name" name="user_name" required>
-		            <span id="nameMsg"></span>
-		          </div>
-		          
-		          <div class="mb-3">
-		            <label for="user_birth">생년월일</label>
-		            <input type="text" class="form-control" id="user_birth" name="user_birth" placeholder="1994/02/05" required>
-		            <span id="birthMsg"></span>
-		            
-		          </div>
-		          <div class="mb-3">
-		            <label for="user_tel">휴대전화</label>
-		            <input type="text" class="form-control" id="user_tel" name="user_tel" placeholder="010-2994-7827" required>
-		            <span id="telMsg"></span>
-		          </div>
-		          
-		          <div class="mb-3">
-		            <label for="user_email">이메일</label>
-		            <input type="email" class="form-control" id="user_email" name="user_email" placeholder="yourEmail@example.com" required>
-		            <span id="emailMsg"></span>
-		          </div>
-		
-		          <div class="mb-3" >
-					<input type="button" onclick="execDaumPostcode()" value="우편번호 찾기">
-					<input type="text" id="user_postcode" name="user_postcode" placeholder="우편번호" readonly>
-					<input type="text" id="user_add" name="user_add" placeholder="주소" readonly>
-					<input type="text" id="user_detailAdd" name="user_detailAdd" placeholder="상세주소">
-					<input type="text" id="user_extraAdd" name="user_extraAdd" placeholder="참고항목">
-		            <span id="addMsg"></span>
-		          </div>
-					
-		          <hr class="mb-4">
-		          <div class="custom-control custom-checkbox">
-		            <input type="checkbox" class="custom-control-input" id="aggrement" required>
-		            <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
-		          </div>
-		          <div class="mb-4"></div>
-		          <button id="signUpBtn" class="btn btn-primary btn-lg btn-block" type="submit">가입하기</button>
-		        </form>
-		      </div>
-		    </div>
-		  </div> -->
-		  
-		  
-		  <!-- --------------------템플릿------------------------ -->
 		  <div class="page-section">
 			<div class="container">
-				<div class="row">
-					<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12">
-						<form action="#">
+				<div class="row" style="float: none; margin:100 auto;">
+					<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12 mt-30 mb-30" style="float: none; margin:0 auto;">
+						<form action="#" id="signUpForm">
 							<div class="login-form">
 								<h4 class="login-title">회원가입</h4>
 								<div class="row">
@@ -496,7 +419,7 @@
 							         </div>
 									
 									<div class="col-12 pl">
-										<button class="register-button mt-0">가입하기</button>
+										<button id="signUpBtn" class="register-button mt-0" type="submit">가입하기</button>
 									</div>
 								</div>
 							</div>

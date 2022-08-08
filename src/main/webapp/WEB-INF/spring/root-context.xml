@@ -22,13 +22,13 @@
 		<property name="password" value="kap1234" />
 	</bean> -->
 	
-	<!-- dataSource (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
-	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<!-- dataSource (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) 
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
 	</bean> -->
 	
-	<!-- MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
-	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) 
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:query/*.xml" />

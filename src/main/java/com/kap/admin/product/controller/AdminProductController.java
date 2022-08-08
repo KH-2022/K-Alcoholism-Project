@@ -22,7 +22,7 @@ import lombok.extern.log4j.Log4j;
 
 
 @Controller
-@RequestMapping(value="/admin/*")
+@RequestMapping(value="/admin")
 @Log4j
 public class AdminProductController {
 
@@ -65,8 +65,8 @@ public class AdminProductController {
 	public String productInsert(ProductVO pvo, Model model) throws Exception {
 		log.info("admin productInsert 호출 성공");
 		
-		int result = 0;
-		String url = "";
+		int result=0;
+		String url="";
 		
 		result = adminProductService.productInsert(pvo);
 		if(result == 1) {

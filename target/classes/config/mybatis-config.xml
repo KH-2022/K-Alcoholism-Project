@@ -6,6 +6,8 @@
 		<typeAlias type="com.kap.client.login.vo.LoginVO" alias="login" />
 		<typeAlias type="com.kap.client.product.vo.ProductVO" alias="product"/>
 		<typeAlias type="com.kap.client.brewery.vo.BreweryVO" alias="brewery"/>
+		<!-- <typeAlias type="com.kap.client.reply.vo.ReplyVO" alias="reply"/>
+		<typeAlias type="com.kap.client.reply.vo.BreplyVO" alias="breply"/> -->
 		
 		<typeAlias type="com.kap.admin.login.vo.AdminLoginVO" alias="adminLogin"/>
 	</typeAliases>
