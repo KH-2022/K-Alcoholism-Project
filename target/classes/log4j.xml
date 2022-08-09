@@ -14,6 +14,12 @@
 	<logger name="com.kap.client">
 		<level value="info" />
 	</logger>
+	<logger name="com.kap.admin">
+		<level value="info" />
+	</logger>
+	<logger name="com.kap.common">
+		<level value="info" />
+	</logger>
 	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">

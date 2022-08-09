@@ -39,9 +39,12 @@ public class FileUploadUtil {
 		
 		// 중복되지 않도록 파일명 변경
 		if (org_name != null && (!org_name.equals(""))) {
-			real_name = fileName + "_" + System.currentTimeMillis() + "_" + org_name; //board_1658205347977_dog.jpg
+			real_name = fileName + "_" + System.currentTimeMillis() + "_" + org_name;
 			
-			String docRoot = "/Library/UploadStorage/" + fileName;
+			/* Windows */
+			String docRoot = "C://uploadStorage//" + fileName;
+			/* MacOS
+			String docRoot = "/Library/uploadStorage/" + fileName; */
 			makeDir(docRoot);
 			
 			File fileAdd = new File(docRoot + "/" + real_name);
@@ -50,24 +53,27 @@ public class FileUploadUtil {
 			file.transferTo(fileAdd); //이 메서드에 의해 실질적으로 경로에 파일 생성
 		}
 		
-		return real_name; //서버에 저장된 파일명 반환 -> board_1658205347977_dog.jpg
+		return real_name; //서버에 저장된 파일명 반환
 	}
 	
-	/***** 파일 삭제 메서드 *****
-	 * 경로 및 파일명: board/board_1658205347977_dog.jpg
-	 * 썸네일 경로 및 파일명: board/thumbnail/thumbnail_board_1658205347977_dog.jpg
-	 * */
+	/***** 파일 삭제 메서드 *****/
 	public static void fileDelete(String fileName) throws IOException {
 		log.info("fileDelete() 호출 성공");
 		boolean result = false;
 		String startDirName = "", docRoot = "";
-		String dirName = fileName.substring(0, fileName.indexOf("_")); //파일명 thumbnail_board_1658205347977_dog.jpg -> "thumbnail"
+		String dirName = fileName.substring(0, fileName.indexOf("_"));
 		
 		if (dirName.equals("thumbnail")) {
-			startDirName = fileName.substring(dirName.length() + 1, fileName.indexOf("_", dirName.length()+1)); //파일명 thumbnail_board_1658205347977_dog.jpg -> "board"
-			docRoot = "/Library/UploadStorage/" + startDirName + "/" + dirName; //docRoot = /Library/UploadStorage/board/thumbnail
+			startDirName = fileName.substring(dirName.length() + 1, fileName.indexOf("_", dirName.length()+1));
+			/* Windows */
+			docRoot = "C://uploadStorage//" + startDirName + "//" + dirName;
+			/* MacOS
+			docRoot = "/Library/uploadStorage/" + startDirName + "/" + dirName; */
 		} else {
-			docRoot = "/Library/UploadStorage/" + dirName; //docRoot = /Library/UploadStorage/board
+			/* Windows */
+			docRoot = "C://uploadStorage//"+dirName;
+			/* MacOS
+			docRoot = "/Library/uploadStorage/" + dirName; */
 		}
 		
 		File fileDelete = new File(docRoot + "/" + fileName);
@@ -81,28 +87,31 @@ public class FileUploadUtil {
 	/***** 썸네일 생성 메서드 *****/
 	public static String makeThumbnail(String fileName) throws Exception {
 		// 이미지가 존재하는 폴더 추출
-		String dirName = fileName.substring(0, fileName.indexOf("_")); //파일명 board_1658205347977_dog.jpg -> "board"
+		String dirName = fileName.substring(0, fileName.indexOf("_"));
 		// 추출된 폴더의 실제 경로(물리적 위치)
-		String imgPath = "/Library/UploadStorage/" + dirName;
+		/* Windows */
+		String imgPath = "C://uploadStorage//" + dirName;
+		/* MacOS
+		String imgPath = "/Library/uploadStorage/" + dirName; */
 		
-		File fileAdd = new File(imgPath, fileName); //fileAdd = /Library/UploadStorage/board/board_1658205347977_dog.jpg
+		File fileAdd = new File(imgPath, fileName);
 		log.info("원본 이미지 파일(fileAdd):" + fileAdd);
 		
 		BufferedImage sourceImg = ImageIO.read(fileAdd); //fileAdd에 해당하는 이미지 파일을 읽어와서 데이터로 저장
 		BufferedImage destImg = Scalr.resize(sourceImg, Scalr.Method.AUTOMATIC, Scalr.Mode.FIT_TO_HEIGHT, 133); //크기를 조정하여 이미지 데이터 저장
 									//resize(BufferedImage 타입 원본 이미지, 원본 가로세로 비율, 높이 또는 너비, 크기)
 		
-		String thumbnailName = "thumbnail_" + fileName; //thumbnailName = thumbnail_board_1658205347977_dog.jpg
-		String docRoot = imgPath + "/thumbnail"; //docRoot = /Library/UploadStorage/board/thumbnail
+		String thumbnailName = "thumbnail_" + fileName;
+		String docRoot = imgPath + "/thumbnail";
 		makeDir(docRoot);
 		
-		File newFile = new File(docRoot, thumbnailName); //newFile = /Library/UploadStorage/board/thumbnail/thumbnail_board_1658205347977_dog.jpg
+		File newFile = new File(docRoot, thumbnailName);
 		log.info("업로드할 파일: " + newFile);
 		
-		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); //마지막 .의 위치 다음부터 끝까지 자름 -> "jpg"
+		String formatName = fileName.substring(fileName.lastIndexOf(".") + 1); //마지막 .의 위치 다음부터 끝까지 자름
 		log.info("확장자: " + formatName);
 		
 		ImageIO.write(destImg, formatName, newFile); //썸네일용으로 조정한 이미지 데이터를 생성한 파일에 저장
-		return thumbnailName; //서버에 저장된 파일명 반환 -> thumbnail_board_1658205347977_dog.jpg
+		return thumbnailName; //서버에 저장된 파일명 반환
 	}
 }

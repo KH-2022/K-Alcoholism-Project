@@ -6,6 +6,8 @@ import com.kap.client.brewery.vo.BreweryVO;
 
 public interface BreweryDao {
 	public List<BreweryVO> breweryList(BreweryVO bvo);
+	
+	public int breweryListCnt(BreweryVO bvo);
 
 	public BreweryVO breweryDetail(BreweryVO bvo);
 

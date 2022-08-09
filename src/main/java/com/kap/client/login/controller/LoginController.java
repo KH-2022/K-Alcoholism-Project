@@ -45,7 +45,7 @@ public class LoginController {
 	      
 	      if(clientLogin != null) {
 	         model.addAttribute("login", clientLogin);
-	         url = "/login/login";
+	         url = "/";
 	      } else {
 	         ras.addFlashAttribute("errorMsg", "로그인 실패");
 	         url = "/login/login";

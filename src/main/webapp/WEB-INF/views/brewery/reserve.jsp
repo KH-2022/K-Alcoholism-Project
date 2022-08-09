@@ -1,68 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 		<script type="text/javascript">
-			let nowDate = new Date();
-	
-			let year = nowDate.getFullYear();
-			let lastDay = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-			let month = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
-	
-			//윤달 계산
-			if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) {
-			    lastDay[1] = 29;
-			} else {
-			    lastDay[1] = 28;
-			}
-	
-			//이번달 계산
-			let thisMonth = new Date(nowDate.getFullYear(), nowDate.getMonth()).getMonth();
-			//지난달의 마지막 요일 인덱스를 변수로 지정
-			let prevMonthDay = new Date(nowDate.getFullYear(), thisMonth).getDay();
-	
-			let thisDate = month[thisMonth];
-			let date = lastDay[thisMonth];
-			
-			/*$(function() {
-				let tag = "<tr>";
-
-				if(nextData===this.$proA.innerHTML){
-				    let count = 0;
-				    
-				    //지난달의 마지막 요일 인덱스까지 빈배열로 반복문 시작
-				    for (let j = 0; j < thisMonthDay; j++) {
-				        tag += "<td></td>";
-				        count++;
-				    }
-				    
-				    //지난달의 마지막 요일 이후부터 이번달의 마지막일까지 반복
-				    for (let i = 1; i <= date; i++) {
-				    	//7일씩 tr로 묶기
-				        if (count % 7 === 0) {
-				            tag += "<tr>";
-
-				        }
-				    	
-				        //조건은 쉬는 날을 지정. 따로 classname을 부여. count시작
-				        if(((thisDate==="Jan"&& i===1)||(thisDate==="Feb"&& (i===11||i===12||i===13))||(thisDate==="Mar"&& i===1)||(thisDate==="May"&& (i===5||i===19))||(thisDate==="Aug"&& (i===20||i===21||i===22)))||(count % 7 === 0||count % 7 === 6)){
-				            tag += "<td class='xday'><p>${i}</p></td>";
-				            count++;
-				        }else if(count%7===2||count%7===4){
-				            tag += "<td class='Ahalf'><p>${i}</p></td>";
-				            count++;
-				        }
-				        else{
-				            tag += "<td class='pickday'><p>${i}</p></td>";
-				            count++;
-				        }
-				        
-				        //7일이 끝나면 tr태그 닫기
-				        if (count % 7 === 0) {
-				            tag += "</tr>";
-						}
-				    }
-				}
-			});*/
+			$(function() {
+				/* 예약목록 확인 버튼 클릭 시 처리 이벤트 */
+				$("#reserveListBtn").click(function() {
+					//마이페이지의 예약목록으로 이동
+				});
+				
+				/* 양조장 목록 버튼 클릭 시 처리 이벤트 */
+				$("#breweryListBtn").click(function() {
+					location.href = "/brewery/breweryList";
+				});
+				
+				/* 홈 버튼 클릭 시 처리 이벤트 */
+				$("#homeBtn").click(function() {
+					location.href = "/";
+				});
+			});
 		</script>
+		<style>
+			.no-rsvReq {
+				font-size: 0.8em;
+				color: gray;
+			}
+		</style>
 	</head>
 	<body>
 		<%-- 상단 디자인 영역 --%>
@@ -76,55 +37,68 @@
 			</div>
 		</div>
 		
-		<%-- 날짜 선택 --%>
+		<%-- 예약정보 확인 --%>
 		<div class="section">
 			<div class="container">
 				<div class="row mb-5 align-items-center">
-					<div class="col-md-6">
-						<h2 class="font-weight-bold text-primary heading">날짜 선택</h2>
+					<div class="col-lg-6 text-center mx-auto">
+						<h2 class="font-weight-bold text-primary heading">양조장 체험 예약 내역</h2>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-12">
-						<div class="monthBtn">
-							<div id="mPrevBtn">
-								<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-							</div>
-							<h3 class="month"></h3>
-							<div id="mNextBtn">
-								<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+				<div class="row contentTB text-center">
+					<table class="table table-bordered">
+						<tr>
+							<td class="col-md-1">예약번호</td>
+							<td class="col-md-1 text-left">${detail.rsv_no}</td>
+							<td class="col-md-1">예약확정일</td>
+							<td class="col-md-2 text-left">${detail.rsv_fin_date}</td>
+							<td class="col-md-1">회원 ID</td>
+							<td class="col-md-2 text-left">${detail.user_id}</td>
+							<td class="col-md-1">양조장명</td>
+							<td class="col-md-1 text-left">${detail.br_name}</td>
+						</tr>
+						<tr>
+							<td class="col-md-1">예약시간</td>
+							<td class="col-md-1 text-left">${detail.rsv_time}</td>
+							<td class="col-md-1">예약날짜</td>
+							<td class="col-md-2 text-left">${detail.rsv_day}</td>
+							<td class="col-md-1">예약인원</td>
+							<td class="col-md-2 text-left">${detail.rsv_count}명</td>
+							<td class="col-md-1">총 금액</td>
+							<td class="col-md-1 text-left">${detail.rsv_price}원</td>
+						</tr>
+						<tr>
+							<td class="col-md-1">예약자명</td>
+							<td class="col-md-1 text-left">${detail.rsv_name}</td>
+							<td class="col-md-1">예약자 연락처</td>
+							<td class="col-md-2 text-left">${detail.rsv_tel}</td>
+							<td class="col-md-1">요청사항</td>
+							<td class="col-md-2 text-left">
+								<c:choose>
+									<c:when test="${not empty detail.rsv_request}">
+										${detail.rsv_request}
+									</c:when>
+									<c:otherwise>
+										<span class="no-rsvReq">요청사항 없음</span>
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td class="col-md-1">예약상태</td>
+							<td class="col-md-1 text-left">${detail.rsv_state}</td>
+						</tr>
+					</table>
+				</div>
+		
+				<%-- 페이지 이동을 위한 버튼 --%>
+				<div class="section">
+					<div class="container">
+						<div class="row mb-5 align-items-center">
+							<div class="col-md-6">
+								<button type="button" id="reserveListBtn" class="btn btn-primary">예약목록 확인</button>
+								<button type="button" id="breweryListBtn" class="btn btn-primary">양조장 목록으로</button>
+								<button type="button" id="homeBtn" class="btn btn-primary">홈으로</button>
 							</div>
 						</div>
-						<div class="calendar">
-							
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<%-- 시간 선택 --%>
-		<div class="section">
-			<div class="container">
-				<div class="row mb-5 align-items-center">
-					<div class="col-md-6">
-						<h2 class="font-weight-bold text-primary heading">시간 선택</h2>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						
-					</div>
-				</div>
-			</div>
-		</div>
-		
-		<%-- 예약정보 확인 페이지로 넘어가는 버튼 --%>
-		<div class="section">
-			<div class="container">
-				<div class="row mb-5 align-items-center">
-					<div class="col-md-6">
-						<button type="button" id="rsvDetailBtn" class="btn btn-primary text-white">다음</button>
 					</div>
 				</div>
 			</div>

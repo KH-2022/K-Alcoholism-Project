@@ -17,7 +17,7 @@
 			<![CDATA[ rsv_name LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 	</sql>
-	<!-- <trim>의 prefixOverrides 속성: 실행될 쿼리의 <trim> 문 안에 쿼리 가장 앞에 해당하는 문자들이 있으면 자동으로 지워줌 -->
+	
 	<select id="reserveList" parameterType="reserve" resultType="reserve">
 		<![CDATA[ 
 		SELECT rsv_no,
@@ -26,7 +26,7 @@
 			rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, TO_CHAR(rsv_fin_date, 'YYYY-MM-DD') AS rsv_fin_date
 		FROM (
 		        SELECT /*+ INDEX_DESC(reserve reserve_pk) */
-		            rownum AS row_n, rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, rsv_fin_date
+		            rownum AS rnum, rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, rsv_fin_date
 		        FROM reserve
 		        WHERE rownum <= #{pageNum} * #{amount}
 		    ) reservelist
@@ -34,7 +34,7 @@
 			<trim prefix="(" suffix=") AND " prefixOverrides="AND">
 	        	<include refid="reserveSearch"></include>
 	        </trim>
-		<![CDATA[ row_n > (#{pageNum} - 1) * #{amount} ]]>
+		<![CDATA[ rnum > (#{pageNum} - 1) * #{amount} ]]>
 	</select>
 	
 	<!-- 전체 레코드 수 조회 -->
@@ -74,10 +74,18 @@
 	</update>
 	
 	<!-- 예약 취소 -->
-	<update id="reserveCancel">
+	<update id="reserveCancel" parameterType="reserve">
 		UPDATE reserve
 		SET rsv_state = '예약 취소'
 		WHERE rsv_no = #{rsv_no}
 	</update>
 	
+	<!-- 예약 처리 -->
+	<insert id="breweryReserve" parameterType="reserve">
+		<selectKey keyProperty="rsv_no" resultType="int" order="BEFORE">
+			SELECT reserve_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO reserve(rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_tel, rsv_request, rsv_state)
+		VALUES(#{rsv_no}, #{user_no}, #{br_id}, #{rsv_day}, #{rsv_time}, #{rsv_count}, #{rsv_price}, #{rsv_name}, #{rsv_tel}, #{rsv_request}, '예약 완료')
+	</insert>
 </mapper>

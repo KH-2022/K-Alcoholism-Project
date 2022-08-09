@@ -18,5 +18,5 @@ public interface ReserveDao {
 
 	public int reserveCancel(ReserveVO rvo);
 
-	
+	public int breweryReserve(ReserveVO rvo);
 }

@@ -39,47 +39,35 @@
 			</div>
 		</div>
 	
-		 <!-- <div class="container">
-	      <form class="form-signin" id="loginForm">
-	        <h2 class="form-signin-heading">로그인 페이지</h2>
-	        <label for="user_id" class="sr-only">아이디</label>
-	        <input type="text" id="user_id" name="user_id" class="form-control" placeholder="아이디" required autofocus>
-	        
-	        <label for="a_pwd" class="sr-only">Password</label>
-	        <input type="password" id="user_pwd" name="user_pwd" class="form-control" placeholder="비밀번호" >
-	        <button class="btn btn-lg btn-primary btn-block" type="button" id="loginBtn">로그인</button>
-	      </form> 
-	    </div> /container -->
-	    
-			<div class="page-section ">
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mb-30">
-							<!-- Login Form s-->
-							<form id="loginForm">
-								<div class="login-form">
-									<h4 class="login-title">LOGIN</h4>
-									<div class="row">
-										<div class="col-md-12 col-12 mb-20">
-											<label>ID*</label>
-											<input type="text" id="user_id" name="user_id" class="mb-0" placeholder="아이디" required autofocus>
-										</div>
-										<div class="col-md-12 col-12 mb-20">
-											<label>Password</label>
-											<input type="password" id="user_pwd" name="user_pwd" class="mb-0" placeholder="비밀번호" >
-										</div>
-										<div class="col-md-4 mt-10 mb-20 text-left text-md-right">
-											<a href="/findId/findId">아이디/비밀번호 찾기</a>
-										</div>
-										<div class="col-md-12 pl">
-											<button class="register-button mt-0" type="button" id="loginBtn">로그인</button>
-										</div>
+		<div class="page-section ">
+			<div class="container">
+				<div class="row" style="float: none; margin:100 auto;">
+					<div class="col-sm-12 col-md-12 col-xs-12 col-lg-6 mt-40 mb-40" style="float: none; margin:0 auto;">
+						<!-- Login Form s-->
+						<form id="loginForm">
+							<div class="login-form">
+								<h4 class="login-title">LOGIN</h4>
+								<div class="row">
+									<div class="col-md-12 col-12 mb-20">
+										<label>ID*</label>
+										<input type="text" id="user_id" name="user_id" class="mb-0" placeholder="아이디" required autofocus>
+									</div>
+									<div class="col-md-12 col-12 mb-20">
+										<label>Password</label>
+										<input type="password" id="user_pwd" name="user_pwd" class="mb-0" placeholder="비밀번호" >
+									</div>
+									<div class="col-md-4 mt-10 mb-20 text-left text-md-right">
+										<a href="/findId/findIdForm">아이디/비밀번호 찾기</a>
+									</div>
+									<div class="col-md-12 pl">
+										<button class="register-button mt-0" type="button" id="loginBtn">로그인</button>
 									</div>
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 	</body>
 </html>
