@@ -23,16 +23,24 @@ public class ProductServiceImpl implements ProductService {
 		list = productDao.productList(pvo);
 		return list;
 	}
+	
+	//전체 레코드 수 구현
+	@Override
+	public int productListCnt(ProductVO pvo) {
+		int count = 0;
+		count = productDao.productListCnt(pvo);
+		return count;
+	}
+	
 	//상품리스트 상세 구현
 	@Override
 	public ProductVO productDetail(ProductVO pvo) {
 		ProductVO detail = null;
 		detail = productDao.productDetail(pvo);
-		if(detail!= null) {
+		if (detail != null) {
 			detail.setPd_info(detail.getPd_info().toString().replaceAll("\n", "<br />"));
 		}
 		return detail;
 	}
-	
 	
 }

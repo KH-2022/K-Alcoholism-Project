@@ -37,6 +37,9 @@ public class BreweryServiceImpl implements BreweryService {
 	public BreweryVO breweryDetail(BreweryVO bvo) {
 		BreweryVO detail = null;
 		detail = breweryDao.breweryDetail(bvo);
+		if (detail != null) {
+			detail.setBr_info(detail.getBr_info().toString().replaceAll("\n", "<br/>"));
+		}
 		return detail;
 	}
 

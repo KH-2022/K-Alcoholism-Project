@@ -41,10 +41,10 @@ public class FileUploadUtil {
 		if (org_name != null && (!org_name.equals(""))) {
 			real_name = fileName + "_" + System.currentTimeMillis() + "_" + org_name;
 			
-			/* Windows */
-			String docRoot = "C://uploadStorage//" + fileName;
-			/* MacOS
-			String docRoot = "/Library/uploadStorage/" + fileName; */
+			/* Windows
+			String docRoot = "C://uploadStorage//" + fileName; */
+			/* MacOS */
+			String docRoot = "/Library/uploadStorage/" + fileName;
 			makeDir(docRoot);
 			
 			File fileAdd = new File(docRoot + "/" + real_name);
@@ -65,15 +65,15 @@ public class FileUploadUtil {
 		
 		if (dirName.equals("thumbnail")) {
 			startDirName = fileName.substring(dirName.length() + 1, fileName.indexOf("_", dirName.length()+1));
-			/* Windows */
-			docRoot = "C://uploadStorage//" + startDirName + "//" + dirName;
-			/* MacOS
-			docRoot = "/Library/uploadStorage/" + startDirName + "/" + dirName; */
+			/* Windows
+			docRoot = "C://uploadStorage//" + startDirName + "//" + dirName; */
+			/* MacOS */
+			docRoot = "/Library/uploadStorage/" + startDirName + "/" + dirName;
 		} else {
-			/* Windows */
-			docRoot = "C://uploadStorage//"+dirName;
-			/* MacOS
-			docRoot = "/Library/uploadStorage/" + dirName; */
+			/* Windows
+			docRoot = "C://uploadStorage//" + dirName; */
+			/* MacOS */
+			docRoot = "/Library/uploadStorage/" + dirName;
 		}
 		
 		File fileDelete = new File(docRoot + "/" + fileName);
@@ -89,10 +89,10 @@ public class FileUploadUtil {
 		// 이미지가 존재하는 폴더 추출
 		String dirName = fileName.substring(0, fileName.indexOf("_"));
 		// 추출된 폴더의 실제 경로(물리적 위치)
-		/* Windows */
-		String imgPath = "C://uploadStorage//" + dirName;
-		/* MacOS
-		String imgPath = "/Library/uploadStorage/" + dirName; */
+		/* Windows
+		String imgPath = "C://uploadStorage//" + dirName; */
+		/* MacOS */
+		String imgPath = "/Library/uploadStorage/" + dirName;
 		
 		File fileAdd = new File(imgPath, fileName);
 		log.info("원본 이미지 파일(fileAdd):" + fileAdd);

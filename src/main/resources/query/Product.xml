@@ -3,11 +3,11 @@
 <mapper namespace="com.kap.client.product.dao.ProductDao">
 
 	<!-- 상품리스트 기본조회 -->
-	<select id="productList" parameterType="product" resultType="product">
+	<!-- <select id="productList" parameterType="product" resultType="product">
 		SELECT pd_id, br_id, pd_name, pd_price, pd_sort, pd_degree, pd_volume, pd_info, to_char(pd_date, 'YYYY-MM-DD') as pd_date
 		FROM product
 		ORDER BY pd_id desc
-	</select>
+	</select> -->
 	
 	<!-- 양조장별 상품 리스트 조회 
 	<select id="productList" parameterType="product" resultType="product">
@@ -17,7 +17,26 @@
 		order by pd_id desc
 	</select>-->
 	
-	<!-- <sql id="productSearch">
+	<!--  게시판 리스트 조회(페이징 처리와 검색 처리) -->
+	<select id="productList" parameterType="product" resultType="product">
+		<![CDATA[ 
+		SELECT
+			pd_id, br_id, pd_name, pd_price, pd_sort, pd_degree, pd_volume, to_char(pd_date, 'YYYY-MM-DD') as pd_date, pd_thumb, pd_image
+		FROM (
+			SELECT /*+ INDEX_DESC(product product_pk) */
+   				rownum as rnum, pd_id, br_id, pd_name, pd_price, pd_sort, pd_degree, pd_volume, pd_date, pd_thumb, pd_image
+			FROM product
+			WHERE ]]>
+			<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				<include refid="productSearch"></include>
+			</trim>
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) productList
+		WHERE rnum > (#{pageNum} - 1) * #{amount}
+		]]>
+	</select>
+	
+	<sql id="productSearch">
 		<if test="search == 'pd_degree'">
 			<![CDATA[ pd_degree LIKE '%' || #{keyword} || '%' ]]>
 		</if>
@@ -27,15 +46,15 @@
 		<if test="search == 'pd_sort'">
 			<![CDATA[ pd_sort LIKE '%' || #{keyword} || '%' ]]>
 		</if>
-	</sql> -->
+	</sql>
 
-	<!-- 전체 레코드 수 조회
+	<!-- 전체 레코드 수 조회 -->
 	<select id="productListCnt" parameterType="product" resultType="int">
 		SELECT count(*) FROM product
 		<trim prefix=" where (" suffix=")">
 			<include refid="productSearch"></include>
 		</trim>
-	</select> -->
+	</select> 
 	
 	<!-- 상품상세리스트 조회 -->
 	<select id="productDetail" parameterType="product" resultType="product">
@@ -52,8 +71,35 @@
 			select product_seq.nextval from dual
 		</selectKey> 
 		
-		INSERT INTO product(pd_id, pd_name, pr_price, pd_sort, pd_degree, pd_volume, pd_info, pd_thumb, pd_image)
-		VALUES(#{pd_id}, #{pd_name}, #{pd_pirce}, #{pd_sort}, #{pd_degree}, #{pd_volume}, #{pd_info}, #{pd_thumb}, #{pd_image})
+		INSERT INTO product(pd_id, br_id, pd_name, pd_price, pd_sort, pd_degree, pd_volume, pd_info, pd_thumb, pd_image)
+		VALUES(#{pd_id}, #{br_id}, #{pd_name}, #{pd_price}, #{pd_sort}, #{pd_degree}, #{pd_volume}, #{pd_info}, #{pd_thumb}, #{pd_image})
 	</insert>
+	
+	<!-- 게시물 수정 -->
+	<update id="productUpdate" parameterType="product">
+		/* Product - productUpdate */
+		UPDATE product
+		
+		SET br_id = #{br_id},
+			pd_name = #{pd_name},
+			pd_price = #{pd_price},
+			pd_sort = #{pd_sort},
+			pd_degree = #{pd_degree},
+			pd_volume = #{pd_volume},
+			pd_info = #{pd_info}
+			<if test="pd_thumb != ''">
+				, pd_thumb = #{pd_thumb}
+			</if>
+			<if test="pd_image != ''">
+				, pd_image = #{pd_image}
+			</if>
+		WHERE pd_id = #{pd_id}
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="productDelete" parameterType="product">
+		/* Product - productDelete */
+		DELETE FROM product WHERE pd_id = #{pd_id}
+	</delete>
 	
 </mapper>

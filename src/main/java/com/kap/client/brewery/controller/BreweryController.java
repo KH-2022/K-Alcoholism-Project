@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.kap.client.brewery.service.BreweryService;
 import com.kap.client.brewery.vo.BreweryVO;
@@ -18,6 +19,7 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/brewery")
+@SessionAttributes("login")
 @AllArgsConstructor
 public class BreweryController {
 	
@@ -29,8 +31,9 @@ public class BreweryController {
 	@GetMapping("/breweryList")
 	public String breweryList(@ModelAttribute("data") BreweryVO bvo, Model model) {
 		log.info("breweryList 호출 성공");
+		bvo.setAmount(9); //페이지 수 설정
 		
-		bvo.setAmount(9);
+		// 전체 레코드 조회
 		List<BreweryVO> breweryList = breweryService.breweryList(bvo);
 		model.addAttribute("breweryList", breweryList);
 		

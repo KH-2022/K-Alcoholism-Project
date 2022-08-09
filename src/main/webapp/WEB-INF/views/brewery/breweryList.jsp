@@ -70,7 +70,7 @@
 				</form>
 				
 				<%-- 카테고리 기능 --%>
-				<div class="row" class="text-left">
+				<div class="row text-left">
 					<form id="sortForm" name="sortForm" class="form-inline">
 						<%-- 페이징 처리를 위한 파라미터 --%>
 						<input type="hidden" id="pageNum" name="pageNum" value="${pageMaker.cvo.pageNum}">
@@ -123,7 +123,9 @@
 												</span>
 												<span class="d-block d-flex align-items-center">
 													<span class="glyphicon glyphicon-usd me-2" aria-hidden="true"></span>
-													<span class="caption">${brewery.br_price}원</span>
+													<span class="caption">
+														<fmt:formatNumber value="${brewery.br_price}" type="number" var="br_price" />${br_price}원
+													</span>
 												</span>
 											</div>
 											<a class="btn btn-primary py-2 px-3 goDetail">더보기</a>
