@@ -14,25 +14,25 @@
 		<property name="password" value="kap1234" />
 	</bean> -->
 	
-	<!-- Oracle 11g DB Connection -->
+	<!-- Oracle 11g DB Connection
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
 		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:xe" />
 		<property name="username" value="kapuser" />
 		<property name="password" value="kap1234" />
-	</bean>
+	</bean> -->
 	
 	<!-- dataSource (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	<!-- <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig" />
-	</bean>
+	</bean> -->
 	
 	<!-- MyBatis Setting (개발 시 아래 주석 해제, 깃허브 업로드 시 다시 주석 설정) -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!-- <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
 		<property name="mapperLocations" value="classpath:query/*.xml" />
-	</bean>
+	</bean> -->
 	
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"><value>com.kap.**.**.dao</value></property>
