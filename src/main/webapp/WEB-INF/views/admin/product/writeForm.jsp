@@ -4,11 +4,12 @@
 			$(function(){
 				/* 상품 등록 버튼 클릭시 처리 이벤트 */
 				$("#pdInsertBtn").click(function(){
-					// 입력값 체크
-					if (!chkData("#pd_name", "상품 이름을")) return;
+					// 입력값 체크\
+					if (!chkData("#br_id", "양조장 번호를")) return;
+					else if (!chkData("#pd_name", "상품 이름을")) return;
 					else if (!chkData("#pd_price", "가격을")) return;
 					else if (!chkData("#pd_sort", "분류를")) return;
-					else if (!chkData("#pd_degeree", "도수를")) return;
+					else if (!chkData("#pd_degree", "도수를")) return;
 					else if (!chkData("#pd_volume", "용량을")) return;
 					else if (!chkData("#pd_info", "정보를")) return;
 					else {
@@ -42,11 +43,22 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			 <div class="contentTit page-header"><h3 class="text-center">상품 등록</h3></div>
+			<div class="contentTit page-header text-center">
+				<h2>상품 관리</h2>
+				<h4>상품 등록</h4>
+			</div>
 			 
-			 <%--==============상품등록 양식보여주기 시작=================== --%>
+			 <%-- ===================== 상품등록 양식 ===================== --%>
 			 <div class="contentTB text-center">
 			 	<form id="pdWriteForm" name="pdWriteForm" class="form-horizontal">
+			 		
+			 		<%-- ===================== 버튼 추가 ===================== --%>
+			 		<div class="text-right">
+						<button type="button" class="btn btn-success" id="pdInsertBtn">저장</button>
+						<button type="button" class="btn btn-success" id="pdCancelBtn">취소</button>
+						<button type="button" class="btn btn-success" id="pdListBtn">목록</button>
+					</div>
+					
 			 		<table class="table table-bordered">
 			 			<colgroup>
 							<col width="20%" />
@@ -55,7 +67,7 @@
 						<tbody>
 							<tr>
 								<td>양조장 번호</td>
-								<td class="text-left"><input type="text" class="form-control" id="br_id" name="b_name" /></td>
+								<td class="text-left"><input type="text" class="form-control" id="br_id" name="br_id" /></td>
 							</tr>
 							<tr>
 								<td>상품명</td>
@@ -68,7 +80,7 @@
 							<tr>
 								<td>상품 분류</td>
 								<td>
-									<select id="pd_sort" name="pd_sort">
+									<select id="pd_sort" name="pd_sort" class="form-control">
 										<option value="탁주">탁주</option>
 										<option value="약주/청주">약주/청주</option>
 										<option value="과실주">과실주</option>
@@ -90,15 +102,11 @@
 							</tr>
 							<tr>
 								<td>이미지 파일 첨부</td>
-								<td class="text-left"><input type="file" id="file" name="file" /></td> <!-- BoardVO private MultipartFile file 과 name=file 일치 -->
+								<td class="text-left"><input type="file" id="file" name="file" /></td> <!-- ProductVO private MultipartFile file 과 name=file 일치 -->
 							</tr>
 						</tbody>
 			 		</table>
-			 		<div class="text-right">
-						<button type="button" class="btn btn-success" id="pdInsertBtn">저장</button>
-						<button type="button" class="btn btn-success" id="pdCancelBtn">취소</button>
-						<button type="button" class="btn btn-success" id="pdListBtn">목록</button>
-					</div>
+			 		
 			 	</form>
 			 </div>
 		</div>	

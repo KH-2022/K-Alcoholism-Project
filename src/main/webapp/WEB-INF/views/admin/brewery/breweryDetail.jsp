@@ -87,7 +87,7 @@
 						</tr>
 						<tr>
 							<td>인당체험비용</td>
-							<td>${detail.br_price}</td>
+							<td><fmt:formatNumber value="${detail.br_price}" type="number" var="br_price" />${br_price}원</td>
 						</tr>
 						<tr>
 							<td>작성일</td>

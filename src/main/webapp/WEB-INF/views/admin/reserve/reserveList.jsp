@@ -129,7 +129,7 @@
 										<td>${rsv.rsv_day}</td>
 										<td>${rsv.rsv_time}</td>
 										<td>${rsv.rsv_count}명</td>
-										<td>${rsv.rsv_price}원</td>
+										<td><fmt:formatNumber value="${rsv.rsv_price}" type="number" var="rsv_price" />${rsv_price}원</td>
 										<td class="rsv_name">${rsv.rsv_name}</td>
 										<td>${rsv.rsv_state}</td>
 										<td >${rsv.rsv_fin_date}</td>

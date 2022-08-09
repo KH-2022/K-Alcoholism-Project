@@ -57,7 +57,7 @@
 						<td class="col-md-1">예약인원</td>
 						<td class="col-md-2 text-left">${detail.rsv_count}명</td>
 						<td class="col-md-1">총 금액</td>
-						<td class="col-md-1 text-left">${detail.rsv_price}원</td>
+						<td class="col-md-1 text-left"><fmt:formatNumber value="${detail.rsv_price}" type="number" var="rsv_price" />${rsv_price}원</td>
 					</tr>
 					<tr>
 						<td class="col-md-1">예약자명</td>

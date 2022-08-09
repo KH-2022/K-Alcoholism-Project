@@ -21,7 +21,7 @@
 			<div class="container">
 				<div class="row justify-content-center align-items-center">
 					<div class="col-lg-9 text-center mt-5">
-						<h1 class="heading" data-aos="fade-up">양조장 체험</h1>
+						<h1 class="heading" data-aos="fade-up">양조장 상세</h1>
 					</div>
 				</div>
 			</div>
@@ -77,7 +77,9 @@
 									</span>
 									<span class="d-block d-flex align-items-center">
 										<span class="glyphicon glyphicon-usd me-2" aria-hidden="true"></span>
-										<span class="caption">${detail.br_price}원</span>
+										<span class="caption">
+											<fmt:formatNumber value="${detail.br_price}" type="number" var="br_price" />${br_price}원
+										</span>
 									</span>
 								</div>
 								<div>

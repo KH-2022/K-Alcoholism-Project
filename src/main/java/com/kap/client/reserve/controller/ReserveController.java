@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kap.client.reserve.service.ReserveService;
@@ -15,13 +16,14 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
+@SessionAttributes("login")
 @AllArgsConstructor
 public class ReserveController {
 	
 	private ReserveService reserveService;
 	
 	/*******************************************************
-	 * 예약 처리 구현
+	 * 예약 처리 구현 (미완성)
 	 *******************************************************/
 	@RequestMapping(value = "/breweryReserve", method = RequestMethod.POST)
 	public String breweryReserve(@ModelAttribute ReserveVO rvo, Model model, RedirectAttributes reAttr) throws Exception {

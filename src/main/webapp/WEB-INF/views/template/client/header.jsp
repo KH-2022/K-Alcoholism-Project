@@ -29,10 +29,10 @@
 				<a href="/login/login">로그인</a>
 			</li>
 			<li>
-				<a href="#">마이페이지</a>
+				<a href="/myPage/myPage">마이페이지</a>
 			</li>
 			<li>
-				<a href="#"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
+				<a href="/cart/cartList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
 			</li>
 		</ul>
 		<a href="#" class="burger light me-auto float-end mt-1 site-menu-toggle js-menu-toggle d-inline-block d-lg-none" data-toggle="collapse" data-target="#main-navbar">

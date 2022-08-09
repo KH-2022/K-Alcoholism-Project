@@ -20,9 +20,9 @@
 				<li><a href="/brewery/breweryList">양조장 체험</a></li>
 			</ul>
 			<ul class="list-unstyled float-start links">
-				<li><a href="">마이페이지</a></li>
-				<li><a href="">1:1 문의</a></li>
-				<li><a href="">장바구니</a></li>
+				<li><a href="/myPage/myPage">마이페이지</a></li>
+				<li><a href="/qna/qnaList">1:1 문의</a></li>
+				<li><a href="/cart/cartList">장바구니</a></li>
 			</ul>
 		</div> <!-- /.widget -->
 	</div> <!-- /.col-lg-4 -->

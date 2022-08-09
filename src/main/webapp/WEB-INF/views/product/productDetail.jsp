@@ -1,27 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<style type="text/css">
-			#product-image{
-				display: block;
-  				width: 500px;
-				float:left;
-				margin-left: 10px;
-				margin-right: 10px;
-				margin-bottom: 30px;
-			}
-	    
-			#detail-product{
-				float:left;
-				width:500px;
-			}
-		</style>
 		<script type="text/javascript">
 			$(function(){
-				/* 좋아요 버튼 클릭시 처리 이벤트 */
-				$("#wishListBtn").click(function(){
-					
-				});
-				
 				/* 장바구니 버튼 클릭 시 처리 이벤트 */
 				$("#addCartBtn").click(function(){
 					
@@ -31,9 +11,7 @@
 				$("#orderListBtn").click(function(){
 					
 				});
-				
-				
-			});
+			}); // 함수 종료 
 		</script>
 		
 	</head>
@@ -49,51 +27,63 @@
 			</div>
 		</div>
 		
-		<div class="contentContainer container">
-			<div><h3>상품 상세리스트</h3></div>
-			
-			<%--============삼품 상세 리스트 시작===================== --%>
-			<div id="product-image">
-				<img src="/resources/images/product/pd1.jpg"  class="img-responsive" alt="Responsive image"/>
-			</div>
-			
-			<div id="detail-product">
-				<table class="table">
-					<tbody>
-						<tr>
-							<td>상품명</td>
-							<td>${detail.pd_name}</td>
-						</tr>
-						<tr>
-							<td>판매가</td>
-							<td><fmt:formatNumber value="${detail.pd_price}" type="number" var="pd_price" />${pd_price}원</td>
-						</tr>
-						<tr>
-							<td>배송비</td>
-							<td>3,000원(3만원이상 결제시 무료배송)</td>
-						</tr>
-						<tr>
-							<td>구매수량</td>
-							<td>
-								<select id="orders_count">
-									<c:forEach begin="1" end="10" var="i">
-										<option value="${i}">${i}</option>
-									</c:forEach>
-								</select>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<%--============버튼 출력 시작===================== --%>
-				<div class="contentBtn text-right">
-					<input type="button" value="좋아요" id="wishListBtn" class="btn btn-success"/>
-					<input type="button" value="장바구니" id="addCartBtn" class="btn btn-success"/>
-					<input type="button" value="구매하기" id="orderListBtn" class="btn btn-success"/>
+		<%-- 전통주 상세 정보 --%>
+		<div class="section">
+			<div class="container">
+				<div class="row justify-content-between">
+					<div class="col-lg-7">
+						<div class="img-property-slide-wrap">
+							<div class="img-property-slide">
+								<c:if test="${not empty detail.pd_thumb}">
+									<img src="/uploadStorage/product/thumbnail/${detail.pd_thumb}" class="img-fluid" />
+								</c:if>
+								<c:if test="${empty detail.pd_thumb}">
+									<img src="/resources/images/common/noImage.jpg" class="img-fluid" />
+								</c:if>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-4">
+						<h2 class="heading text-primary mb-5">${detail.pd_name}</h2>
+						<p class="meta mb-2">판매가</p>
+						<h2 class="heading text-primary mb-5">
+							<fmt:formatNumber value="${detail.pd_price}" type="number" var="pd_price" />${pd_price}원
+						</h2>
+						<div class="specs d-flex mb-4">
+							<span class="d-block d-flex align-items-center me-3">
+								<span class="caption">${detail.pd_sort}</span>
+							</span>
+							<span class="d-block d-flex align-items-center me-3">
+								<span class="glyphicon glyphicon-tint me-2" aria-hidden="true"></span>
+								<span class="caption">${detail.pd_degree}%</span>
+							</span>
+							<span class="d-block d-flex align-items-center">
+								<span class="glyphicon glyphicon-glass me-2" aria-hidden="true"></span>
+								<span class="caption">${detail.pd_volume}ml</span>
+							</span>
+						</div>
+						<div class="d-block agent-box p-5">
+							<div class="text">
+								<form id="productBuyForm">
+									<h3 class="text-primary mb-3">구매수량</h3>
+									<div class="mb-5"><input type="number" name="productCount" min="1" max="100" value="1" /></div>
+									<div class="specs d-flex mb-5">
+										<span class="d-block d-flex align-items-center">
+											<span class="caption">배송비 3,000원<br/>3만원 이상 결제 시 무료배송</span>
+										</span>
+									</div>
+									<div>
+										<input type="hidden" id="pd_id" name="pd_id" value="${detail.pd_id}" />
+										<button type="button" id="addCartBtn" class="btn btn-primary">장바구니 담기</button>
+										<button type="button" id="orderListBtn" class="btn btn-primary">구매하기</button>
+									
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-	
-			
 		</div>
-	
 	</body>
 </html>
