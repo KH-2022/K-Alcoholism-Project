@@ -31,7 +31,7 @@
 			<h3>전통酒의를 이용하시려면</h3>
 			<ul class="list-unstyled links">
 				<li><a href="/signUp/signUpForm">회원가입</a></li>
-				<li><a href="/client/login">로그인</a></li>
+				<li><a href="/login/login">로그인</a></li>
 			</ul>
 
 			<ul class="list-unstyled social">

@@ -29,7 +29,7 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <!-- <link rel="stylesheet" type="text/css" href="/resources/include/css/admin.css" />	 -->
+    <link rel="stylesheet" type="text/css" href="/resources/include/css/admin.css" />
     <script type="text/javascript" src="/resources/include/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/resources/include/js/common.js"></script>
     

@@ -18,4 +18,8 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/brewery')}">class="active"</c:if>>
     	<a href="/admin/brewery/breweryList">양조장 관리</a>
     </li>
+    
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reserve')}">class="active"</c:if>>
+    	<a href="/admin/reserve/reserveList">체험 예약 관리</a>
+    </li>
 </ul>

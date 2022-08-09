@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.reserve.dao.ReserveDao">
+
+	<!-- <select id="reserveList" parameterType="reserve" resultType="reserve">
+		SELECT rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, TO_CHAR(rsv_fin_date, 'YYYY-MM-DD') AS rsv_fin_date
+		FROM reserve
+		ORDER BY rsv_no DESC
+	</select> -->
+
+	<!-- 게시판 리스트 조회 + 검색 + 페이징 처리 -->
+	<sql id="reserveSearch">
+		<if test="search == 'br_name'">
+			<![CDATA[ (SELECT br_name FROM brewery WHERE brewery.br_id = reservelist.br_id) LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'rsv_name'">
+			<![CDATA[ rsv_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
+	<select id="reserveList" parameterType="reserve" resultType="reserve">
+		<![CDATA[ 
+		SELECT rsv_no,
+			(SELECT user_id FROM kap_user WHERE user_no = reservelist.user_no) AS user_id,
+			(SELECT br_name FROM brewery WHERE br_id = reservelist.br_id) AS br_name,
+			rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, TO_CHAR(rsv_fin_date, 'YYYY-MM-DD') AS rsv_fin_date
+		FROM (
+		        SELECT /*+ INDEX_DESC(reserve reserve_pk) */
+		            rownum AS rnum, rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_state, rsv_fin_date
+		        FROM reserve
+		        WHERE rownum <= #{pageNum} * #{amount}
+		    ) reservelist
+		WHERE ]]>
+			<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+	        	<include refid="reserveSearch"></include>
+	        </trim>
+		<![CDATA[ rnum > (#{pageNum} - 1) * #{amount} ]]>
+	</select>
+	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="reserveListCnt" parameterType="reserve" resultType="int">
+		SELECT COUNT(*) FROM reserve reservelist 
+		<trim prefix=" WHERE (" suffix=")">
+			<include refid="reserveSearch"></include>
+		</trim>
+	</select>
+	
+	<!-- 체험일이 지난 예약정보의 상태 변경 -->
+	<update id="stateUpdate" parameterType="reserve">
+		<![CDATA[
+		UPDATE reserve
+		SET rsv_state = '체험 완료'
+		WHERE TO_DATE(rsv_day, 'YYYY-MM-DD') < SYSDATE
+		]]>
+	</update>
+	
+	<!-- 예약정보 상세 조회 -->
+	<select id="reserveDetail" parameterType="reserve" resultType="reserve">
+		SELECT rsv_no,
+			(SELECT user_id FROM kap_user WHERE user_no = reserve.user_no) AS user_id,
+			(SELECT br_name FROM brewery WHERE br_id = reserve.br_id) AS br_name,
+			rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_tel, rsv_request, rsv_state, TO_CHAR(rsv_fin_date, 'YYYY-MM-DD') AS rsv_fin_date
+		FROM reserve
+		WHERE rsv_no = #{rsv_no}
+	</select>
+	
+	<!-- 예약정보 수정 -->
+	<update id="reserveUpdate" parameterType="reserve">
+		UPDATE reserve
+		SET rsv_day = #{rsv_day}, rsv_time = #{rsv_time}, rsv_count = #{rsv_count},
+			rsv_price = #{rsv_count} * (SELECT br.br_price FROM brewery br, reserve rsv WHERE br.br_id = rsv.br_id),
+			rsv_name = #{rsv_name}, rsv_tel = #{rsv_tel}, rsv_request = #{rsv_request}, rsv_fin_date = SYSDATE
+		WHERE rsv_no = #{rsv_no}
+	</update>
+	
+	<!-- 예약 취소 -->
+	<update id="reserveCancel" parameterType="reserve">
+		UPDATE reserve
+		SET rsv_state = '예약 취소'
+		WHERE rsv_no = #{rsv_no}
+	</update>
+	
+	<!-- 예약 처리 -->
+	<insert id="breweryReserve" parameterType="reserve">
+		<selectKey keyProperty="rsv_no" resultType="int" order="BEFORE">
+			SELECT reserve_seq.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO reserve(rsv_no, user_no, br_id, rsv_day, rsv_time, rsv_count, rsv_price, rsv_name, rsv_tel, rsv_request, rsv_state)
+		VALUES(#{rsv_no}, #{user_no}, #{br_id}, #{rsv_day}, #{rsv_time}, #{rsv_count}, #{rsv_price}, #{rsv_name}, #{rsv_tel}, #{rsv_request}, '예약 완료')
+	</insert>
+</mapper>

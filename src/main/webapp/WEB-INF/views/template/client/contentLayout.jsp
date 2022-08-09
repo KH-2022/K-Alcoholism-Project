@@ -59,7 +59,7 @@
 			</div>
 		</nav>
 		
-		<%-- 검색, 상품 추천, 상품 후기, 체험 후기 --%>
+		<%-- body --%>
 		<tiles:insertAttribute name="body" />
 		
 		<%-- Footer --%>
