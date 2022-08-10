@@ -8,13 +8,13 @@ import lombok.ToString;
 @Getter
 @ToString
 public class CommonVO {
-	/* í˜ì´ì§• ì²˜ë¦¬ì— ì‚¬ìš©í•  í•„ë“œ */
-	private int pageNum = 0; //í˜ì´ì§€ ë²ˆí˜¸
-	private int amount = 0; //í˜ì´ì§€ì— ë³´ì—¬ì¤„ ë°ì´í„° ìˆ˜
+	/* ÆäÀÌÂ¡ Ã³¸®¿¡ »ç¿ëÇÒ ÇÊµå */
+	private int pageNum = 0; //ÆäÀÌÁö ¹øÈ£
+	private int amount = 0; //ÆäÀÌÁö¿¡ º¸¿©ÁÙ µ¥ÀÌÅÍ ¼ö
 	
-	/* ì¡°ê±´ì„ ì´ìš©í•œ ê²Œì‹œë¬¼ ê²€ìƒ‰ ì‹œ ì‚¬ìš©í•  í•„ë“œ */
-	private String search = ""; //ê²€ìƒ‰ëŒ€ìƒ
-	private String keyword = ""; //ê²€ìƒ‰ë‹¨ì–´
+	/* Á¶°ÇÀ» ÀÌ¿ëÇÑ °Ô½Ã¹° °Ë»ö ½Ã »ç¿ëÇÒ ÇÊµå */
+	private String search = ""; //°Ë»ö´ë»ó
+	private String keyword = ""; //°Ë»ö´Ü¾î
 	
 	public CommonVO() {
 		this(1, 10);

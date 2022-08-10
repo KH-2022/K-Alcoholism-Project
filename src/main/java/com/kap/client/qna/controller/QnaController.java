@@ -23,13 +23,13 @@ public class QnaController {
 	private QnaService qnaService;
 
 	/***************************************************
-	 * ê¸€ ëª©ë¡ êµ¬í˜„í•˜ê¸°(í˜ì´ì§• ì²˜ë¦¬ë¶€ë¶„ ì œì™¸ ëª©ë¡ ì¡°íšŒ)
+	 * ±Û ¸ñ·Ï ±¸ÇöÇÏ±â(ÆäÀÌÂ¡ Ã³¸®ºÎºĞ Á¦¿Ü ¸ñ·Ï Á¶È¸)
 	 ***************************************************/
 	@RequestMapping(value="/qnaList", method = RequestMethod.GET)
 	public String qnaList(@ModelAttribute QnaVO qvo, Model model) {
-		log.info("qnaList í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaList È£Ãâ ¼º°ø");
 		
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<QnaVO> qnaList = qnaService.qnaList(qvo);
 		model.addAttribute("qnaList", qnaList);
 		

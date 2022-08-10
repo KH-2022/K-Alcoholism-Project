@@ -16,7 +16,7 @@ public class ProductServiceImpl implements ProductService {
 	@Setter(onMethod_ = @Autowired)
 	private ProductDao productDao;
 
-	//ìƒí’ˆë¦¬ìŠ¤íŠ¸ êµ¬í˜„
+	//»óÇ°¸®½ºÆ® ±¸Çö
 	@Override
 	public List<ProductVO> productList(ProductVO pvo) {
 		List<ProductVO> list = null;
@@ -24,7 +24,7 @@ public class ProductServiceImpl implements ProductService {
 		return list;
 	}
 	
-	//ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+	//ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 	@Override
 	public int productListCnt(ProductVO pvo) {
 		int count = 0;
@@ -32,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
 		return count;
 	}
 	
-	//ìƒí’ˆë¦¬ìŠ¤íŠ¸ ìƒì„¸ êµ¬í˜„
+	//»óÇ°¸®½ºÆ® »ó¼¼ ±¸Çö
 	@Override
 	public ProductVO productDetail(ProductVO pvo) {
 		ProductVO detail = null;

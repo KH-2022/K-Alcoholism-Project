@@ -24,44 +24,44 @@ public class AdminReserveController {
 	
 	private AdminReserveService adminReserveService;
 	
-	/* ì˜ˆì•½ëª©ë¡ ì¡°íšŒ êµ¬í˜„ */
+	/* ¿¹¾à¸ñ·Ï Á¶È¸ ±¸Çö */
 	@RequestMapping(value = "/reserve/reserveList", method = RequestMethod.GET)
 	public String reserveList(@ModelAttribute("data") ReserveVO rvo, Model model) {
-		log.info("admin reserveList í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin reserveList È£Ãâ ¼º°ø");
 		List<ReserveVO> reserveList = adminReserveService.reserveList(rvo);
 		model.addAttribute("reserveList", reserveList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í•˜ê¸°
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸ÇÏ±â
 		int total = adminReserveService.reserveListCnt(rvo);
 		model.addAttribute("pageMaker", new PageDTO(total, rvo));
 		
 		return "admin/reserve/reserveList";
 	}
 	
-	/* ì˜ˆì•½ì •ë³´ ìƒì„¸ ì¡°íšŒ */
+	/* ¿¹¾àÁ¤º¸ »ó¼¼ Á¶È¸ */
 	@RequestMapping(value = "/reserve/reserveDetail", method = RequestMethod.GET)
 	public String reserveDetail(@ModelAttribute("data") ReserveVO rvo, Model model) {
-		log.info("admin reserveDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin reserveDetail È£Ãâ ¼º°ø");
 		ReserveVO detail = adminReserveService.reserveDetail(rvo);
 		model.addAttribute("detail", detail);
 		
 		return "admin/reserve/reserveDetail";
 	}
 	
-	/* ì˜ˆì•½ì •ë³´ ìˆ˜ì • í¼ ì¶œë ¥ */
+	/* ¿¹¾àÁ¤º¸ ¼öÁ¤ Æû Ãâ·Â */
 	@RequestMapping(value = "/reserve/updateForm")
 	public String updateForm(@ModelAttribute ReserveVO rvo, Model model) {
-		log.info("admin updateForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin updateForm È£Ãâ ¼º°ø");
 		ReserveVO updateData = adminReserveService.updateForm(rvo);
 		model.addAttribute("updateData", updateData);
 		
 		return "admin/reserve/updateForm";
 	}
 	
-	/* ì˜ˆì•½ì •ë³´ ìˆ˜ì • êµ¬í˜„ */
+	/* ¿¹¾àÁ¤º¸ ¼öÁ¤ ±¸Çö */
 	@RequestMapping(value = "/reserve/reserveUpdate", method = RequestMethod.POST)
 	public String reserveUpdate(@ModelAttribute ReserveVO rvo, RedirectAttributes reAttr) throws Exception {
-		log.info("admin reserveUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin reserveUpdate È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";
@@ -77,10 +77,10 @@ public class AdminReserveController {
 		return "redirect:" + url;
 	}
 	
-	/* ì˜ˆì•½ ì·¨ì†Œ êµ¬í˜„ */
+	/* ¿¹¾à Ãë¼Ò ±¸Çö */
 	@RequestMapping(value = "/reserve/reserveCancel")
 	public String reserveCancel(@ModelAttribute ReserveVO rvo, RedirectAttributes reAttr) throws Exception {
-		log.info("admin reserveCancel í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin reserveCancel È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";

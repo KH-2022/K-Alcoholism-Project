@@ -16,7 +16,7 @@ public class BreweryServiceImpl implements BreweryService {
 	@Setter(onMethod_ = @Autowired)
 	private BreweryDao breweryDao;
 
-	/* ì–‘ì¡°ì¥ ë¦¬ìŠ¤íŠ¸ êµ¬í˜„ */
+	/* ¾çÁ¶Àå ¸®½ºÆ® ±¸Çö */
 	@Override
 	public List<BreweryVO> breweryList(BreweryVO bvo) {
 		List<BreweryVO> list = null;
@@ -24,7 +24,7 @@ public class BreweryServiceImpl implements BreweryService {
 		return list;
 	}
 	
-	/* ì „ì²´ ë ˆì½”ë“œ ìˆ˜ ì¡°íšŒ */
+	/* ÀüÃ¼ ·¹ÄÚµå ¼ö Á¶È¸ */
 	@Override
 	public int breweryListCnt(BreweryVO bvo) {
 		int count = 0;
@@ -32,7 +32,7 @@ public class BreweryServiceImpl implements BreweryService {
 		return count;
 	}
 
-	/* ì–‘ì¡°ì¥ ìƒì„¸ êµ¬í˜„ */
+	/* ¾çÁ¶Àå »ó¼¼ ±¸Çö */
 	@Override
 	public BreweryVO breweryDetail(BreweryVO bvo) {
 		BreweryVO detail = null;
@@ -43,7 +43,7 @@ public class BreweryServiceImpl implements BreweryService {
 		return detail;
 	}
 
-	/* ì²´í—˜ ì˜ˆì•½ í¼ í˜¸ì¶œ */
+	/* Ã¼Çè ¿¹¾à Æû È£Ãâ */
 	@Override
 	public BreweryVO reserveForm(BreweryVO bvo) {
 		BreweryVO data = null;

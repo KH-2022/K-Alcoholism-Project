@@ -24,33 +24,33 @@ public class ProductController {
 	private ProductService productService;
 	
 	/***************************************************
-	 * ìƒí’ˆ ëª©ë¡ êµ¬í˜„í•˜ê¸°(í˜ì´ì§• ì²˜ë¦¬ ëª©ë¡ ì¡°íšŒ)
-	 * ìš”ì²­ URL : http://localhost:8080/product/productList
+	 * »óÇ° ¸ñ·Ï ±¸ÇöÇÏ±â(ÆäÀÌÂ¡ Ã³¸® ¸ñ·Ï Á¶È¸)
+	 * ¿äÃ» URL : http://localhost:8080/product/productList
 	 ***************************************************/
 	@RequestMapping(value="/productList", method = RequestMethod.GET)
 	public String productList(@ModelAttribute ProductVO pvo, Model model) {
-		log.info("productList í˜¸ì¶œ ì„±ê³µ");
+		log.info("productList È£Ãâ ¼º°ø");
 		pvo.setAmount(16);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<ProductVO> productList = productService.productList(pvo);
 		model.addAttribute("productList", productList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 		int total = productService.productListCnt(pvo);
 		
-		// í˜ì´ì§• ì²˜ë¦¬
+		// ÆäÀÌÂ¡ Ã³¸®
 		model.addAttribute("pageMaker", new PageDTO(total, pvo));
 		
 		return "product/productList";
 	}
 	
 	/*******************************************************
-	 * ìƒí’ˆ ìƒì„¸ ë³´ê¸°
+	 * »óÇ° »ó¼¼ º¸±â
 	 *******************************************************/
 	@GetMapping("/productDetail")
 	public String productDetail(@ModelAttribute("data") ProductVO pvo, Model model) {
-		log.info("productDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("productDetail È£Ãâ ¼º°ø");
 		
 		ProductVO detail = productService.productDetail(pvo);
 		model.addAttribute("detail",detail);

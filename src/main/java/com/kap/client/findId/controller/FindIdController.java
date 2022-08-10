@@ -21,14 +21,14 @@ public class FindIdController {
 	
 	@RequestMapping(value="/findIdForm")
 	public String findIdForm(FindIdVO fvo) {
-		log.info("findIdForm 順胳稖 靹标车");
+		log.info("findIdForm 龋免 己傍");
 		return "findId/findIdForm";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findId",method=RequestMethod.POST)
 	public String findId(FindIdVO fvo, Model model) throws Exception{
-		log.info("findId 順胳稖 靹标车");
+		log.info("findId 龋免 己傍");
 		
 		String result = findIdService.findId(fvo);
 		return result;

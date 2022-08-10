@@ -16,16 +16,16 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 	@Setter(onMethod_ = @Autowired)
 	private ReserveDao reserveDao;
 
-	/* ì˜ˆì•½ëª©ë¡ ì¡°íšŒ êµ¬í˜„ */
+	/* ¿¹¾à¸ñ·Ï Á¶È¸ ±¸Çö */
 	@Override
 	public List<ReserveVO> reserveList(ReserveVO rvo) {
 		List<ReserveVO> reserveList = null;
-		reserveDao.stateUpdate(rvo); //ëª©ë¡ ì¡°íšŒ ì‹œ rsv_dayê°€ ì˜¤ëŠ˜ ì´ì „ì´ë©´ ì˜ˆì•½ìƒíƒœ ë³€ê²½
+		reserveDao.stateUpdate(rvo); //¸ñ·Ï Á¶È¸ ½Ã rsv_day°¡ ¿À´Ã ÀÌÀüÀÌ¸é ¿¹¾à»óÅÂ º¯°æ
 		reserveList = reserveDao.reserveList(rvo);
 		return reserveList;
 	}
 
-	/* ì˜ˆì•½ì •ë³´ ë ˆì½”ë“œìˆ˜ ì¡°íšŒ */
+	/* ¿¹¾àÁ¤º¸ ·¹ÄÚµå¼ö Á¶È¸ */
 	@Override
 	public int reserveListCnt(ReserveVO rvo) {
 		int count = 0;
@@ -33,7 +33,7 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 		return count;
 	}
 
-	/* ì˜ˆì•½ì •ë³´ ìƒì„¸ ì¡°íšŒ êµ¬í˜„ */
+	/* ¿¹¾àÁ¤º¸ »ó¼¼ Á¶È¸ ±¸Çö */
 	@Override
 	public ReserveVO reserveDetail(ReserveVO rvo) {
 		ReserveVO detail = null;
@@ -44,7 +44,7 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 		return detail;
 	}
 	
-	/* ì˜ˆì•½ì •ë³´ ìˆ˜ì • í¼ ì¶œë ¥ */
+	/* ¿¹¾àÁ¤º¸ ¼öÁ¤ Æû Ãâ·Â */
 	@Override
 	public ReserveVO updateForm(ReserveVO rvo) {
 		ReserveVO updateData = null;
@@ -52,7 +52,7 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 		return updateData;
 	}
 
-	/* ì˜ˆì•½ì •ë³´ ìˆ˜ì • êµ¬í˜„ */
+	/* ¿¹¾àÁ¤º¸ ¼öÁ¤ ±¸Çö */
 	@Override
 	public int reserveUpdate(ReserveVO rvo) {
 		int result = 0;
@@ -60,7 +60,7 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 		return result;
 	}
 
-	/* ì˜ˆì•½ ì·¨ì†Œ êµ¬í˜„ */
+	/* ¿¹¾à Ãë¼Ò ±¸Çö */
 	@Override
 	public int reserveCancel(ReserveVO rvo) {
 		int result = 0;

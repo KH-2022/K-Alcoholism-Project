@@ -16,7 +16,7 @@ public class QnaServiceImpl implements QnaService {
 	@Setter(onMethod_ = @Autowired)
 	private QnaDao qnaDao;
 	
-	// ê¸€ëª©ë¡ êµ¬í˜„
+	// ±Û¸ñ·Ï ±¸Çö
 	@Override
 	public List<QnaVO> qnaList(QnaVO qvo) {
 		List<QnaVO> list = null;

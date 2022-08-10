@@ -23,11 +23,11 @@ public class ReserveController {
 	private ReserveService reserveService;
 	
 	/*******************************************************
-	 * ì˜ˆì•½ ì²˜ë¦¬ êµ¬í˜„ (ë¯¸ì™„ì„±)
+	 * ¿¹¾à Ã³¸® ±¸Çö (¹Ì¿Ï¼º)
 	 *******************************************************/
 	@RequestMapping(value = "/breweryReserve", method = RequestMethod.POST)
 	public String breweryReserve(@ModelAttribute ReserveVO rvo, Model model, RedirectAttributes reAttr) throws Exception {
-		log.info("breweryReserve í˜¸ì¶œ ì„±ê³µ");
+		log.info("breweryReserve È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";

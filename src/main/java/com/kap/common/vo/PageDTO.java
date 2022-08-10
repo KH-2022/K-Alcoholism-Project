@@ -6,9 +6,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class PageDTO {
-	private int startPage; //í™”ë©´ì—ì„œ ë³´ì—¬ì§€ëŠ” í˜ì´ì§€ì˜ ì‹œì‘ë²ˆí˜¸
-	private int endPage; //í™”ë©´ì—ì„œ ë³´ì—¬ì§€ëŠ” í˜ì´ì§€ì˜ ëë²ˆí˜¸
-	private boolean prev, next; //ì´ì „ì´ë‚˜ ë‹¤ìŒìœ¼ë¡œ ì´ë™í•  ë§í¬ í‘œì‹œ ì—¬ë¶€
+	private int startPage; //È­¸é¿¡¼­ º¸¿©Áö´Â ÆäÀÌÁöÀÇ ½ÃÀÛ¹øÈ£
+	private int endPage; //È­¸é¿¡¼­ º¸¿©Áö´Â ÆäÀÌÁöÀÇ ³¡¹øÈ£
+	private boolean prev, next; //ÀÌÀüÀÌ³ª ´ÙÀ½À¸·Î ÀÌµ¿ÇÒ ¸µÅ© Ç¥½Ã ¿©ºÎ
 	
 	private int total; //
 	private CommonVO cvo;
@@ -17,33 +17,33 @@ public class PageDTO {
 		this.total = total;
 		this.cvo = cvo;
 		
-		/* ê° í˜ì´ì§€ì˜ ëë²ˆí˜¸(endPage) êµ¬í•˜ê¸° */
-		this.endPage = (int) (Math.ceil(cvo.getPageNum() / 10.0)) * 10; //Math.ceil(): ì‹¤ìˆ˜ë¥¼ ì˜¬ë¦¼ ì²˜ë¦¬í•˜ëŠ” ë©”ì„œë“œ
-		/* 1í˜ì´ì§€ì˜ ê²½ìš°:  Math.ceil(0.1) * 10 = 10
-		 * 2í˜ì´ì§€ì˜ ê²½ìš°:  Math.ceil(0.2) * 10 = 10
-		 * 10í˜ì´ì§€ì˜ ê²½ìš°: Math.ceil(1.0) * 10 = 10
-		 * 11í˜ì´ì§€ì˜ ê²½ìš°: Math.ceil(1.1) * 10 = 20
+		/* °¢ ÆäÀÌÁöÀÇ ³¡¹øÈ£(endPage) ±¸ÇÏ±â */
+		this.endPage = (int) (Math.ceil(cvo.getPageNum() / 10.0)) * 10; //Math.ceil(): ½Ç¼ö¸¦ ¿Ã¸² Ã³¸®ÇÏ´Â ¸Ş¼­µå
+		/* 1ÆäÀÌÁöÀÇ °æ¿ì:  Math.ceil(0.1) * 10 = 10
+		 * 2ÆäÀÌÁöÀÇ °æ¿ì:  Math.ceil(0.2) * 10 = 10
+		 * 10ÆäÀÌÁöÀÇ °æ¿ì: Math.ceil(1.0) * 10 = 10
+		 * 11ÆäÀÌÁöÀÇ °æ¿ì: Math.ceil(1.1) * 10 = 20
 		 * */
 		
-		/* ê° í˜ì´ì§€ì˜ ì‹œì‘ë²ˆí˜¸(startPage) êµ¬í•˜ê¸° */
+		/* °¢ ÆäÀÌÁöÀÇ ½ÃÀÛ¹øÈ£(startPage) ±¸ÇÏ±â */
 		this.startPage = this.endPage - 9;
 		
-		/* ëí˜ì´ì§€ êµ¬í•˜ê¸° */
+		/* ³¡ÆäÀÌÁö ±¸ÇÏ±â */
 		int realEnd = (int) (Math.ceil((total * 1.0) / cvo.getAmount()));
-		/* totalì´ 10ì¼ ê²½ìš°:  Math.ceil(10.0 / 10) = 1
-		 * totalì´ 30ì¼ ê²½ìš°:  Math.ceil(30.0 / 10) = 3
-		 * totalì´ 126ì¼ ê²½ìš°: Math.ceil(126.0 / 10) = 13
-		 * totalì´ 473ì¼ ê²½ìš°: Math.ceil(473.0 / 10) = 48
+		/* totalÀÌ 10ÀÏ °æ¿ì:  Math.ceil(10.0 / 10) = 1
+		 * totalÀÌ 30ÀÏ °æ¿ì:  Math.ceil(30.0 / 10) = 3
+		 * totalÀÌ 126ÀÏ °æ¿ì: Math.ceil(126.0 / 10) = 13
+		 * totalÀÌ 473ÀÏ °æ¿ì: Math.ceil(473.0 / 10) = 48
 		 * */
 		
 		if (realEnd <= this.endPage) {
 			this.endPage = realEnd;
 		}
 		
-		/* prev(ì´ì „ 10ê°œ) ì¡´ì¬ ì—¬ë¶€ êµ¬í•˜ê¸° */
+		/* prev(ÀÌÀü 10°³) Á¸Àç ¿©ºÎ ±¸ÇÏ±â */
 		this.prev = this.startPage > 1;
 		
-		/* next(ë‹¤ìŒ 10ê°œ) ì¡´ì¬ ì—¬ë¶€ êµ¬í•˜ê¸° */
+		/* next(´ÙÀ½ 10°³) Á¸Àç ¿©ºÎ ±¸ÇÏ±â */
 		this.next = this.endPage < realEnd;
 	}
 }

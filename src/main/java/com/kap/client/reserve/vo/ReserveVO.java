@@ -8,19 +8,19 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper=false)
 public class ReserveVO extends CommonVO {
-	private int rsv_no; //ì˜ˆì•½ë²ˆí˜¸
-	private String user_no; //íšŒì›ë²ˆí˜¸
-	private String br_id; //ì–‘ì¡°ì¥ID
-	private String rsv_day; //ì˜ˆì•½ ë‚ ì§œ
-	private String rsv_time; //ì˜ˆì•½ ì‹œê°„
-	private int rsv_count; //ì˜ˆì•½ ì¸ì›
-	private int rsv_price; //ì´ ê¸ˆì•¡
-	private String rsv_name; //ì˜ˆì•½ì ì´ë¦„
-	private String rsv_tel; //ì˜ˆì•½ì ì „í™”ë²ˆí˜¸
-	private String rsv_request; //ì˜ˆì•½ ìš”ì²­ì‚¬í•­
-	private String rsv_state; //ì˜ˆì•½ ìƒíƒœ
-	private String rsv_fin_date; //ì˜ˆì•½ ì™„ë£Œì¼
+	private int rsv_no; //¿¹¾à¹øÈ£
+	private String user_no; //È¸¿ø¹øÈ£
+	private String br_id; //¾çÁ¶ÀåID
+	private String rsv_day; //¿¹¾à ³¯Â¥
+	private String rsv_time; //¿¹¾à ½Ã°£
+	private int rsv_count; //¿¹¾à ÀÎ¿ø
+	private int rsv_price; //ÃÑ ±İ¾×
+	private String rsv_name; //¿¹¾àÀÚ ÀÌ¸§
+	private String rsv_tel; //¿¹¾àÀÚ ÀüÈ­¹øÈ£
+	private String rsv_request; //¿¹¾à ¿äÃ»»çÇ×
+	private String rsv_state; //¿¹¾à »óÅÂ
+	private String rsv_fin_date; //¿¹¾à ¿Ï·áÀÏ
 	
-	private String user_id; //íšŒì›ë²ˆí˜¸ë¡œ ë°›ì•„ì˜¨ íšŒì› ì•„ì´ë””
-	private String br_name; //ì–‘ì¡°ì¥IDë¡œ ë°›ì•„ì˜¨ ì–‘ì¡°ì¥ ì´ë¦„
+	private String user_id; //È¸¿ø¹øÈ£·Î ¹Ş¾Æ¿Â È¸¿ø ¾ÆÀÌµğ
+	private String br_name; //¾çÁ¶ÀåID·Î ¹Ş¾Æ¿Â ¾çÁ¶Àå ÀÌ¸§
 }

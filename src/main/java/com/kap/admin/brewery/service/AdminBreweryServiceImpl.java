@@ -17,7 +17,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 	@Setter(onMethod_ = @Autowired)
 	private BreweryDao breweryDao;
 	
-	//ê¸€ëª©ë¡êµ¬í˜„
+	//±Û¸ñ·Ï±¸Çö
 	@Override
 	public List<BreweryVO> breweryList(BreweryVO bvo) {
 		List<BreweryVO> aList = null;
@@ -25,7 +25,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return aList;
 	}
 	
-	//ê¸€ì…ë ¥êµ¬í˜„
+	//±ÛÀÔ·Â±¸Çö
 	@Override
 	public int breweryInsert(BreweryVO bvo) throws Exception{
 		int result = 0;
@@ -39,7 +39,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		result = breweryDao.breweryInsert(bvo);
 		return result;
 	}	
-	//ê¸€ìƒì„¸êµ¬í˜„
+	//±Û»ó¼¼±¸Çö
 	@Override
 	public BreweryVO breweryDetail(BreweryVO bvo) {
 		BreweryVO detail = null;
@@ -49,7 +49,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return detail;
 	}
 	
-	//ê¸€ìˆ˜ì •í¼êµ¬í˜„
+	//±Û¼öÁ¤Æû±¸Çö
 	@Override
 	public BreweryVO updateForm(BreweryVO bvo) {
 		BreweryVO updateData = null;
@@ -57,7 +57,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return updateData;
 	}
 	
-	//ê¸€ìˆ˜ì • êµ¬í˜„
+	//±Û¼öÁ¤ ±¸Çö
 	@Override
 	public int breweryUpdate(BreweryVO bvo) throws Exception{
 		int result = 0;
@@ -77,7 +77,7 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return result;
 	}
 	
-	//ê¸€ì‚­ì œêµ¬í˜„
+	//±Û»èÁ¦±¸Çö
 	@Override
 	public int breweryDelete(BreweryVO bvo) throws Exception{
 		int result = 0;

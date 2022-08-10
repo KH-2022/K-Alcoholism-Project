@@ -53,15 +53,15 @@ public class MypageController {
 	
 	@RequestMapping(value="/userUpdate", method = RequestMethod.POST)
 	public String userUpdate(@ModelAttribute SignUpVO svo,Model model, RedirectAttributes ras ) throws Exception{
-		log.info("userUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("userUpdate È£Ãâ ¼º°ø");
 		String url = "";
 		int result = mypageService.userUpdate(svo);
 		
 		if(result == 1) {
-			ras.addFlashAttribute("updateMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+			ras.addFlashAttribute("updateMsg", "È¸¿øÁ¤º¸ ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
 			url = "/myPage/account";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 		
@@ -77,15 +77,15 @@ public class MypageController {
 	
 	@RequestMapping(value="/editAdd", method = RequestMethod.POST)
 	public String editAdd(SignUpVO svo, RedirectAttributes ras) throws Exception{
-		log.info("editAdd í˜¸ì¶œ ì„±ê³µ");
+		log.info("editAdd È£Ãâ ¼º°ø");
 		
 		String url = "";
 		int result = mypageService.editAdd(svo);
 		if(result == 1) {
-			ras.addFlashAttribute("updateMsg", "ê¸°ë³¸ ë°°ì†¡ì§€ê°€ ìˆ˜ì • ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			ras.addFlashAttribute("updateMsg", "±âº» ¹è¼ÛÁö°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.");
 			url = "/myPage/myPage";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 		
@@ -94,16 +94,16 @@ public class MypageController {
 	
 	@RequestMapping(value="/userWithdrawal", method=RequestMethod.POST)
 	public String userWithdrawal(SignUpVO svo, RedirectAttributes ras, SessionStatus sessionStatus) throws Exception{
-		log.info("userWithdrawal í˜¸ì¶œ ì„±ê³µ");
+		log.info("userWithdrawal È£Ãâ ¼º°ø");
 		String url = "";
 		
 		int result = mypageService.userWithdrawal(svo);
 		if(result == 1) {
-			ras.addFlashAttribute("WithdrawalMsg", "íšŒì›íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. ê°ì‚¬í•©ë‹ˆë‹¤.");
+			ras.addFlashAttribute("WithdrawalMsg", "È¸¿øÅ»Åğ°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù. °¨»çÇÕ´Ï´Ù.");
 			sessionStatus.setComplete();
 			url = "/";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›íƒˆí‡´ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÅ»Åğ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 

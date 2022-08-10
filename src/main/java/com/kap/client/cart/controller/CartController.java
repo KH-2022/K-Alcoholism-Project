@@ -27,11 +27,11 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String findCartGoods(@RequestBody CartVO cvo, Model model) {
-		log.info("insertCart í˜¸ì¶œì„±ê³µ");
+		log.info("insertCart È£Ãâ¼º°ø");
 		log.info("cvo" +cvo);
 		
 		int result = 0;
-		cvo.setUser_no(1); //ë‚˜ì¤‘ì— ì„¸ì…˜ê°’ìœ¼ë¡œ ëŒ€ì²´
+		cvo.setUser_no(1); //³ªÁß¿¡ ¼¼¼Ç°ªÀ¸·Î ´ëÃ¼
 		
 		result = cartService.findCartGoods(cvo);
 		
@@ -39,27 +39,27 @@ public class CartController {
 		
 	}*/
 	
-	//ì¥ë°”êµ¬ë‹ˆì¶”ê°€
+	//Àå¹Ù±¸´ÏÃß°¡
 	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String insertCart(@RequestBody CartVO cvo, Model model) {
-		log.info("insertCart í˜¸ì¶œì„±ê³µ");
+		log.info("insertCart È£Ãâ¼º°ø");
 		log.info("cvo" +cvo);
 		
 		int result = 0;
-		cvo.setUser_no(1); //ë‚˜ì¤‘ì— ì„¸ì…˜ê°’ìœ¼ë¡œ ëŒ€ì²´
+		cvo.setUser_no(1); //³ªÁß¿¡ ¼¼¼Ç°ªÀ¸·Î ´ëÃ¼
 	
 		result = cartService.insertCart(cvo);
 	
 		return (result==1) ? "SUCCESS" : "FAILURE";
 	}
 	
-	//ì¥ë°”êµ¬ë‹ˆì¡°íšŒ
+	//Àå¹Ù±¸´ÏÁ¶È¸
 	@GetMapping(value="/cartList")
 	public String cartList(CartVO cvo, Model model) {
-		log.info("cartList í˜¸ì¶œì„±ê³µ");
+		log.info("cartList È£Ãâ¼º°ø");
 		
-		cvo.setUser_no(1); //ë‚˜ì¤‘ì— ì„¸ì…˜ê°’ìœ¼ë¡œ ëŒ€ì²´
+		cvo.setUser_no(1); //³ªÁß¿¡ ¼¼¼Ç°ªÀ¸·Î ´ëÃ¼
 		List<CartVO> cartList = cartService.cartList(cvo);
 		model.addAttribute("cartList",cartList);
 		
@@ -69,11 +69,11 @@ public class CartController {
 	}
 	
 	
-	//ìˆ˜ëŸ‰ë³€ê²½
+	//¼ö·®º¯°æ
 	@ResponseBody
 	@RequestMapping(value="/update", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String updateCart(@RequestBody CartVO cvo, Model model) {
-		log.info("updateCart í˜¸ì¶œì„±ê³µ");
+		log.info("updateCart È£Ãâ¼º°ø");
 		
 		log.info("cvo" +cvo);
 		
@@ -83,11 +83,11 @@ public class CartController {
 		return (result==1) ? "SUCCESS" : "FAILURE";
 	}
 	
-	//ìƒí’ˆì‚­ì œ
+	//»óÇ°»èÁ¦
 	@ResponseBody
 	@RequestMapping(value="/delete", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String deleteCart(@RequestBody CartVO cvo, Model model) {
-		log.info("deleteCart í˜¸ì¶œì„±ê³µ");
+		log.info("deleteCart È£Ãâ¼º°ø");
 		
 		log.info("cvo" +cvo);
 		

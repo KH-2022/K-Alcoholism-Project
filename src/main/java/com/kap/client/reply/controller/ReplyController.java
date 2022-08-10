@@ -43,7 +43,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/replyList", method=RequestMethod.GET)
 	public String replyList(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model){
-		log.info("replyList í˜¸ì¶œ ì„±ê³µ");
+		log.info("replyList È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		
@@ -64,7 +64,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/replyInsert", method = RequestMethod.POST)
 	public String replyInsert(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, Model model) throws Exception {
-		log.info("replyInsert í˜¸ì¶œ ì„±ê³µ");
+		log.info("replyInsert È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		rvo.setUser_no(loginMember.getUser_no());
@@ -76,7 +76,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/bReplyInsert", method = RequestMethod.POST)
 	public String bReplyInsert(@SessionAttribute("login") LoginVO loginMember, BreplyVO vvo, Model model) throws Exception {
-		log.info("bReplyInsert í˜¸ì¶œ ì„±ê³µ");
+		log.info("bReplyInsert È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		vvo.setUser_no(loginMember.getUser_no());
@@ -88,7 +88,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/replyUpdateForm")
 	public String updateForm(@ModelAttribute("replyData")ReplyVO rvo, Model model) {
-		log.info("replyUpdateForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("replyUpdateForm È£Ãâ ¼º°ø");
 		
 		ReplyVO updateReply = replyService.replyUpdateForm(rvo);
 		model.addAttribute("updateReply", updateReply);
@@ -99,7 +99,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/bReplyUpdateForm")
 	public String bReplyUpdateForm(@ModelAttribute("bReplyData") BreplyVO vvo, Model model) {
-		log.info("BreplyUpdateForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("BreplyUpdateForm È£Ãâ ¼º°ø");
 		
 		BreplyVO updateBreply = replyService.bReplyUpdateForm(vvo);
 		model.addAttribute("bReplyUpdate", updateBreply);
@@ -111,7 +111,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
 	public String replyUpdate(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
-		log.info("replyUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("replyUpdate È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		
@@ -120,7 +120,7 @@ public class ReplyController {
 		
 		replyService.replyUpdate(rvo);
 		ras.addFlashAttribute("replyData", rvo);
-		ras.addFlashAttribute("updateMsg", "ë¦¬ë·°ë¥¼ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("updateMsg", "¸®ºä¸¦ ¼öÁ¤ÇÏ¿´½À´Ï´Ù.");
 		
 		List<ReplyVO> replyList = replyService.replyList(rvo);
 		List<BreplyVO> reserveList = replyService.reserveList(vvo);
@@ -133,7 +133,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/bReplyUpdate", method = RequestMethod.POST)
 	public String bReplyUpdate(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
-		log.info("bReplyUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("bReplyUpdate È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		
@@ -142,7 +142,7 @@ public class ReplyController {
 		
 		replyService.bReplyUpdate(vvo);
 		ras.addFlashAttribute("bReplyData", rvo);
-		ras.addFlashAttribute("updateMsg", "ë¦¬ë·°ë¥¼ ìˆ˜ì •í•˜ì˜€ìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("updateMsg", "¸®ºä¸¦ ¼öÁ¤ÇÏ¿´½À´Ï´Ù.");
 		
 		List<ReplyVO> replyList = replyService.replyList(rvo);
 		List<BreplyVO> reserveList = replyService.reserveList(vvo);
@@ -155,7 +155,7 @@ public class ReplyController {
 
 	@RequestMapping(value = "/replyDelete")
 	public String replyDelete(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
-		log.info("replyDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("replyDelete È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		
@@ -163,7 +163,7 @@ public class ReplyController {
 		vvo.setUser_no(loginMember.getUser_no());
 		
 		replyService.replyDelete(rvo);
-		ras.addFlashAttribute("updateMsg", "ìƒí’ˆ ë¦¬ë·°ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("updateMsg", "»óÇ° ¸®ºä¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.");
 		
 		List<ReplyVO> replyList = replyService.replyList(rvo);
 		List<BreplyVO> reserveList = replyService.reserveList(vvo);
@@ -176,7 +176,7 @@ public class ReplyController {
 	
 	@RequestMapping(value = "/bReplyDelete")
 	public String bReplyDelete(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
-		log.info("bReplyDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("bReplyDelete È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		
@@ -184,7 +184,7 @@ public class ReplyController {
 		vvo.setUser_no(loginMember.getUser_no());
 		
 		replyService.bReplyDelete(vvo);
-		ras.addFlashAttribute("updateMsg", "ì–‘ì¡°ì¥ ì²´í—˜ ë¦¬ë·°ë¥¼ ì‚­ì œí•˜ì˜€ìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("updateMsg", "¾çÁ¶Àå Ã¼Çè ¸®ºä¸¦ »èÁ¦ÇÏ¿´½À´Ï´Ù.");
 		
 		List<ReplyVO> replyList = replyService.replyList(rvo);
 		List<BreplyVO> reserveList = replyService.reserveList(vvo);

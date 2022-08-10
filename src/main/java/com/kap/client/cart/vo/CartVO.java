@@ -4,15 +4,15 @@ import lombok.Data;
 
 @Data
 public class CartVO {
-	private int cart_no;        //ì¥ë°”êµ¬ë‹ˆë²ˆí˜¸
-	private int user_no;        //íšŒì›ë²ˆí˜¸
-	private String user_name;   //íšŒì›ì´ë¦„
-	private int pd_id;          //ìƒí’ˆID
-	private String pd_name;     //ìƒí’ˆëª…
-	private int pd_price;       //ìƒí’ˆ ê°€ê²©
-	private int cart_count;     //ìƒí’ˆ ìˆ˜ëŸ‰
-	private int cart_amount;    //ìƒí’ˆ ê¸ˆì•¡(pd_price*cart_count)
-	private String cart_date;   //ìƒì„±ì¼ì
+	private int cart_no;        //Àå¹Ù±¸´Ï¹øÈ£
+	private int user_no;        //È¸¿ø¹øÈ£
+	private String user_name;   //È¸¿øÀÌ¸§
+	private int pd_id;          //»óÇ°ID
+	private String pd_name;     //»óÇ°¸í
+	private int pd_price;       //»óÇ° °¡°İ
+	private int cart_count;     //»óÇ° ¼ö·®
+	private int cart_amount;    //»óÇ° ±İ¾×(pd_price*cart_count)
+	private String cart_date;   //»ı¼ºÀÏÀÚ
 	
 	public void setUser(int user_no, String user_name) {
 		this.user_no = user_no;

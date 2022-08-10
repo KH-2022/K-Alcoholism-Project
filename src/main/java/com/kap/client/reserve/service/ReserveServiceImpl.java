@@ -14,7 +14,7 @@ public class ReserveServiceImpl implements ReserveService {
 	@Setter(onMethod_ = @Autowired)
 	private ReserveDao reserveDao;
 
-	/* ì˜ˆì•½ ì²˜ë¦¬ êµ¬í˜„ */
+	/* ¿¹¾à Ã³¸® ±¸Çö */
 	@Override
 	public int breweryReserve(ReserveVO rvo) {
 		int result = 0;
@@ -22,7 +22,7 @@ public class ReserveServiceImpl implements ReserveService {
 		return result;
 	}
 
-	/* ì˜ˆì•½ì •ë³´ ìƒì„¸ ì¡°íšŒ */
+	/* ¿¹¾àÁ¤º¸ »ó¼¼ Á¶È¸ */
 	@Override
 	public ReserveVO reserveDetail(ReserveVO rvo) {
 		ReserveVO detail = null;
