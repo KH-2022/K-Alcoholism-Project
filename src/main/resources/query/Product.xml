@@ -17,7 +17,7 @@
 		order by pd_id desc
 	</select>-->
 	
-	<!--  게시판 리스트 조회(페이징 처리와 검색 처리) -->
+	<!-- 상품 리스트 조회(페이징 처리와 검색 처리) -->
 	<select id="productList" parameterType="product" resultType="product">
 		<![CDATA[ 
 		SELECT
@@ -37,14 +37,14 @@
 	</select>
 	
 	<sql id="productSearch">
-		<if test="search == 'pd_degree'">
-			<![CDATA[ pd_degree LIKE '%' || #{keyword} || '%' ]]>
-		</if>
-		<if test="search == 'pd_price'">
-			<![CDATA[ pd_price LIKE '%' || #{keyword} || '%' ]]>
+		<if test="search == 'pd_name'">
+			<![CDATA[ pd_name LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 		<if test="search == 'pd_sort'">
 			<![CDATA[ pd_sort LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'pd_degree'">
+			<![CDATA[ pd_degree LIKE #{keyword} ]]>
 		</if>
 	</sql>
 
@@ -59,8 +59,10 @@
 	<!-- 상품상세리스트 조회 -->
 	<select id="productDetail" parameterType="product" resultType="product">
 		/* Product - productDetail */
-		SELECT pd_id, br_id, pd_name, pd_price, pd_sort, pd_degree, pd_volume, pd_info, to_char(pd_date, 'YYYY-MM-DD') as pd_date
-		FROM Product
+		SELECT pd_id, br_id, pd_name,
+			(SELECT br_name FROM brewery WHERE br_id = product.br_id) AS br_name,
+			pd_price, pd_sort, pd_degree, pd_volume, pd_info, pd_image, to_char(pd_date, 'YYYY-MM-DD') as pd_date
+		FROM product
 		WHERE pd_id = #{pd_id}
 	</select>
 	

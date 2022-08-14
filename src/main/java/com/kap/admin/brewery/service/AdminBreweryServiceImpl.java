@@ -25,6 +25,13 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		return aList;
 	}
 	
+	@Override
+	public int breweryListCnt(BreweryVO bvo) {
+		int count = 0;
+		count = breweryDao.breweryListCnt(bvo);
+		return count;
+	}
+	
 	//글입력구현
 	@Override
 	public int breweryInsert(BreweryVO bvo) throws Exception{
@@ -88,11 +95,5 @@ public class AdminBreweryServiceImpl implements AdminBreweryService {
 		result = breweryDao.breweryDelete(bvo.getBr_id());
 		return result;
 	}
-
-	
-	
-
-	
-
 
 }

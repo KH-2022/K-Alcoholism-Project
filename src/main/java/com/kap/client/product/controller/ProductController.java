@@ -2,12 +2,14 @@ package com.kap.client.product.controller;
 
 import java.util.List;
 
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kap.client.product.service.ProductService;
 import com.kap.client.product.vo.ProductVO;
@@ -28,9 +30,9 @@ public class ProductController {
 	 * 요청 URL : http://localhost:8080/product/productList
 	 ***************************************************/
 	@RequestMapping(value="/productList", method = RequestMethod.GET)
-	public String productList(@ModelAttribute ProductVO pvo, Model model) {
+	public String productList(@ModelAttribute("data") ProductVO pvo, Model model) {
 		log.info("productList 호출 성공");
-		pvo.setAmount(16);
+		pvo.setAmount(9);
 		
 		// 전체 레코드 조회
 		List<ProductVO> productList = productService.productList(pvo);
@@ -58,4 +60,16 @@ public class ProductController {
 		return "product/productDetail";
 	}
 	
+	/*******************************************************
+	 * 메인페이지 상품 목록 구현
+	 *******************************************************/
+	@ResponseBody
+	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<ProductVO> mainProduct() {
+		log.info("mainProduct 호출 성공");
+		ProductVO pvo = new ProductVO();
+		pvo.setAmount(9);
+		List<ProductVO> entity = productService.productList(pvo);
+		return entity;
+	}
 }

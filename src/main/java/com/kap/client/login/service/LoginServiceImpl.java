@@ -2,8 +2,8 @@ package com.kap.client.login.service;
 
 import org.springframework.stereotype.Service;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.login.dao.LoginDao;
-import com.kap.client.login.vo.LoginVO;
 
 import lombok.AllArgsConstructor;
 
@@ -14,8 +14,8 @@ public class LoginServiceImpl implements LoginService {
 	private LoginDao loginDao;
 	
 	@Override
-	public LoginVO loginProcess(LoginVO login) {
-		LoginVO clientLogin = loginDao.loginProcess(login);
+	public MemberVO loginProcess(MemberVO login) {
+		MemberVO clientLogin = loginDao.loginProcess(login);
 		
 		return clientLogin;
 	}

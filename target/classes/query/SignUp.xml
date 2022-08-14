@@ -12,7 +12,7 @@
 		from kap_user where user_email = #{user_email}
 	</select>
 	
-	<insert id="signUpInsert" parameterType="signUp">
+	<insert id="signUpInsert" parameterType="member">
 		<selectKey keyProperty="user_no" resultType="int" order="BEFORE">
 			select user_seq.nextval from dual
 		</selectKey>

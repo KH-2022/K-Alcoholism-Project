@@ -4,7 +4,7 @@
 			$(function() {
 				/* 예약목록 확인 버튼 클릭 시 처리 이벤트 */
 				$("#reserveListBtn").click(function() {
-					//마이페이지의 예약목록으로 이동
+					location.href = "/myPage/reserve";
 				});
 				
 				/* 양조장 목록 버튼 클릭 시 처리 이벤트 */

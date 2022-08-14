@@ -61,31 +61,6 @@
 					}
 				}); //탈퇴 버튼 종료
 				
-				$("#editAddBtn").click(function(){
-					
-					if($("#user_add").val() == "${login.user_add}" && $("#user_detailAdd").val() == "${login.user_detailAdd}"){
-						$("#editAddMsg").text("주소를 변경 후 등록해주세요.").css("color","red");
-						return false;
-					} else {
-						$("#editAddMsg").text("");
-					}
-					
-					$("#editAddForm").attr({
-						"method" :"post",
-						"action" : "/myPage/editAdd"
-					});
-					$("#editAddForm").submit();
-				}); // 배송지 수정 종료
-				
-				$("#replyInsertBtn").click(function(e){
-					e.preventDefault();
-					
-					let popUrl = "/myPage/replyPop";
-					let popOption = "width = 650px, height=550px, top=300px, left=300px, scrollbars=yes, status=no, menubar=no, toolbar=no, resizable=no";
-					
-					window.open(popUrl,"댓글 작성",popOption);
-				});
-				
 				$("#pills-order-tab").click(function(){
 					location.href = "/myPage/myPage";
 				});
@@ -99,7 +74,7 @@
 					location.href = "/reply/reply";
 				});
 				$("#pills-account-tab").click(function(){
-					location.href = "/myPage/account";
+					location.href = "/myPage/accountCheck";
 				});
 				$("#pills-address-tab").click(function(){
 					location.href = "/myPage/add";
@@ -197,7 +172,7 @@
 								<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 								<li><a id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 								<li><a id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 								<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 								<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 								<li><a class="active" id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>

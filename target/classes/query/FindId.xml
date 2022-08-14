@@ -5,5 +5,18 @@
 	<select id="findId" parameterType="String" resultType="String">
 		select user_id from kap_user where user_name=#{user_name} and user_email =#{user_email}
 	</select>
-
+	
+	<select id="readClient" parameterType ="member" resultType="member">
+		select user_email from kap_user where user_id=#{user_id}
+	</select>
+	
+	<select id="idCheck" parameterType ="String" resultType ="String">
+		select user_id from kap_user where user_id=#{user_id}
+	</select>
+	
+	<update id="updatePw" parameterType ="member" >
+		update kap_user set user_pwd=#{user_pwd} 
+		where user_id=#{user_id}
+	</update>
+	
 </mapper>

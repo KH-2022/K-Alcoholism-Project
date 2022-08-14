@@ -14,6 +14,4 @@ public interface CartService {
 
 	public List<CartVO> cartList(CartVO cvo);
 
-	public int findCartGoods(CartVO cvo);
-
 }

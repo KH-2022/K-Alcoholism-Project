@@ -1,34 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
-		integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-	
 		<link href="/resources/include/dist/assets/css/helper.css" rel="stylesheet">
 		<link href="/resources/include/dist/assets/css/main.css" rel="stylesheet">
-		<style>
-			/* .page-section{
-				max-width: 680px;
-				margin-top: 80px;
-				padding: 32px;
-				background: #fff;
-			 	-webkit-border-radius: 10px;
-	     	 	-moz-border-radius: 10px;
-    			border-radius: 10px;
-		     	-webkit-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-		      	-moz-box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15);
-		      	box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
-			}
-			.page-section h4 {
-				text-align:center;
-			} */
-			.page-section{
-			
-			}
-		</style>
-		
 		<!-- 다음 api -->
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		
 		<script type ="text/javascript">
 			$(function(){
 				$("#signUpForm").submit(function(){
@@ -226,7 +201,7 @@
 					let pwd1 = $("#user_pwd").val();
 					let pwd2 = $('#pwdChk').val();
 					
-					if(pwd1 != "" || pwd2 != ""){
+					if(pwd1 != "" && pwd2 != ""){
 						if(pwd1 == pwd2){
 							$("#pwdChkMsg").text("비밀번호가 일치합니다.").css("color","green");
 						} else {
@@ -270,26 +245,22 @@
 						$("#telMsg").text("");
 					}
 				});
-				
 			});//메인메서드 종료
 			
 		    function execDaumPostcode() {
 		        new daum.Postcode({
 		            oncomplete: function(data) {
 		                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
 		                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
 		                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 		                var addr = ''; // 주소 변수
 		                var extraAddr = ''; // 참고항목 변수
-
 		                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
 		                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
 		                    addr = data.roadAddress;
 		                } else { // 사용자가 지번 주소를 선택했을 경우(J)
 		                    addr = data.jibunAddress;
 		                }
-
 		                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
 		                if(data.userSelectedType === 'R'){
 		                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
@@ -311,7 +282,6 @@
 		                } else {
 		                    document.getElementById("user_extraAdd").value = '';
 		                }
-
 		                // 우편번호와 주소 정보를 해당 필드에 넣는다.
 		                document.getElementById("user_postcode").value = data.zonecode;
 		                document.getElementById("user_add").value = addr;
@@ -324,7 +294,7 @@
 	</head>
 	<body>
 		<%-- 상단 디자인 영역 --%>
-		<div class="hero page-inner overlay" style="background-image: url('/resources/images/main_bg_2.jpg');">
+		<div class="hero page-inner overlay" style="background-image: url('/resources/images/main_bg_3.jpg');">
 			<div class="container">
 				<div class="row justify-content-center align-items-center">
 					<div class="col-lg-9 text-center mt-5">
@@ -334,7 +304,7 @@
 			</div>
 		</div>
 	
-		<div class="page-section">
+		  <div class="page-section">
 			<div class="container">
 				<div class="row" style="float: none; margin:100 auto;">
 					<div class="col-sm-12 col-md-12 col-lg-6 col-xs-12 mt-30 mb-30" style="float: none; margin:0 auto;">

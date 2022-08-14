@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.reply.dao.ReplyDao">
+	
+	<select id="reserveManage" parameterType="reserve" resultType="reserve">
+		<![CDATA[ 
+			SELECT * 
+	    	FROM (
+	        	SELECT
+	          	 	 A.*, rownum AS rnum
+				        FROM 
+				        (
+				            SELECT
+				                r.user_no,
+				                r.rsv_no,
+				                b.br_name,
+				                b.br_id,
+				                (SELECT user_id FROM kap_user WHERE user_no = r.user_no) AS user_id,
+				                r.rsv_day,
+				                r.rsv_time,
+				                r.rsv_count,
+				                r.rsv_tel,
+				                r.rsv_price,
+				                r.rsv_name,
+				                r.rsv_state,
+				                r.rsv_fin_date,
+				                r.rsv_reply_yn,
+				                (select delete_yn from kap_user where user_no = r.user_no) as delete_yn
+				            FROM reserve r LEFT OUTER JOIN brewery b
+				            ON r.br_id = b.br_id
+				            ORDER BY r.rsv_no desc
+				        ) A
+				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no} and delete_yn ='N' and rsv_reply_yn='N'
+				    )WHERE rnum > (#{pageNum} - 1) * #{amount}  
+		    ]]>
+	</select>
+	
+	<select id="brReplyForm" parameterType ="brewery" resultType ="brewery">
+		select br_id, br_thumb, br_name
+		from brewery
+		where br_id = #{br_id}
+	</select>
+	
+	<insert id="replyInsert" parameterType="reply">
+		<selectKey keyProperty="pd_review_no" resultType="int" order="BEFORE">
+			select pd_r_seq.nextval from dual
+		</selectKey>
+		insert into pd_review(pd_review_no, user_no, pd_id, pd_review_content, pd_review_file, pd_review_thumb)
+		values(#{pd_review_no}, #{user_no}, 1, #{pd_review_content}, #{pd_review_file}, #{pd_review_thumb} )
+	</insert>
+	
+	<insert id="bReplyInsert" parameterType="breply">
+		<selectKey keyProperty="br_review_no" resultType="int" order="BEFORE">
+			select br_r_seq.nextval from dual
+		</selectKey>
+		insert into br_review(br_review_no, user_no, br_id, br_review_content, br_review_file, br_review_thumb)
+		values(#{br_review_no}, #{user_no}, #{br_id}, #{br_review_content}, #{br_review_file}, #{br_review_thumb} )
+	</insert>
+	
+	<update id="reserveUpdate" parameterType="reserve">
+		update reserve set rsv_reply_yn = 'Y'
+ 		where rsv_no = #{rsv_no}
+	</update>
+	
+	<select id="replyList" parameterType ="reply" resultType="reply">
+		select p.pd_name, pr.pd_review_no, pr.user_no, pr.pd_id, pr.pd_review_content, pr.pd_review_file, pr.pd_review_thumb, to_char(pr.pd_review_date, 'YYYY-MM-DD HH24:MI')as pd_review_date
+		from pd_review pr left outer join product p
+		on pr.pd_id = p.pd_id
+		where pr.user_no = #{user_no}
+		order by pd_review_no desc
+	</select>
+	
+	<select id="reserveList" parameterType ="breply" resultType="breply">
+		select b.br_name, br.br_review_no, br.user_no, br.br_id, br.br_review_content, br.br_review_file, br.br_review_thumb, to_char(br.br_review_date, 'YYYY-MM-DD HH24:MI')as br_review_date
+		from br_review br left outer join brewery b
+		on br.br_id = b.br_id
+		where br.user_no = #{user_no}
+		order by br_review_no desc
+	</select>
+	
+	<select id="replyUpdateForm" parameterType ="reply" resultType="reply">
+		select p.pd_name, pr.pd_review_no, pr.user_no, pr.pd_id, pr.pd_review_content, pr.pd_review_file, pr.pd_review_thumb, to_char(pr.pd_review_date, 'YYYY-MM-DD HH24:MI')as pd_review_date
+		from pd_review pr left outer join product p
+		on pr.pd_id = p.pd_id
+		where pr.pd_review_no = #{pd_review_no}
+		order by pd_review_no desc
+	</select>
+	
+	<select id="bReplyUpdateForm" parameterType ="breply" resultType="breply">
+		select p.pd_name, br.br_review_no, br.user_no, br.br_id, br.br_review_content,br.br_review_file, br.br_review_thumb, to_char(br.br_review_date, 'YYYY-MM-DD HH24:MI')as br_review_date
+		from br_review br left outer join product p
+		on br.br_id = p.pd_id
+		where br.br_review_no = #{br_review_no}
+		order by br_review_no desc
+	</select>
+	
+	<update id="replyUpdate" parameterType="reply">
+		update pd_review set pd_review_content = #{pd_review_content}, pd_review_date = sysdate
+		<if test="pd_review_thumb != ''">
+			, pd_review_thumb =#{pd_review_thumb}
+		</if>
+		<if test="pd_review_file != ''">
+			, pd_review_file =#{pd_review_file}
+		</if>
+		where pd_review_no = #{pd_review_no}
+	</update>
+	
+	<update id="bReplyUpdate" parameterType="breply">
+		update br_review set br_review_content = #{br_review_content}, br_review_date = sysdate
+		<if test="br_review_thumb != ''">
+			, br_review_thumb =#{br_review_thumb}
+		</if>
+		<if test="br_review_file != ''">
+			, br_review_file =#{br_review_file}
+		</if>
+		where br_review_no = #{br_review_no}
+	</update>
+	
+	<delete id="replyDelete" parameterType="reply">
+		delete from pd_review
+		where pd_review_no = #{pd_review_no}
+	</delete>
+	
+	<delete id="bReplyDelete" parameterType="breply">
+		delete from br_review
+		where br_review_no = #{br_review_no}
+	</delete>
+	
+</mapper>

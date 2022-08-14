@@ -20,21 +20,24 @@
 				});
 			});
 		</script>
-		<style>
-			.no-rsvReq {
-				font-size: 0.8em;
-				color: gray;
-			}
-		</style>
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header"><h3 class="text-center">체험 예약 상세 정보</h3></div>
+			<div class="contentTit page-header text-center">
+				<h2>체험 예약 상세 정보</h2>
+			</div>
 		
 			<%-- 예약 수정/취소 시 예약번호를 넘겨주기 위한 form --%>
 			<form id="formData" name="formData" method="post">
 				<input type="hidden" name="rsv_no" value="${detail.rsv_no}" />
 			</form>
+			
+			<%-- 버튼 --%>
+			<div class="btnGroup contentBtn text-right">
+				<button type="button" id="updateFormBtn" class="btn btn-primary">예약 수정</button>
+				<button type="button" id="reserveCancelBtn" class="btn btn-primary">예약 취소</button>
+				<button type="button" id="reserveListBtn" class="btn btn-primary">예약정보 목록</button>
+			</div>
 			
 			<%-- 예약정보 상세 --%>
 			<div class="contentTB text-center">
@@ -66,26 +69,17 @@
 						<td class="col-md-2 text-left">${detail.rsv_tel}</td>
 						<td class="col-md-1">요청사항</td>
 						<td class="col-md-2 text-left">
-							<c:choose>
-								<c:when test="${not empty detail.rsv_request}">
-									${detail.rsv_request}
-								</c:when>
-								<c:otherwise>
-									<span class="no-rsvReq">요청사항 없음</span>
-								</c:otherwise>
-							</c:choose>
+							<c:if test="${not empty detail.rsv_request}">
+								${detail.rsv_request}
+							</c:if>
+							<c:if test="${empty detail.rsv_request}">
+								<span class="no-detail">요청사항 없음</span>
+							</c:if>
 						</td>
 						<td class="col-md-1">예약상태</td>
 						<td class="col-md-1 text-left">${detail.rsv_state}</td>
 					</tr>
 				</table>
-			</div>
-			
-			<%-- 버튼 모음 --%>
-			<div class="text-right">
-				<button type="button" id="updateFormBtn" class="btn btn-success">예약 수정</button>
-				<button type="button" id="reserveCancelBtn" class="btn btn-success">예약 취소</button>
-				<button type="button" id="reserveListBtn" class="btn btn-success">목록</button>
 			</div>
 		</div>
 	</body>

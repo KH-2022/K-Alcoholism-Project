@@ -12,12 +12,22 @@
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
 		<link rel="stylesheet" href="/resources/include/css/star.css" />
 		<style>
-			.container {
-				/* width: 500px;
-				margin: 20px auto; */
+			.over {
+				width: 350px;
 			}
 			hr{
 				width:1000px;
+			}
+			li:hover{
+				background-color: #666362;
+				transition: all 0.65s;
+				font-weight: bold;
+			}
+			a:link{
+				color:black;
+			}
+			a:visited{
+				color:black;
 			}
 			.tab_title li {
 				font-size: 35 px;
@@ -28,11 +38,6 @@
 				cursor: pointer;
 				text-align: center;
 				border: 1px solid #bebebe;
-			}
-			
-			.tab_title li.on {
-				background-color: #212121;
-				font-weight: bold;
 			}
 			
 			.tab_cont {
@@ -89,7 +94,7 @@
 					location.href = "/reply/reply";
 				});
 				$("#pills-account-tab").click(function() {
-					location.href = "/myPage/account";
+					location.href = "/myPage/accountCheck";
 				});
 				$("#pills-address-tab").click(function() {
 					location.href = "/myPage/add";
@@ -174,6 +179,7 @@
 			<!-- container -->
 		</div>
 		<!--====== Breadcrumb Part Ends ======-->
+		
 		<!--====== My Account Part Start ======-->
 		<section class="my-account-area pt-10">
 			<div class="container-fluid custom-container">
@@ -184,7 +190,7 @@
 								<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 								<li><a id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 								<li><a id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-								<li><a class="active"id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+								<li><a class="active"id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 								<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 								<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 								<li><a id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>
@@ -203,11 +209,9 @@
 										<div class="container">
 											<ul class="tab_title">
 												<li class="on account-table text-center mt-30 table-responsive">
-													<!-- <a href="reply"> 리뷰 작성 </a> -->
 													<a href="reply"> 리뷰 작성 </a>
 												</li>
 												<li class="on account-table text-center mt-30 table-responsive">
-													<!-- <a href="replyList"> 작성한 리뷰 </a> -->
 													<a href="replyList"> 작성한 리뷰 </a> 
 												</li>
 											</ul>
@@ -215,30 +219,30 @@
 											<div id="viewReview" class="viewReview">
 											<table class="table tab_cont">
 											<c:choose>
-												<c:when test="${not empty replyList}">
+												<c:when test="${not empty pdReplyList}">
 												<thead class="head">
-													<tr>
-														<th class="pd_review_thumb">사진</th>
-														<th class="pd_name">제품명</th>
-														<th class="pd_review_content">내용</th>
-														<th class="pd_review_date">날짜</th>
-														<th class="수정/삭제">수정/삭제</th>
+													<tr class="text-center" style=padding:40px;>
+														<th class="col-md-2">사진</th>
+														<th class="col-md-2">제품명</th>
+														<th class="col-md-4">내용</th>
+														<th class="col-md-2">날짜</th>
+														<th class="col-md-2">수정/삭제</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="reply" items="${replyList}" varStatus="status">
-														<input type="hidden" name="pd_review_no" name="pd_review_no" value="${reply.pd_review_no}" />
-														<tr class="text-center" data-num="${reply.pd_review_no}">
+													<c:forEach var="pdReply" items="${pdReplyList}" varStatus="status">
+														<input type="hidden" name="pd_review_no" name="pd_review_no" value="${pdReply.pd_review_no}" />
+														<tr class="text-center" data-num="${pdReply.pd_review_no}">
 															<td>
-																<c:if test="${not empty reply.pd_review_thumb}">
-																	<img src="/uploadStorage/pdReview/thumbnail/${reply.pd_review_thumb}" />
+																<c:if test="${not empty pdReply.pd_review_thumb}">
+																	<img src="/uploadStorage/pdReview/thumbnail/${pdReply.pd_review_thumb}" />
 																</c:if>
 															</td>
-															<td>${reply.pd_name}</td>
-															<td>${reply.pd_review_content}</td>
-															<td>${reply.pd_review_date}</td>
+															<td><a href="/product/productDetail?pd_id=${pdReply.pd_id}">${pdReply.pd_name}</a></td>
+															<td class="over">${pdReply.pd_review_content}</td>
+															<td>${pdReply.pd_review_date}</td>
 															<td>
-																<a href="replyUpdateForm?pd_review_no=${reply.pd_review_no}">수정</a> / 
+																<a href="replyUpdateForm?pd_review_no=${pdReply.pd_review_no}">수정</a> / 
 																<a href="javascript:void(0);" onclick="replyDelete();">삭제</a>
 															</td>
 														</tr>
@@ -257,30 +261,30 @@
 												
 														<table class="table tab_cont">
 														<c:choose>
-															<c:when test="${not empty reserveList}">
+															<c:when test="${not empty brReplyList}">
 															<thead class ="head">
-																<tr>
-																	<th class="br_review_thumb">사진</th>
-																	<th class="br_name">양조장</th>
-																	<th class="br_review_content">내용</th>
-																	<th class="br_review_date">날짜</th>
-																	<th class="수정/삭제">수정/삭제</th>
+																<tr class="text-center">
+																	<th class="col-md-2">사진</th>
+																	<th class="col-md-2">양조장</th>
+																	<th class="col-md-4">내용</th>
+																	<th class="col-md-2">날짜</th>
+																	<th class="col-md-2">수정/삭제</th>
 																</tr>
 															</thead>
 															<tbody>
-																<c:forEach var="reserve" items="${reserveList}" varStatus="status">
-																<input type="hidden" name="br_review_no" name="br_review_no" value="${reserve.br_review_no}" />
-																	<tr class="text-center" data-num="${reserve.br_review_no}">
+																<c:forEach var="brReply" items="${brReplyList}" varStatus="status">
+																<input type="hidden" name="br_review_no" name="br_review_no" value="${brReply.br_review_no}" />
+																	<tr class="text-center" data-num="${brReply.br_review_no}">
 																		<td>
-																			<c:if test="${not empty reserve.br_review_thumb}">
-																				<img src="/uploadStorage/br_review/thumbnail/${reserve.br_review_thumb}" />
+																			<c:if test="${not empty brReply.br_review_thumb}">
+																				<img src="/uploadStorage/br_review/thumbnail/${brReply.br_review_thumb}" />
 																			</c:if>
 																		</td>
-																		<td>${reserve.br_name}</td>
-																		<td>${reserve.br_review_content}</td>
-																		<td>${reserve.br_review_date}</td>
+																		<td><a href="/brewery/breweryDetail?br_id=${brReply.br_id}">${brReply.br_name}</a></td>
+																		<td class="over">${brReply.br_review_content}</td>
+																		<td>${brReply.br_review_date}</td>
 																		<td>
-																			<a href="bReplyUpdateForm?br_review_no=${reserve.br_review_no}">수정</a> / 
+																			<a href="bReplyUpdateForm?br_review_no=${brReply.br_review_no}">수정</a> / 
 																			<a href="javascript:void(0);" onclick="bReplyDelete();">삭제</a>
 																		</td>
 																	</tr>

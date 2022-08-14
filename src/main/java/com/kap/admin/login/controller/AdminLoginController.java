@@ -59,7 +59,7 @@ public class AdminLoginController {
 		
 		if(adminLogin != null) {
 			model.addAttribute("adminLogin", adminLogin);
-			url = "/admin/product/productList";
+			url = "/admin/member/memberList";
 		} else {
 			ras.addFlashAttribute("errorMsg", "로그인 실패");
 			url = "/admin/login";

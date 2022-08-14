@@ -12,27 +12,18 @@
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
 		<link rel="stylesheet" href="/resources/include/css/star.css"/>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+		<style>
+		.70{
+			font-size:10px;
+		} 
+		</style>
 		<script>
 			$(function(){
-				
-				let errorMsg = "${errorMsg}";
-				if(errorMsg != ""){
-					alert(errorMsg);
-					errorMsg = "";
+				let sendMsg = "${sendMsg}";
+				if(sendMsg != ""){
+					alert(sendMsg);
+					sendMsg = "";
 				}
-				
-				let updateMsg = "${updateMsg}";
-				if(updateMsg != ""){
-					alert(updateMsg);
-					updateMsg = "";
-				}
-				
-				let WithdrawalMsg = "${WithdrawalMsg}";
-				if(WithdrawalMsg != ""){
-					alert(WithdrawalMsg);
-					WithdrawalMsg = "";
-				}
-				
 				
 				$("#pills-order-tab").click(function(){
 					location.href = "/myPage/myPage";
@@ -47,7 +38,7 @@
 					location.href = "/reply/reply";
 				});
 				$("#pills-account-tab").click(function(){
-					location.href = "/myPage/account";
+					location.href = "/myPage/accountCheck";
 				});
 				$("#pills-address-tab").click(function(){
 					location.href = "/myPage/add";
@@ -56,7 +47,22 @@
 					location.href = "/myPage/withdrawal";
 				});
 				
+				$(".paginate_button a").click(function(e) {
+					e.preventDefault(); //원래 가진 이벤트 처리 배제
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href")); //클릭한 <a>의 href 속성값을 가져와 form의 pageNum 파라미터값을 갱신
+					goPage();
+				});
+				
 			}); //메인 메서드 종료
+			
+			
+			function goPage() {
+				$("#searchForm").attr({
+					"method" : "get",
+					"action" : "/myPage/reserve"
+				});
+				$("#searchForm").submit();
+			}
 		</script>
 	</head>
 	<body>
@@ -85,6 +91,7 @@
 			<!-- container -->
 		</div>
 		<!--====== Breadcrumb Part Ends ======-->
+		
 		<!--====== My Account Part Start ======-->
 		
 		<section class="my-account-area pt-10">
@@ -96,7 +103,7 @@
 								<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 								<li><a class="active" id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 								<li><a id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 								<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 								<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 								<li><a id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>
@@ -109,21 +116,67 @@
 						<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 						
 								<div class="tab-pane fade show active" id="pills-rez" role="tabpanel" aria-labelledby="pills-rez-tab">
-									<form id="editAddForm">
-									<input type="hidden" name="user_no" id="user_no" value="${login.user_no}" /> 
+										<form id="searchForm" name="searchForm" class="form-inline">
+											<%-- 페이징 처리를 위한 파라미터 --%>
+											<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
+											<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
+										</form>
 										<div class="my-account-dashboard account-wrapper">
 											<h4 class="account-title">체험 예약 정보</h4>
-											<div class="welcome-dashboard">
-												<p>
-													Hello,<strong>Alex Tuntuni</strong>(If Not <strong>Tuntuni!</strong><a
-														href="#">Logout</a>)
-												</p>
+												<div class="account-table text-center mt-30 table-responsive">
+												<table class="table">
+													<c:choose>
+													<c:when test="${not empty reserveList}">
+													<thead>
+														<tr>
+															<th class="col-md-1">예약일</th>
+															<th class="col-md-1">예약시간</th>
+															<th class="col-md-1">예약인원</th>
+															<th class="col-md-3">양조장</th>
+															<th class="col-md-1">예약자명</th>
+															<th class="col-md-2">예약자번호</th>
+															<th class="col-md-1">총금액</th>
+															<th class="col-md-1">예약상태</th>
+															<th class="col-md-1">기타</th>
+														</tr>
+													</thead>
+															<tbody>
+																<c:forEach var="reserve" items="${reserveList}" varStatus="status">
+																	<tr class="text-center" data-num="${reserve.rsv_no}">
+																		<td>${reserve.rsv_day}</td>
+																		<td>${reserve.rsv_time}</td>
+																		<td>${reserve.rsv_count}명</td>
+																		<td style=font-weight:bold;><a href="/brewery/breweryDetail?br_id=${reserve.br_id}">${reserve.br_name}</a></td>
+																		<td>${reserve.rsv_name}님</td>
+																		<td>${reserve.rsv_tel}</td>
+																		<td>${reserve.rsv_price}원</td>
+																		<td>${reserve.rsv_state}</td>
+																		<c:if test="${reserve.rsv_state eq '예약 완료'}">
+																			<td style=padding:0px;>
+																				<a href="/reply/reply">예약취소</a>  
+																			</td>
+																		</c:if>
+																		<c:if test="${reserve.rsv_state eq '체험 완료'}">
+																			<td style=padding:0px;>
+																				<a href="/reply/reply">리뷰작성</a> 
+																			</td>
+																		</c:if>
+																	</tr>
+																</c:forEach>
+															</c:when>
+															<c:otherwise>
+																<tr>
+																	<td colspan="12" class="tac text-center">양조장 예약 내역이 존재하지 않습니다.</td>
+																</tr>
+															</c:otherwise>
+														</c:choose>
+													</tbody>
+												</table>
 											</div>
-											<p class="mt-25">From your account dashboard. you can easily
-												check &amp; view your recent orders,manage your shipping and
-												billing addresses and edit your password and account details.</p>
-										</div>
-									</form>
+										<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
+										startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
+										prev="${pageMaker.prev}" next="${pageMaker.next}" />
+									</div>
 								</div>
 							</div>
 						</div>

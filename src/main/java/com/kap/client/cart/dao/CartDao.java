@@ -14,8 +14,6 @@ public interface CartDao {
 
 	public List<CartVO> cartList(CartVO cvo);
 
-	public int findCartGoods(CartVO cvo);
-
-
+	public CartVO checkCart(CartVO cvo);
 
 }

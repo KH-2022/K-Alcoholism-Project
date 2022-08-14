@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.review.dao.ReviewDao">
+
+	<!-- 특정 전통주에 대한 후기 전체 조회 -->
+	<select id="pdReviewList" parameterType="reply" resultType="reply">
+		SELECT pd_review_no, pd_id, user_no,
+		    REGEXP_REPLACE((SELECT user_id FROM kap_user WHERE user_no = pd_review.user_no), '.', '*', 5) AS user_id,
+		    pd_review_content, pd_review_file, TO_CHAR(pd_review_date, 'YYYY-MM-DD') AS pd_review_date
+		FROM pd_review
+		WHERE pd_id = #{pd_id}
+	</select>
+	
+	<!-- 특정 양조장에 대한 후기 전체 조회 -->
+	<select id="brReviewList" parameterType="breply" resultType="breply">
+		SELECT br_review_no, br_id, user_no,
+		    REGEXP_REPLACE((SELECT user_id FROM kap_user WHERE user_no = br_review.user_no), '.', '*', 5) AS user_id,
+		    br_review_content, br_review_file, TO_CHAR(br_review_date, 'YYYY-MM-DD') AS br_review_date
+		FROM br_review
+		WHERE br_id = #{br_id}
+	</select>
+	
+</mapper>

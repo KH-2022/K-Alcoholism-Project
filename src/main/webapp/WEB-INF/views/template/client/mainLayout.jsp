@@ -6,7 +6,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="Untree.co">
 		<link rel="shortcut icon" href="/resources/images/common/icon.png">
 		
 		<title>전통주 플랫폼, 전통酒의</title>
@@ -39,14 +38,108 @@
 		<link rel="stylesheet" href="/resources/include/dist/css/aos.css">
 		<link rel="stylesheet" href="/resources/include/dist/css/style.css">
 		
-		<!-- Custom CSS -->
+		<!-- Custom -->
 		<link rel="stylesheet" href="/resources/include/css/common.css">
-		
 		<script type="text/javascript">
 			$(function() {
 				/* 메인 페이지에서 메뉴바 active 설정 */
 				$(".menu-bg-wrap .site-navigation .site-menu li:eq(0)").addClass("active");
-			});
+				
+				/* 상품목록, 상품후기목록, 체험후기목록 불러오기 */
+				pdListAll();
+				/* pdReviewAll();
+				brReviewAll(); */
+				
+				/* 검색 입력 양식 enter 제거 */
+				$("#keyword").bind("keydown", function(event) {
+					if (event.keyCode == 13) {
+						event.preventDefault();
+					}
+				});
+				
+				/* 검색 조건 변경 시마다 처리할 이벤트 */
+				$("#search").change(function() {
+					$("#keyword").val("");
+					$("#keyword").focus();
+				});
+				
+				/* 검색 버튼 클릭 시 */
+				$("#searchBtn").click(function() {
+					if (!chkData("#keyword", "검색어를")) return;
+					goPage();
+				});
+				
+				/* 상품사진 클릭 시 상세페이지 이동을 위한 처리이벤트 */
+				$("productList .goDetail").click(function(){
+					let pd_id = $(this).parents(".property-item").attr("data-num");
+					$("#pd_id").val(pd_id);
+					console.log(pd_id);
+					/* $("#detailForm").attr({
+						"method" : "get",
+						"action" : "/product/productDetail"
+					});
+					$("#detailForm").submit(); */
+				});
+			}); //$함수 종료
+			
+			/* 페이지 이동을 위한 함수 */
+			function goPage() {
+				let url = "";
+				if ($("#search").val() == "pd_name") {
+					url = "/product/productList";
+				} else if ($("#search").val() == "br_name") {
+					url = "/brewery/breweryList";
+				}
+				
+				$("#searchForm").attr({
+					"method" : "get",
+					"action" : url
+				});
+				$("#searchForm").submit();
+			}
+			
+			/* 상품을 화면에 추가하기 위한 함수 */
+			function pdTemplate(pd_id, pd_name, pd_price, pd_sort, pd_image, pd_degree, pd_volume) {
+				let $div = $("#productList");
+				
+				let $element = $("#item-template").clone().removeAttr("id"); //기존의 요소를 복제하여 동적으로 추가
+				$element.attr("data-num", pd_id);
+				$element.addClass("pdList");
+				$element.find(".property-content > .price").html(pd_price + "원");
+				$element.find(".property-content > div > .sort").html(pd_sort);
+				$element.find(".property-content > div > .city").html(pd_name);
+				if (pd_image != "") {
+					let imgPath = "/uploadStorage/product/" + pd_image;
+					$element.find(".img > img").attr("src", imgPath);
+				} else {
+					$element.find(".img > img").attr("src", "/resources/images/common/noImage.jpg");
+				}
+				$element.find(".property-content > div > .specs .degree").html(pd_degree + "%");
+				$element.find(".property-content > div > .specs .volume").html(pd_volume + "ml");
+				$div.append($element);
+			}
+			
+			/* 상품 목록을 불러오는 함수 */
+			function pdListAll() {
+				$(".pdList").detach();
+				let url = "/product/all";
+				
+				$.getJSON(url, function(data) {
+					$(data).each(function() {
+						let pd_id = this.pd_id;
+						let pd_name = this.pd_name;
+						let pd_price = this.pd_price;
+						let pd_sort = this.pd_sort;
+						let pd_image = this.pd_image;
+						let pd_degree = this.pd_degree;
+						let pd_volume = this.pd_volume;
+						
+						pdTemplate(pd_id, pd_name, pd_price, pd_sort, pd_image, pd_degree, pd_volume);
+					});
+				}).fail(function() {
+					alert("상품 목록을 불러오는 데 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+				});
+			}
 		</script>
 	</head>
 	<body>
@@ -81,11 +174,11 @@
 					<div class="col-lg-9 text-center">
 						<h1 class="font-weight-bold heading" data-aos="fade-up">전통주는 전통주의에서</h1>
 						<form id="searchForm" class="narrow-w form-search d-flex align-items-stretch mb-3" data-aos="fade-up" data-aos-delay="200">
-							<select id="search">
+							<select id="search" name="search">
 								<option value="pd_name">상품명</option>
 								<option value="br_name">제조사</option>
 							</select>
-							<input type="text" id="keyword" class="form-control px-4" placeholder="무엇을 찾고 계신가요?">
+							<input type="text" id="keyword" name="keyword" class="form-control px-4" placeholder="무엇을 찾고 계신가요?">
 							<button type="button" id="searchBtn" class="btn btn-primary">
 								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 							</button>
@@ -96,6 +189,9 @@
 		</div>
 	
 		<%-- 상품 추천 --%>
+		<form id="detailForm">
+			<input type="hidden" id="pd_id" name="pd_id" />
+		</form>
 		<div class="section">
 			<div class="container">
 				<div class="row mb-5 align-items-center">
@@ -103,37 +199,35 @@
 						<h2 class="font-weight-bold text-primary heading">이 상품 어때요?</h2>
 					</div>
 					<div class="col-lg-6 text-lg-end">
-						<p><a href="/product/productList" class="btn btn-primary text-white py-3 px-4">더보기</a></p>
+						<p><a href="/product/productList" class="btn btn-primary text-white py-3 px-4">상품 더보기</a></p>
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-12">
 						<div class="property-slider-wrap">
-							<div class="property-slider">
-								<%-- 자바스크립트로 clone 요소 동적으로 추가할 예정 --%>
+							<div id="productList" class="property-slider">
 								<!-- item -->
-								<div class="property-item">
-									<a href="property-single.html" class="img">
-										<img src="" class="img-fluid">
+								<div id="item-template" class="property-item">
+									<a class="img goDetail">
+										<img class="img-fluid" />
 									</a>
 									<div class="property-content">
-										<div class="price mb-2"><span>$1,291,000</span></div>
+										<div class="price mb-2"><span></span></div>
 										<div>
-											<span class="d-block mb-2 text-black-50">5232 California Fake, Ave. 21BC</span>
-											<span class="city d-block mb-3">California, USA</span>
+											<span class="sort d-block mb-2 text-black-50"></span>
+											<span class="city d-block mb-3"></span>
 	
 											<div class="specs d-flex mb-4">
 												<span class="d-block d-flex align-items-center me-3">
-													<span class="icon-bed me-2"></span>
-													<span class="caption">2 beds</span>
+													<span class="glyphicon glyphicon-tint me-2" aria-hidden="true"></span>
+													<span class="degree caption"></span>
 												</span>
 												<span class="d-block d-flex align-items-center">
-													<span class="icon-bath me-2"></span>
-													<span class="caption">2 baths</span>
+													<span class="glyphicon glyphicon-glass me-2" aria-hidden="true"></span>
+													<span class="volume caption"></span>
 												</span>
 											</div>
-	
-											<a class="pdDetailBtn btn btn-primary py-2 px-3">See details</a>
+											<a class="goDetail btn btn-primary py-2 px-3">더보기</a>
 										</div>
 									</div>
 								</div> <!-- .item -->
@@ -173,7 +267,6 @@
 						<%-- 자바스크립트로 clone 요소 동적으로 추가할 예정 --%>
 						<div class="item">
 							<div class="testimonial">
-								<img src="" class="img-fluid rounded-circle w-25 mb-4">
 								<div class="rate">
 									<span class="icon-star text-warning"></span>
 									<span class="icon-star text-warning"></span>
@@ -203,7 +296,6 @@
 					<div class="col-md-6 text-md-end">
 						<div id="testimonial-nav">
 							<span class="prev" data-controls="prev">이전</span>
-							
 							<span class="next" data-controls="next">다음</span>
 						</div>
 					</div>
@@ -219,7 +311,6 @@
 						<%-- 자바스크립트로 clone 요소 동적으로 추가할 예정 --%>
 						<div class="item">
 							<div class="testimonial">
-								<img src="" class="img-fluid rounded-circle w-25 mb-4">
 								<div class="rate">
 									<span class="icon-star text-warning"></span>
 									<span class="icon-star text-warning"></span>
