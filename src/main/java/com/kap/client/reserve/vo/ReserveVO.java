@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper=false)
 public class ReserveVO extends CommonVO {
 	private int rsv_no; //예약번호
-	private String user_no; //회원번호
+	private int user_no; //회원번호
 	private String br_id; //양조장ID
 	private String rsv_day; //예약 날짜
 	private String rsv_time; //예약 시간
@@ -23,4 +23,8 @@ public class ReserveVO extends CommonVO {
 	
 	private String user_id; //회원번호로 받아온 회원 아이디
 	private String br_name; //양조장ID로 받아온 양조장 이름
+	
+	public void setUser(int user_no) {
+		this.user_no = user_no;
+	}
 }

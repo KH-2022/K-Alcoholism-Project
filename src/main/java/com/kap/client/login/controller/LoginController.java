@@ -1,5 +1,8 @@
 package com.kap.client.login.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,23 +13,24 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.login.service.LoginService;
-import com.kap.client.login.vo.LoginVO;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @SessionAttributes("login")
 @Log4j
 @RequestMapping("/login/*")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LoginController {
-	private LoginService loginService;
+	
+	private final LoginService loginService;
 	
 	@ModelAttribute
-	   public LoginVO login() {
-	      return new LoginVO();
+	   public MemberVO login() {
+	      return new MemberVO();
 	   }
 	   
 	   /* 로그인 화면 구현 */
@@ -39,12 +43,14 @@ public class LoginController {
 	   
 	   /* 로그인 처리 메서드 */
 	   @PostMapping("/login")
-	   public String loginProcess(LoginVO login, Model model, RedirectAttributes ras) {
-	      String url = "";
-	      LoginVO clientLogin = loginService.loginProcess(login);
+	   public String loginProcess(HttpServletRequest request, MemberVO login, Model model, RedirectAttributes ras) {
+		  HttpSession session = request.getSession();
+		  String url = "";
+		  MemberVO clientLogin = loginService.loginProcess(login);
+	      log.info("clientlogin:" + clientLogin);
 	      
 	      if(clientLogin != null) {
-	         model.addAttribute("login", clientLogin);
+	    	 session.setAttribute("login",clientLogin);
 	         url = "/";
 	      } else {
 	         ras.addFlashAttribute("errorMsg", "로그인 실패");
@@ -55,7 +61,10 @@ public class LoginController {
 	   
 	   /* 로그아웃 처리 메서드 */
 	   @RequestMapping("/logout")
-	   public String logout(SessionStatus sessionStatus) {
+	   public String logout(HttpServletRequest request, SessionStatus sessionStatus) {
+			/*
+			 * HttpSession session = request.getSession(); session.invalidate();
+			 */
 	      log.info("로그아웃 처리");
 	      sessionStatus.setComplete();
 	      return "redirect:/login/login";

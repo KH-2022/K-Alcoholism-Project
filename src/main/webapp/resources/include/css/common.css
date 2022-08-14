@@ -17,20 +17,34 @@ div.menu-bg-wrap {background-color: #00204a;}
 }
 .site-nav .site-navigation .site-menu .has-children > .dropdown > li > a {text-decoration: none;}
 img#logo {height: 100px;}
+.hero .heading {
+	font-size: 40px;
+	font-weight: 700;
+}
+div.hero.page-inner.overlay {margin-bottom: 40px;}
+
+/* search */
 .hero .form-search .btn {
 	background-color: #00204a;
 	font-size: 15px;
 }
-
 select#search {
 	outline: none;
 	margin-right: 10px;
 	border-radius: 30px;
 	padding: 10px;
 }
-.hero .heading {
-	font-size: 40px;
-	font-weight: 700;
+.form-group > select#search {margin-right: 5px;}
+.form-group > input.search-keyword {
+	height: 44px;
+	margin-right: 5px;
+	border-radius: 30px;
+	padding: 10px;
+}
+.form-group > #searchBtn {
+	height: 44px;
+	border-radius: 30px;
+	padding: 10px 15px;
 }
 
 /* body */
@@ -39,6 +53,15 @@ select#search {
 	font-weight: 700;
 }
 .reply_count { font-size: 10px; color: red; }
+.pd-thumb {height: 400px;}
+.br-thumb img {height: 300px;}
+.section > .container > .nav-tabs {
+	font-size: 18px;
+	font-weight: 400;
+}
+.section > .container > #tabContent {margin: 40px;}
+#reviewList {margin-top: 20px;}
+#reviewList .panel-img img {height: 80px;}
 
 /* footer */
 .site-footer a {text-decoration: none;}

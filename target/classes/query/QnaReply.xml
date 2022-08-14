@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.qnaReply.dao.QnaReplyDao">
+	
+	<!-- 댓글 전체 조회 -->
+	<select id="qnaReplyList" parameterType="qnaReply" resultType="qnaReply">
+		select qna_re_no, qna_no, qna_re_content,
+			to_char(qna_re_date, 'YYYY-MM-DD HH24:MI:SS') as qna_re_date
+		from qna_reply
+		where qna_no = #{qna_no}
+		order by qna_re_no asc
+	</select>
+	
+	<!-- 댓글 등록 -->
+	<insert id="qnaReplyInsert" parameterType="qnaReply">
+		/* QnaReply - qnaReplyInsert */
+		<selectKey keyProperty="qna_re_no" resultType="int" order="BEFORE">
+			select qna_reply_seq.nextval from dual
+		</selectKey>
+		insert into qna_reply(qna_re_no, qna_no, qna_re_content)
+		values(#{qna_re_no}, #{qna_no}, #{qna_re_content})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="qnaReplyUpdate" parameterType="qnaReply">
+		/* QnaReply - qnaReplyUpdate */
+		update qna_reply
+		set qna_re_content = #{qna_re_content}
+			,qna_re_date = sysdate
+		where qna_re_no = #{qna_re_no}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="qnaReplyDelete" parameterType="qnaReply">
+		/* QnaReply - qnaReplyDelete */
+		delete from qna_reply where qna_re_no = #{qna_re_no}
+	</delete>
+	
+	<!-- 댓글 개수 구하기 -->
+	<select id="qnaReplyCnt" parameterType="int" resultType="int">
+		/* QnaReply - qnaReplyCnt */
+		select count(qna_re_no) from qna_reply where qna_no = #{qna_no}
+	</select>
+	
+</mapper>

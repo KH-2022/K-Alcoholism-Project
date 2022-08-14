@@ -11,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kap.admin.brewery.service.AdminBreweryService;
 import com.kap.client.brewery.vo.BreweryVO;
+import com.kap.common.vo.PageDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -29,8 +30,16 @@ public class AdminBreweryController {
 	@RequestMapping(value="/brewery/breweryList",method=RequestMethod.GET)
 	public String breweryList(@ModelAttribute("data") BreweryVO bvo, Model model) {
 		log.info("admin breweryList 호출 성공");
+		
+		// 전체 레코드 조회
 		List<BreweryVO> breweryList = adminBreweryService.breweryList(bvo);
 		model.addAttribute("breweryList",breweryList);
+		
+		// 전체 레코드 수 구현
+		int total = adminBreweryService.breweryListCnt(bvo);
+		
+		// 페이징 처리
+		model.addAttribute("pageMaker", new PageDTO(total, bvo));
 		
 		return "admin/brewery/breweryList";
 	}

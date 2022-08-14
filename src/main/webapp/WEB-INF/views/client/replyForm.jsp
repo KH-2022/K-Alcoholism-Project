@@ -46,7 +46,7 @@
 				location.href = "/reply/reply";
 			});
 			$("#pills-account-tab").click(function() {
-				location.href = "/myPage/account";
+				location.href = "/myPage/accountCheck";
 			});
 			$("#pills-address-tab").click(function() {
 				location.href = "/myPage/add";
@@ -55,7 +55,7 @@
 				location.href = "/myPage/withdrawal";
 			});
 			
-			$("#insertBtn").click(function(){
+			$("#pdReplyinsertBtn").click(function(){
 				if(!chkData("#pd_review_content","리뷰 내용을")) return;
 				else {
 					if($("#file").val() != ""){
@@ -71,7 +71,7 @@
 				}
 			});
 			
-			$("#bReplyinsertBtn").click(function(){
+			$("#brReplyinsertBtn").click(function(){
 				if(!chkData("#br_review_content","리뷰 내용을")) return;
 				else {
 					if($("#file").val() != ""){
@@ -134,7 +134,7 @@
 							<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 							<li><a id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 							<li><a id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-							<li><a class="active"id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+							<li><a class="active"id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 							<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 							<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 							<li><a id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>
@@ -153,8 +153,8 @@
 											<div class="account-details">
 												<div class="row">
 												
-												<%-- <c:choose>
-												<c:when test="${not empty 제품결제내역}"> --%>
+												<c:choose>
+												<c:when test="${not empty orderList}">
 													<div class="col-md-6">
 														<div class="single-form">
 															<div>상품 사진란</div>
@@ -186,18 +186,22 @@
 													<div class="col-md-6">
 														<div class="single-form">
 															<button class="main-btn main-btn-2" type="button" id="cancelBtn">취소하기</button>
-															<button class="main-btn main-btn-2" type="button" id="insertBtn">등록하기</button>
+															<button class="main-btn main-btn-2" type="button" id="pdReplyinsertBtn">등록하기</button>
 														</div>
 													</div>
-										<%--	</c:when>
-												</c:choose> --%>
+												</c:when>
+												</c:choose>
 												
-												<%-- <c:choose>
-												<c:when test="${not empty 양조장결제내역}">
+												<c:choose>
+												<c:when test="${not empty brReplyForm}">
+												<input type="hidden" name="br_id" id="br_id" value="${brReplyForm.br_id}" />
+												<input type="hidden" name="rsv_no" id="rsv_no" value="${reserve.rsv_no}" />
 													<div class="col-md-6">
 														<div class="single-form">
-															<div>양조장 사진란</div>
-															<div id="br_id">1</div>
+															<div><h5 style=font-weight:bold;>${brReplyForm.br_name} 체험 서비스</h5></div>
+															<c:if test="${not empty brReplyForm.br_thumb}">
+																	<img src="/uploadStorage/brewery/thumbnail/${brReplyForm.br_thumb}" />
+															</c:if>
 														</div>
 													</div>
 													
@@ -225,11 +229,11 @@
 													<div class="col-md-6">
 														<div class="single-form">
 															<button class="main-btn main-btn-2" type="button" id="cancelBtn">취소하기</button>
-															<button class="main-btn main-btn-2" type="button" id="bReplyinsertBtn">등록하기</button>
+															<button class="main-btn main-btn-2" type="button" id="brReplyinsertBtn">등록하기</button>
 														</div>
 													</div>
 												 </c:when>
-												</c:choose> --%>
+												</c:choose>
 												
 												
 												</div>

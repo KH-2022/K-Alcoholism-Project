@@ -16,4 +16,5 @@ public class LoginVO {
 	private String user_detailAdd;
 	private String user_extraAdd;
 	private String user_date;
+	private String delete_yn;
 }

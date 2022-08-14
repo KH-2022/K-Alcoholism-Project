@@ -7,14 +7,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kap.client.login.vo.LoginVO;
+import com.kap.client.brewery.vo.BreweryVO;
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.reply.service.ReplyService;
 import com.kap.client.reply.vo.BreplyVO;
 import com.kap.client.reply.vo.ReplyVO;
-import com.kap.client.signUp.vo.SignUpVO;
+import com.kap.client.reserve.vo.ReserveVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -26,44 +28,52 @@ import lombok.extern.log4j.Log4j;
 public class ReplyController {
 	private final ReplyService replyService;
 	
-	
 	@RequestMapping(value="/reply", method = RequestMethod.GET)
-	public String review(@SessionAttribute("login") LoginVO loginMember, SignUpVO svo, Model model) {
+	public String review(@SessionAttribute("login") MemberVO loginMember, ReserveVO rvo, Model model) {
+		model.addAttribute(loginMember);
+		rvo.setUser_no(loginMember.getUser_no());
 		
-		model.addAttribute("login");
+		List<ReserveVO> reserveManage = replyService.reserveManage(rvo);
+		model.addAttribute("reserveManage",reserveManage);
+		log.info("reserveManage" + reserveManage);
+		
 		return "client/reply";
 	}
 	
 	@RequestMapping(value="/replyForm", method = RequestMethod.GET)
-	public String reviewForm(@SessionAttribute("login") LoginVO loginMember, SignUpVO svo, Model model) {
+	public String reviewForm(@RequestParam(required=false, value="br_id")Integer br_id, @SessionAttribute("login") MemberVO loginMember, BreweryVO bvo, ReserveVO rvo, Model model) {
+		model.addAttribute(loginMember);
+		rvo.setUser_no(loginMember.getUser_no());
 		
-		model.addAttribute("login");
+		BreweryVO brReplyForm = replyService.brReplyForm(bvo);
+		model.addAttribute("brReplyForm", brReplyForm);
+		model.addAttribute("reserve",rvo);
+		
 		return "client/replyForm";
 	}
 	
 	@RequestMapping(value = "/replyList", method=RequestMethod.GET)
-	public String replyList(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model){
+	public String replyList(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, BreplyVO bvo, Model model){
 		log.info("replyList 호출 성공");
 		
 		model.addAttribute(loginMember);
-		
 		rvo.setUser_no(loginMember.getUser_no());
-		vvo.setUser_no(loginMember.getUser_no());
+		bvo.setUser_no(loginMember.getUser_no());
 		
-		List<ReplyVO> replyList = replyService.replyList(rvo);
-		List<BreplyVO> reserveList = replyService.reserveList(vvo);
+		List<ReplyVO> pdReplyList = replyService.replyList(rvo);
+		List<BreplyVO> brReplyList = replyService.reserveList(bvo);
 		
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reserveList", reserveList);
+		model.addAttribute("pdReplyList", pdReplyList);
+		model.addAttribute("brReplyList", brReplyList);
 		
-		log.info("replyList : " + replyList);
-		log.info("reserveList : " + reserveList);
+		log.info("pdReplyList : " + pdReplyList);
+		log.info("brReplyList : " + brReplyList);
 		
 		return "client/replyList";
 	}
 	
 	@RequestMapping(value = "/replyInsert", method = RequestMethod.POST)
-	public String replyInsert(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, Model model) throws Exception {
+	public String replyInsert(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, Model model) throws Exception {
 		log.info("replyInsert 호출 성공");
 		
 		model.addAttribute(loginMember);
@@ -75,15 +85,16 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value = "/bReplyInsert", method = RequestMethod.POST)
-	public String bReplyInsert(@SessionAttribute("login") LoginVO loginMember, BreplyVO vvo, Model model) throws Exception {
+	public String bReplyInsert(@SessionAttribute("login") MemberVO loginMember, @RequestParam(required=false, value="rsv_no")Integer rsv_no, BreplyVO vvo, ReserveVO rvo, Model model) throws Exception {
 		log.info("bReplyInsert 호출 성공");
 		
 		model.addAttribute(loginMember);
 		vvo.setUser_no(loginMember.getUser_no());
 		
 		replyService.bReplyInsert(vvo);
+		replyService.reserveUpdate(rvo);
 		
-		return "client/reply";
+		return "redirect:/reply/reply";
 	}
 	
 	@RequestMapping(value = "/replyUpdateForm")
@@ -98,10 +109,10 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value = "/bReplyUpdateForm")
-	public String bReplyUpdateForm(@ModelAttribute("bReplyData") BreplyVO vvo, Model model) {
+	public String bReplyUpdateForm(@ModelAttribute("bReplyData") BreplyVO bvo, Model model) {
 		log.info("BreplyUpdateForm 호출 성공");
 		
-		BreplyVO updateBreply = replyService.bReplyUpdateForm(vvo);
+		BreplyVO updateBreply = replyService.bReplyUpdateForm(bvo);
 		model.addAttribute("bReplyUpdate", updateBreply);
 		
 		log.info("bUpdateReply : " + updateBreply);
@@ -110,87 +121,63 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
-	public String replyUpdate(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
+	public String replyUpdate(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, BreplyVO bvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("replyUpdate 호출 성공");
 		
 		model.addAttribute(loginMember);
 		
 		rvo.setUser_no(loginMember.getUser_no());
-		vvo.setUser_no(loginMember.getUser_no());
+		bvo.setUser_no(loginMember.getUser_no());
 		
 		replyService.replyUpdate(rvo);
 		ras.addFlashAttribute("replyData", rvo);
 		ras.addFlashAttribute("updateMsg", "리뷰를 수정하였습니다.");
 		
-		List<ReplyVO> replyList = replyService.replyList(rvo);
-		List<BreplyVO> reserveList = replyService.reserveList(vvo);
-		
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reserveList", reserveList);
-		
 		return "redirect:/reply/replyList";
 	}
 	
 	@RequestMapping(value = "/bReplyUpdate", method = RequestMethod.POST)
-	public String bReplyUpdate(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
+	public String bReplyUpdate(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, BreplyVO bvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("bReplyUpdate 호출 성공");
 		
 		model.addAttribute(loginMember);
 		
 		rvo.setUser_no(loginMember.getUser_no());
-		vvo.setUser_no(loginMember.getUser_no());
+		bvo.setUser_no(loginMember.getUser_no());
 		
-		replyService.bReplyUpdate(vvo);
+		replyService.bReplyUpdate(bvo);
 		ras.addFlashAttribute("bReplyData", rvo);
 		ras.addFlashAttribute("updateMsg", "리뷰를 수정하였습니다.");
-		
-		List<ReplyVO> replyList = replyService.replyList(rvo);
-		List<BreplyVO> reserveList = replyService.reserveList(vvo);
-		
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reserveList", reserveList);
 		
 		return "redirect:/reply/replyList";
 	}
 
 	@RequestMapping(value = "/replyDelete")
-	public String replyDelete(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
+	public String replyDelete(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, BreplyVO bvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("replyDelete 호출 성공");
 		
 		model.addAttribute(loginMember);
 		
 		rvo.setUser_no(loginMember.getUser_no());
-		vvo.setUser_no(loginMember.getUser_no());
+		bvo.setUser_no(loginMember.getUser_no());
 		
 		replyService.replyDelete(rvo);
 		ras.addFlashAttribute("updateMsg", "상품 리뷰를 삭제하였습니다.");
-		
-		List<ReplyVO> replyList = replyService.replyList(rvo);
-		List<BreplyVO> reserveList = replyService.reserveList(vvo);
-		
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reserveList", reserveList);
 		
 		return "redirect:/reply/replyList";
 	}
 	
 	@RequestMapping(value = "/bReplyDelete")
-	public String bReplyDelete(@SessionAttribute("login") LoginVO loginMember, ReplyVO rvo, BreplyVO vvo, Model model, RedirectAttributes ras) throws Exception {
+	public String bReplyDelete(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, BreplyVO bvo, Model model, RedirectAttributes ras) throws Exception {
 		log.info("bReplyDelete 호출 성공");
 		
 		model.addAttribute(loginMember);
 		
 		rvo.setUser_no(loginMember.getUser_no());
-		vvo.setUser_no(loginMember.getUser_no());
+		bvo.setUser_no(loginMember.getUser_no());
 		
-		replyService.bReplyDelete(vvo);
+		replyService.bReplyDelete(bvo);
 		ras.addFlashAttribute("updateMsg", "양조장 체험 리뷰를 삭제하였습니다.");
-		
-		List<ReplyVO> replyList = replyService.replyList(rvo);
-		List<BreplyVO> reserveList = replyService.reserveList(vvo);
-		
-		model.addAttribute("replyList", replyList);
-		model.addAttribute("reserveList", reserveList);
 		
 		return "redirect:/reply/replyList";
 	}

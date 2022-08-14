@@ -38,7 +38,7 @@ public class AdminReserveServiceImpl implements AdminReserveService {
 	public ReserveVO reserveDetail(ReserveVO rvo) {
 		ReserveVO detail = null;
 		detail = reserveDao.reserveDetail(rvo);
-		if (detail != null) {
+		if (detail != null && detail.getRsv_request() != null) {
 			detail.setRsv_request(detail.getRsv_request().toString().replaceAll("\n", "<br/>"));
 		}
 		return detail;

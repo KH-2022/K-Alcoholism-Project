@@ -46,7 +46,7 @@
 					location.href = "/reply/reply";
 				});
 				$("#pills-account-tab").click(function(){
-					location.href = "/myPage/account";
+					location.href = "/myPage/accountCheck";
 				});
 				$("#pills-address-tab").click(function(){
 					location.href = "/myPage/add";
@@ -97,7 +97,7 @@
 								<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 								<li><a id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 								<li><a class="active" id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 								<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 								<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 								<li><a id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>
@@ -117,26 +117,28 @@
 													<table class="table">
 														<thead>
 															<tr>
-																<th class="name">Product</th>
-																<th class="date">Date</th>
-																<th class="status">Expire</th>
-																<th class="action">Download</th>
+																<th class="col-md-2">문의글 번호</th>
+																<th class="col-md-8">제목</th>
+																<th class="col-md-2">날짜</th>
 															</tr>
 														</thead>
-														<tbody>
-															<tr>
-																<td>Mostarizing Oil</td>
-																<td>Aug 22,2020</td>
-																<td>Yes</td>
-																<td><a href="#">Download File</a></td>
-															</tr>
-															<tr>
-																<td>Katopeno Altuni</td>
-																<td>July 22,2020</td>
-																<td>Never</td>
-																<td><a href="#">Download File</a></td>
-															</tr>
-														</tbody>
+														<c:choose>
+															<c:when test="${not empty qnaList}"> 
+															<c:forEach var="qna" items="${qnaList}" varStatus="status">
+																	<input type="hidden" name="qna_id" name="qna_id" value="${qna.qna_no}" />
+																		<tr class="text-center" data-num="${qna.qna_no}">
+																			<td>${qna.qna_no}</td>
+																			<td><a href="/qna/qnaDetail?qna_id=${qna.qna_no}">${qna.qna_title}</a></td>
+																			<td>${qna.qna_date}</td>
+																		</tr>
+																	</c:forEach>
+																</c:when>
+																<c:otherwise>
+																	<tr>
+																		<td colspan="6" class="tac text-center">등록된 문의글이 존재하지 않습니다.</td>
+																	</tr>
+																</c:otherwise>
+															</c:choose>
 													</table>
 												</div>
 										</form>

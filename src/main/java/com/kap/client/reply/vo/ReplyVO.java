@@ -13,11 +13,12 @@ public class ReplyVO extends CommonVO {
 	private int		pd_review_no		=0;
 	private int		user_no				=0;
 	private int		pd_id				=0;
+	private String	user_id				="";
 	private String	pd_review_content 	="";
 	private String	pd_review_date;
-	private String 	pd_name ="";
+	private String 	pd_name 			="";
 	
 	private MultipartFile file;		
-	private String pd_review_thumb	= "";	
-	private String pd_review_file 	= "";	
+	private String pd_review_thumb		="";	
+	private String pd_review_file 		="";	
 }

@@ -9,8 +9,6 @@
 					$("#search").val("<c:out value='${data.search}' />");
 					$("#keyword").val("<c:out value='${data.keyword}' />");
 					
-					console.log(search + ", " + keyword);
-					
 					/* 검색 결과에서 검색단어 글자색 변경 */
 					if ($("#search").val() == "br_name") { //검색조건이 "양조장명"일 경우
 						value = "#list tr td.br_name";
@@ -24,7 +22,7 @@
 					});
 				}
 				
-				/* 입력 양식 enter 제거 */
+				/* 검색 입력 양식 enter 제거 */
 				$("#keyword").bind("keydown", function(event) {
 					if (event.keyCode == 13) {
 						event.preventDefault();
@@ -40,6 +38,7 @@
 				/* 검색 버튼 클릭 시 */
 				$("#searchBtn").click(function() {
 					if (!chkData("#keyword", "검색어를")) return;
+					$("#pageNum").val(1);
 					goPage();
 				});
 				
@@ -58,7 +57,7 @@
 				/* 다음 페이지 클릭 시 */
 				$(".paginate_button a").click(function(e) {
 					e.preventDefault(); //원래 가진 이벤트 처리 배제
-					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href")); //클릭한 <a>의 href 속성값을 가져와 form의 pageNum 파라미터값을 갱신
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href"));
 					goPage();
 				});
 			}); //$함수 종료
@@ -75,21 +74,21 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header"><h3 class="text-center">체험 예약 관리 목록</h3></div>
+			<div class="contentTit page-header"><h2 class="text-center">체험 예약 관리 목록</h2></div>
 			
 			<form id="detailForm">
 				<input type="hidden" id="rsv_no" name="rsv_no"/>
 			</form>
 			
 			<%-- ================= 검색기능 시작 ================= --%>
-			<div id="reserveSearch" class="text-right">
+			<div id="reserveSearch" class="text-right btnGroup">
 				<form id="searchForm" name="searchForm" class="form-inline">
 					<%-- 페이징 처리를 위한 파라미터 --%>
-					<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
-					<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
+					<input type="hidden" id="pageNum" name="pageNum" value="${pageMaker.cvo.pageNum}">
+					<input type="hidden" id="amount" name="amount" value="${pageMaker.cvo.amount}">
 					<%-- 검색을 위한 파라미터 --%>
 					<div class="form-group">
-						<label>검색조건</label>
+						<label>검색조건</label>&nbsp;
 						<select id="search" name="search" class="form-control">
 							<option value="br_name">양조장명</option>
 							<option value="rsv_name">예약자명</option>
@@ -108,8 +107,8 @@
 						<tr>
 							<th data-value="rsv_no" class="order text-center col-md-1">예약번호</th>
 							<th class="text-center col-md-1">회원 ID</th>
-							<th class="text-center col-md-1">양조장명</th>
-							<th class="text-center col-md-1">예약날짜</th>
+							<th class="text-center col-md-2">양조장명</th>
+							<th class="text-center col-md-2">예약날짜</th>
 							<th class="text-center col-md-1">예약시간</th>
 							<th class="text-center col-md-1">예약인원</th>
 							<th class="text-center col-md-1">총 금액</th>
@@ -123,7 +122,7 @@
 							<c:when test="${not empty reserveList}">
 								<c:forEach var="rsv" items="${reserveList}" varStatus="status">
 									<tr class="text-center" data-num="${rsv.rsv_no}">
-										<td class="goDetail"><a>${rsv.rsv_no}</a></td>
+										<td class="goDetail"><strong>${rsv.rsv_no}</strong></td>
 										<td>${rsv.user_id}</td>
 										<td class="br_name">${rsv.br_name}</td>
 										<td>${rsv.rsv_day}</td>

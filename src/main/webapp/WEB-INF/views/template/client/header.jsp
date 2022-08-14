@@ -13,10 +13,10 @@
 			<li class="has-children <c:if test="${fn:containsIgnoreCase(clientUri, '/product')}">active</c:if>">
 				<a href="/product/productList">전통주 마켓</a>
 				<ul class="dropdown">
-					<li><a href="/product/productList">탁주</a></li>
-					<li><a href="/product/productList">약주&middot;청주</a></li>
-					<li><a href="/product/productList">과실주</a></li>
-					<li><a href="/product/productList">증류주</a></li>
+					<li><a href="/product/productList?search=pd_sort&keyword=탁주">탁주</a></li>
+					<li><a href="/product/productList?search=pd_sort&keyword=약주/청주">약주&middot;청주</a></li>
+					<li><a href="/product/productList?search=pd_sort&keyword=과실주">과실주</a></li>
+					<li><a href="/product/productList?search=pd_sort&keyword=증류주">증류주</a></li>
 				</ul>
 			</li>
 			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/brewery')}">class="active"</c:if>>
@@ -26,10 +26,18 @@
 				<a href="/signUp/signUpForm">회원가입</a>
 			</li>
 			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/client/login')}">class="active"</c:if>>
-				<a href="/login/login">로그인</a>
+				<c:if test="${empty login}">
+					<a href="/login/login">로그인</a>
+				</c:if>
+				<c:if test="${not empty login}">
+					<a href="/login/logout">로그아웃</a>
+				</c:if>
 			</li>
 			<li>
 				<a href="/myPage/myPage">마이페이지</a>
+			</li>
+			<li>
+				<a href="/qna/qnaList">1:1 문의</a>
 			</li>
 			<li>
 				<a href="/cart/cartList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>

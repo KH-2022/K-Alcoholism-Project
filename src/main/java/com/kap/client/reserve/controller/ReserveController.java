@@ -1,5 +1,8 @@
 package com.kap.client.reserve.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kap.client.login.vo.LoginVO;
 import com.kap.client.reserve.service.ReserveService;
 import com.kap.client.reserve.vo.ReserveVO;
 
@@ -26,8 +30,12 @@ public class ReserveController {
 	 * 예약 처리 구현 (미완성)
 	 *******************************************************/
 	@RequestMapping(value = "/breweryReserve", method = RequestMethod.POST)
-	public String breweryReserve(@ModelAttribute ReserveVO rvo, Model model, RedirectAttributes reAttr) throws Exception {
+	public String breweryReserve(@ModelAttribute ReserveVO rvo, HttpServletRequest request, Model model, RedirectAttributes reAttr) throws Exception {
 		log.info("breweryReserve 호출 성공");
+		
+		HttpSession session = request.getSession();
+		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		rvo.setUser_no(clientLogin.getUser_no()); 
 		
 		int result = 0;
 		String url = "";

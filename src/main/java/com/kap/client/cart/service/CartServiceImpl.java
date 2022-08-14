@@ -17,9 +17,20 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public int insertCart(CartVO cvo) {
-		int result = 0;
-		result = cartDao.insertCart(cvo);
-		return result;
+		
+		CartVO checkCart = cartDao.checkCart(cvo);
+		
+		if(checkCart != null) {
+			return 2;
+		}
+		
+		try {
+			int result = 0;
+			result = cartDao.insertCart(cvo);
+			return result;
+		}catch(Exception e) {
+			return 0;
+		}
 	}
 
 	@Override
@@ -41,13 +52,6 @@ public class CartServiceImpl implements CartService {
 		List<CartVO> list= null;
 		list=cartDao.cartList(cvo);
 		return list;
-	}
-
-	@Override
-	public int findCartGoods(CartVO cvo) {
-		int result = 0;
-		result = cartDao.findCartGoods(cvo);
-		return result;
 	}
 
 }

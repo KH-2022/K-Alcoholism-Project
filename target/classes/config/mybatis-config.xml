@@ -4,14 +4,19 @@
 	<typeAliases>
 		<typeAlias type="com.kap.client.signUp.vo.SignUpVO" alias="signUp" />
 		<typeAlias type="com.kap.client.login.vo.LoginVO" alias="login" />
+		<typeAlias type="com.kap.client.findId.vo.FindIdVO" alias="findId" />
 		<typeAlias type="com.kap.client.product.vo.ProductVO" alias="product"/>
 		<typeAlias type="com.kap.client.brewery.vo.BreweryVO" alias="brewery"/>
 		<typeAlias type="com.kap.client.reserve.vo.ReserveVO" alias="reserve" />
 		<typeAlias type="com.kap.client.cart.vo.CartVO" alias="cart"/>
+		<typeAlias type="com.kap.client.order.vo.OrderVO" alias="order"/>
+		<typeAlias type="com.kap.client.order.vo.OrderDetailVO" alias="orderDetail"/>
 		<typeAlias type="com.kap.client.qna.vo.QnaVO" alias="qna"/>
+		<typeAlias type="com.kap.client.qnaReply.vo.QnaReplyVO" alias="qnaReply" />
 		<typeAlias type="com.kap.client.reply.vo.ReplyVO" alias="reply"/>
 		<typeAlias type="com.kap.client.reply.vo.BreplyVO" alias="breply"/>
 		
 		<typeAlias type="com.kap.admin.login.vo.AdminLoginVO" alias="adminLogin"/>
+		<typeAlias type="com.kap.admin.member.vo.MemberVO" alias="member"/>
 	</typeAliases>
 </configuration>

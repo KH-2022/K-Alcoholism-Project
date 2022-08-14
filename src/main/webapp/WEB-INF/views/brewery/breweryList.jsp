@@ -5,14 +5,33 @@
 		</style>
 		<script type="text/javascript">
 			$(function() {
-				/* 지역 변경 시마다 처리할 이벤트 */
+				/* 검색 후 검색대상과 검색단어 초기화 방지 */
+				let word = "<c:out value='${data.keyword}' />";
+				let value = "";
+				if (word != "") {
+					$("#search").val("<c:out value='${data.search}' />");
+					$("#keyword").val("<c:out value='${data.keyword}' />");
+				}
+				
+				/* 검색 입력 양식 enter 제거 */
+				$("#keyword").bind("keydown", function(event) {
+					if (event.keyCode == 13) {
+						event.preventDefault();
+					}
+				});
+				
+				/* 검색 조건 변경 시마다 처리할 이벤트 */
 				$("#search").change(function() {
+					$("#keyword").val("");
+					$("#keyword").focus();
+				});
+				
+				/* 검색 버튼 클릭 시 */
+				$("#searchBtn").click(function() {
+					if (!chkData("#keyword", "검색어를")) return;
 					$("#pageNum").val(1);
 					goPage();
 				});
-				
-				/* 지역 변경 후 초기화 방지 */
-				$("#search").val("<c:out value='${data.search}' />");
 				
 				/* 양조장 클릭 시 상세 페이지 이동을 위한 처리 이벤트 */
 				$(".goDetail").click(function() {
@@ -29,18 +48,18 @@
 				/* 다음 페이지 클릭 시 */
 				$(".paginate_button a").click(function(e) {
 					e.preventDefault();
-					$("#sortForm").find("input[name='pageNum']").val($(this).attr("href")); //클릭한 <a>의 href 속성값을 가져와 form의 pageNum 파라미터값을 갱신
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href"));
 					goPage();
 				});
 			}); //$함수 종료
 			
 			/* 페이지 이동을 위한 함수 */
 			function goPage() {
-				$("#sortForm").attr({
+				$("#searchForm").attr({
 					"method" : "get",
 					"action" : "/brewery/breweryList"
 				});
-				$("#sortForm").submit();
+				$("#searchForm").submit();
 			}
 		</script>
 	</head>
@@ -69,24 +88,22 @@
 					<input type="hidden" id="br_id" name="br_id" />
 				</form>
 				
-				<%-- 카테고리 기능 --%>
+				<%-- 검색 기능 --%>
 				<div class="row text-left">
-					<form id="sortForm" name="sortForm" class="form-inline">
+					<form id="searchForm" name="searchForm" class="form-inline">
 						<%-- 페이징 처리를 위한 파라미터 --%>
 						<input type="hidden" id="pageNum" name="pageNum" value="${pageMaker.cvo.pageNum}">
-						<input type="hidden" name="amount" name="amount" value="${pageMaker.cvo.amount}">
+						<input type="hidden" id="amount" name="amount" value="${pageMaker.cvo.amount}">
+						<%-- 검색을 위한 파라미터 --%>
+						<label>검색조건</label>&nbsp;
 						<div class="form-group">
-							<label>지역</label>
 							<select id="search" name="search">
-								<option value="">전체</option>
-								<option value="seoul">서울</option>
-								<option value="gyeonggi">경기</option>
-								<option value="gangwon">강원</option>
-								<option value="chungcheong">충청</option>
-								<option value="gyeonsang">경상</option>
-								<option value="jeolla">전라</option>
-								<option value="jeju">제주</option>
+								<option value="br_name">양조장명</option>
+								<option value="br_region">지역명</option>
+								<option value="br_program">프로그램명</option>
 							</select>
+							<input type="text" name="keyword" id="keyword" placeholder="검색어를 입력하세요" class="form-control search-keyword" />
+							<button type="button" id="searchBtn" class="btn btn-primary">검색</button>
 						</div>
 					</form>
 				</div>
@@ -102,14 +119,16 @@
 						<c:forEach var="brewery" items="${breweryList}" varStatus="status">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
 								<div class="property-item mb-30" data-num="${brewery.br_id}">
-									<a class="img goDetail">
-										<c:if test="${not empty brewery.br_thumb}">
-											<img src="/uploadStorage/brewery/thumbnail/${brewery.br_thumb}" class="img-fluid" />
-										</c:if>
-										<c:if test="${empty brewery.br_thumb}">
-											<img src="/resources/images/common/noImage.jpg" class="img-fluid" />
-										</c:if>
-									</a>
+									<div class="br-thumb">
+										<a class="img goDetail">
+											<c:if test="${not empty brewery.br_image}">
+												<img src="/uploadStorage/brewery/${brewery.br_image}" class="img-fluid" />
+											</c:if>
+											<c:if test="${empty brewery.br_image}">
+												<img src="/resources/images/common/noImage.jpg" class="img-fluid" />
+											</c:if>
+										</a>
+									</div>
 									<div class="property-content">
 										<div class="price mb-2"><span>${brewery.br_name}</span></div>
 										<div>

@@ -3,8 +3,8 @@ package com.kap.client.signUp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.signUp.dao.SignUpDao;
-import com.kap.client.signUp.vo.SignUpVO;
 
 import lombok.Setter;
 
@@ -15,18 +15,18 @@ public class SignUpServiceImpl implements SignUpService {
 	private SignUpDao signUpDao;
 	
 	@Override
-	public int signUpInsert(SignUpVO svo) {
-		return signUpDao.signUpInsert(svo);
+	public int signUpInsert(MemberVO mvo) {
+		return signUpDao.signUpInsert(mvo);
 	}
 
 	@Override
-	public int idCheck(SignUpVO svo) {
-		return signUpDao.idCheck(svo);
+	public int idCheck(MemberVO mvo) {
+		return signUpDao.idCheck(mvo);
 	}
 
 	@Override
-	public int emailCheck(SignUpVO svo) {
-		return signUpDao.emailCheck(svo);
+	public int emailCheck(MemberVO mvo) {
+		return signUpDao.emailCheck(mvo);
 	}
 
 }

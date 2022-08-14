@@ -9,51 +9,51 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.signUp.service.SignUpService;
-import com.kap.client.signUp.vo.SignUpVO;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
 @RequestMapping("/signUp/*")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SignUpController {
-	private SignUpService signUpService;
+	private final SignUpService signUpService;
 	
 	@RequestMapping(value="/signUpForm")
-	public String signUpForm(@ModelAttribute("data") SignUpVO svo) {
-		log.info("signUpForm 호출 성공");
+	public String signUpForm(@ModelAttribute("data") MemberVO mvo) {
+		log.info("signUpForm 호출성공");
 		return "signUp/signUpForm";
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/idCheck", produces="application/json")
-	public int idCheck(@RequestBody SignUpVO svo){
-		log.info("idCheck 호출 성공");
+	public int idCheck(@RequestBody MemberVO mvo){
+		log.info("idCheck 호출성공");
 		
-		int result = signUpService.idCheck(svo);
+		int result = signUpService.idCheck(mvo);
 		return result;
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/emailCheck", produces="application/json")
-	public int emailCheck(@RequestBody SignUpVO svo){
-		log.info("emailCheck 호출 성공");
+	public int emailCheck(@RequestBody MemberVO mvo){
+		log.info("emailCheck 호출성공");
 		
-		int result = signUpService.emailCheck(svo);
+		int result = signUpService.emailCheck(mvo);
 		return result;
 	}
 	
 	@RequestMapping(value="/signUpInsert", method = RequestMethod.POST)
-	public String signUpInsert(SignUpVO svo, Model model) {
-		log.info("signUpInsert 호출 성공");
+	public String signUpInsert(MemberVO mvo, Model model) {
+		log.info("signUpInsert 호출성공");
 		
 		int result = 0;
 		String url = "";
 		
-		result = signUpService.signUpInsert(svo);
+		result = signUpService.signUpInsert(mvo);
 		if(result ==1) {
 			url = "/";
 		} else {

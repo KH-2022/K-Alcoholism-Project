@@ -33,9 +33,8 @@ public class AdminProductController {
 	 * 상품목록 구현하기 (페이징 처리)
 	 ****************************************************/
 	@RequestMapping(value="product/productList", method = RequestMethod.GET)
-	public String productList(@ModelAttribute ProductVO pvo, Model model) {
+	public String productList(@ModelAttribute("data") ProductVO pvo, Model model) {
 		log.info("productList 호출 성공");
-		pvo.setAmount(16); //페이지 수 설정
 		
 		// 전체 레코드 조회
 		List<ProductVO> productList = adminProductService.productList(pvo);

@@ -1,17 +1,19 @@
 @charset "UTF-8";
 
 /* 공통요소 */
-.table-height{min-height: 429px;}
+.table-height{min-height: 500px;}
 
 /* 게시판 관리 */
-.well .form-inline h3{display: inline;}
 #list > tr > td > .listImage {width: 200px;}
 .required{color:red;}
-
-/* 페이징 출력 div 부분 */
-#boardPage{width:96%; margin-top:10px;}
+.btnGroup {margin-bottom: 20px;}
+.detail-img {max-width: 800px;}
+.no-detail {
+	font-size: 0.8em;
+	color: gray;
+}
 
 /* 페이징 버튼 부분 */
-.paginate{width:100%; height:20px; text-align:center; vertical-align:top; /* font-size:14px; */}
+/* .paginate{width:100%; height:20px; text-align:center; vertical-align:top; font-size:14px;}
 .paginate span .textAn{vertical-align:bottom;}
-.paginate a.on{color:#FF3300;}
+.paginate a.on{color:#FF3300;} */

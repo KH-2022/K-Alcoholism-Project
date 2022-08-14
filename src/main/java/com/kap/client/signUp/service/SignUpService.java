@@ -1,14 +1,13 @@
 package com.kap.client.signUp.service;
 
-import com.kap.client.signUp.vo.SignUpVO;
+import com.kap.admin.member.vo.MemberVO;
 
 public interface SignUpService {
 
-	int signUpInsert(SignUpVO svo);
+	int signUpInsert(MemberVO mvo);
 
-	int idCheck(SignUpVO svo);
+	int idCheck(MemberVO mvo);
 
-	int emailCheck(SignUpVO svo);
+	int emailCheck(MemberVO mvo);
 	
-
 }

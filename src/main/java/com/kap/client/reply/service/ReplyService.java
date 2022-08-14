@@ -2,29 +2,37 @@ package com.kap.client.reply.service;
 
 import java.util.List;
 
+import com.kap.client.brewery.vo.BreweryVO;
 import com.kap.client.reply.vo.BreplyVO;
 import com.kap.client.reply.vo.ReplyVO;
+import com.kap.client.reserve.vo.ReserveVO;
 
 public interface ReplyService {
 
 	public int replyInsert(ReplyVO rvo) throws Exception;
-
-	public int bReplyInsert(BreplyVO vvo) throws Exception ;
 	
 	public List<ReplyVO> replyList(ReplyVO rvo);
-
-	public List<BreplyVO> reserveList(BreplyVO vvo);
-
+	
 	public int replyUpdate(ReplyVO rvo) throws Exception;
 
 	public int replyDelete(ReplyVO rvo) throws Exception;
 
 	public ReplyVO replyUpdateForm(ReplyVO rvo);
+	
+	public int bReplyInsert(BreplyVO bvo) throws Exception;
 
-	public BreplyVO bReplyUpdateForm(BreplyVO vvo);
+	public List<BreplyVO> reserveList(BreplyVO bvo);
 
-	public int bReplyUpdate(BreplyVO vvo) throws Exception;
+	public BreplyVO bReplyUpdateForm(BreplyVO bvo);
 
-	public int bReplyDelete(BreplyVO vvo) throws Exception;
+	public int bReplyUpdate(BreplyVO bvo) throws Exception;
+
+	public int bReplyDelete(BreplyVO bvo) throws Exception;
+
+	public BreweryVO brReplyForm(BreweryVO bvo);
+
+	public void reserveUpdate(ReserveVO rvo) throws Exception;
+
+	public List<ReserveVO> reserveManage(ReserveVO rvo);
 
 }

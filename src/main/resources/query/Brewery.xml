@@ -9,31 +9,7 @@
 		ORDER BY br_id DESC
 	</select> -->
 	
-	<sql id="regionSort">
-		<if test="search == 'seoul'">
-			br_region = '서울'
-		</if>
-		<if test="search == 'gyeonggi'">
-			br_region = '경기'
-		</if>
-		<if test="search == 'gangwon'">
-			br_region = '강원'
-		</if>
-		<if test="search == 'chungcheong'">
-			br_region = '충청'
-		</if>
-		<if test="search == 'gyeonsang'">
-			br_region = '경상'
-		</if>
-		<if test="search == 'jeolla'">
-			br_region = '전라'
-		</if>
-		<if test="search == 'jeju'">
-			br_region = '제주'
-		</if>
-	</sql>
-	
-	<!-- 양조장 리스트 지역별 조회 + 페이징 처리 -->
+	<!-- 양조장 리스트 조회(페이징 처리와 검색 처리) -->
 	<select id="breweryList" parameterType="brewery" resultType="brewery">
 		<![CDATA[ 
 		SELECT br_id, br_name, br_region, br_addr, br_tel, br_site, br_info, br_type, br_image, br_thumb, br_program, br_time, br_price, TO_CHAR(br_date, 'YYYY-MM-DD') AS br_date
@@ -41,20 +17,33 @@
 		        SELECT /*+ INDEX_DESC(brewery brewery_pk) */
 		            rownum AS rnum, br_id, br_name, br_region, br_addr, br_tel, br_site, br_info, br_type, br_image, br_thumb, br_program, br_time, br_price, br_date
 		        FROM brewery
-		        WHERE rownum <= #{pageNum} * #{amount}
-		    ) brewerylist
-		WHERE ]]>
+		        WHERE ]]>
 			<trim prefix="(" suffix=") AND " prefixOverrides="AND">
-	        	<include refid="regionSort"></include>
-	        </trim>
-		<![CDATA[ rnum > (#{pageNum} - 1) * #{amount} ]]>
+				<include refid="brewerySearch"></include>
+			</trim>
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) breweryList
+		WHERE rnum > (#{pageNum} - 1) * #{amount}
+		]]>
 	</select>
+	
+	<sql id="brewerySearch">
+		<if test="search == 'br_name'">
+			<![CDATA[ br_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'br_region'">
+			<![CDATA[ br_region LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'br_program'">
+			<![CDATA[ br_program LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
 	
 	<!-- 전체 레코드 수 조회 -->
 	<select id="breweryListCnt" parameterType="brewery" resultType="int">
 		SELECT COUNT(*) FROM brewery
 		<trim prefix=" WHERE (" suffix=")">
-			<include refid="regionSort"></include>
+			<include refid="brewerySearch"></include>
 		</trim>
 	</select> 
 	

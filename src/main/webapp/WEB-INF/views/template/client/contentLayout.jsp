@@ -6,7 +6,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="author" content="Untree.co">
 		<link rel="shortcut icon" href="/resources/images/common/icon.png">
 		
 		<title>전통주 플랫폼, 전통酒의</title>

@@ -3,22 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="adminUri" value='${requestScope["javax.servlet.forward.request_uri"]}' />
-
 <ul class="nav nav-sidebar">
-    <li><a href="#">관리자 메뉴</a></li>
-    
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/member')}">class="active"</c:if>>
 		<a href="/admin/member/memberList">회원 관리</a>
 	</li>
-    
-    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/product')}">class="active"</c:if>>
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/qna')}">class="active"</c:if>>
+    	<a href="/admin/qna/qnaList">문의게시판 관리</a>
+    </li>
+    <li>
+		<a href="/admin/reply/replyList">리뷰 관리</a>
+	</li>
+</ul>
+<ul class="nav nav-sidebar">
+	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/product')}">class="active"</c:if>>
     	<a href="/admin/product/productList">상품 관리</a>
     </li>
-    
-    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/brewery')}">class="active"</c:if>>
+    <li>
+		<a href="/admin/order/orderList">상품 주문 관리</a>
+	</li>
+</ul>
+<ul class="nav nav-sidebar">
+	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/brewery')}">class="active"</c:if>>
     	<a href="/admin/brewery/breweryList">양조장 관리</a>
     </li>
-    
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reserve')}">class="active"</c:if>>
     	<a href="/admin/reserve/reserveList">체험 예약 관리</a>
     </li>

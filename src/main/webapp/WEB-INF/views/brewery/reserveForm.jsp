@@ -147,7 +147,6 @@
 					}
 				    var rsvDayString = $('.year-month').text() + "-" + rsvDate;
 				    
-				    $("#br_id").val(${breweryData.br_id}); //hidden타입 양조장아이디 값 설정
 			    	$("#rsv_day").val(rsvDayString); //hidden타입 예약날짜 값 설정
 			    	$("#rsv_time").val($(".time.choice").text()); //hidden타입 예약시간 값 설정
 			    	$("#rsv_count").val($(".count").text()); //hidden타입 인원 값 설정
@@ -416,18 +415,18 @@
 					</div>
 					<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
 						<form id="reserveForm" name="reserveForm">
-							<input type="hidden" id="user_no" name="user_no" />
-							<input type="hidden" id="br_id" name="br_id" />
+							<input type="hidden" id="user_no" name="user_no" value="${sessionScope.login.user_no}" />
+							<input type="hidden" id="br_id" name="br_id" value="${breweryData.br_id}" />
 							<input type="hidden" id="rsv_day" name="rsv_day" />
 							<input type="hidden" id="rsv_time" name="rsv_time" />
 							<input type="hidden" id="rsv_count" name="rsv_count" />
 							<input type="hidden" id="rsv_price" name="rsv_price" />
 							<div class="row">
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_name" name="rsv_name" class="form-control" value="">
+									<input type="text" id="rsv_name" name="rsv_name" class="form-control" value="${sessionScope.login.user_name}">
 								</div>
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" value="">
+									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" value="${sessionScope.login.user_tel}">
 								</div>
 								<div class="col-12 mb-3">
 									<textarea id="rsv_request" name="rsv_request" cols="30" rows="7" class="form-control" placeholder="요청사항이 있으실 경우에만 입력해 주세요"></textarea>

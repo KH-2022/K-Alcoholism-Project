@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.client.myPage.dao.MypageDao">
+	
+	<select id="reserveList" parameterType="reserve" resultType="reserve">
+		<![CDATA[ 
+			SELECT * 
+	    	FROM (
+	        	SELECT
+	          	 	 A.*, rownum AS rnum
+				        FROM 
+				        (
+				            SELECT
+				                r.user_no,
+				                r.rsv_no,
+				                b.br_name,
+				                b.br_id,
+				                (SELECT user_id FROM kap_user WHERE user_no = r.user_no) AS user_id,
+				                r.rsv_day,
+				                r.rsv_time,
+				                r.rsv_count,
+				                r.rsv_tel,
+				                r.rsv_price,
+				                r.rsv_name,
+				                r.rsv_state,
+				                r.rsv_fin_date,
+				                r.rsv_reply_yn,
+				                (select delete_yn from kap_user where user_no = r.user_no) as delete_yn
+				            FROM reserve r LEFT OUTER JOIN brewery b
+				            ON r.br_id = b.br_id
+				            ORDER BY r.rsv_no desc
+				        ) A
+				        WHERE rownum <= #{pageNum} * #{amount} and user_no = #{user_no} and delete_yn ='N' order by rsv_day desc
+				    )WHERE rnum > (#{pageNum} - 1) * #{amount}  
+		    ]]>
+	</select>
+	
+	<select id="orderList" parameterType="order" resultType="order">
+		<![CDATA[ 
+		SELECT * 
+	    	FROM (
+	        	SELECT
+	          	 	 A.*, rownum AS rnum
+				        FROM 
+				        (
+				            SELECT
+                                o.order_no,
+				                o.user_no,
+				                o.order_amount,
+				                to_char(o.order_date, 'YY-MM-DD HH24:MI')as order_date,
+                                o.order_state,
+                                od.pd_reply_yn,
+				                od.orderdetail_no,
+                                od.pd_id,
+                                od.pd_price,
+                                od.cart_count,
+                                (select pd_name from product where pd_id = od.pd_id) as pd_name,
+                                (select pd_thumb from product where pd_id = od.pd_id) as pd_thumb,
+                                (select user_name from kap_user where user_no = o.user_no) as user_name,
+                                (select user_tel from kap_user where user_no = o.user_no) as user_tel,
+                                (select user_postcode from kap_user where user_no = o.user_no) as user_postcode,
+                                (select user_add from kap_user where user_no = o.user_no) as user_postadd,
+                                (select user_detailadd from kap_user where user_no = o.user_no) as user_detailadd,
+				                (select delete_yn from kap_user where user_no = o.user_no) as delete_yn
+				            FROM orders o LEFT OUTER JOIN orders_detail od
+				            ON o.order_no = od.order_no
+				            ORDER BY o.order_no desc
+				        ) A
+				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no} and delete_yn ='N' order by orderdetail_no
+				    )WHERE rnum > (#{pageNum} - 1) * #{amount}
+		    ]]>
+	</select>
+	
+	<select id="reserveListCnt" parameterType="reserve" resultType="int">
+		select count(*) from reserve where user_no=#{user_no}
+	</select>
+	
+	<select id="orderListCnt" parameterType="order" resultType="int">
+		select count(*) from orders where user_no=#{user_no}
+	</select>
+	
+	<select id="orderCount" parameterType="order" resultType="int">
+		 SELECT
+		    count(od.orderdetail_no) as orderCount
+		FROM orders o LEFT OUTER JOIN orders_detail od
+		ON o.order_no = od.order_no
+		where user_no = #{user_no}
+	</select>
+	
+	<update id="userUpdate" parameterType="member" >
+		update kap_user set user_date = sysdate
+			<if test="user_pwd != ''">
+				, user_pwd =#{user_pwd}
+			</if>
+			<if test="user_birth != ''">
+				, user_birth = #{user_birth}
+			</if>
+			<if test="user_email != ''">
+				, user_email =#{user_email}
+			</if>
+		where user_no = #{user_no}
+	</update>
+	
+	<select id="getUser" parameterType="member" resultType="member">
+		select user_no, user_id, user_pwd, user_name, user_email, user_tel, user_postcode, user_add, user_detailAdd, user_extraAdd, user_birth, user_date 
+		from kap_user 
+		where user_no = #{user_no}
+	</select>
+	
+	<select id="qnaList" parameterType="qna" resultType="qna">
+		SELECT qna_no, qna_title, to_char(qna_date, 'YYYY-MM-DD') as qna_date
+		FROM qna
+		where user_no = #{user_no}
+		ORDER BY qna_no desc
+	</select>
+	
+	<update id="userWithdrawal" parameterType="member" >
+		update kap_user set 
+			user_id = #{user_id},
+			user_pwd = #{user_pwd}
+		where user_no = #{user_no}
+	</update>
+	
+	<update id="editAdd" parameterType="member">
+		update kap_user set
+			user_postcode = #{user_postcode}, user_add = #{user_add}, user_detailAdd=#{user_detailAdd}, user_extraAdd=#{user_extraAdd}
+		where user_no = #{user_no}
+	</update>
+	
+</mapper>

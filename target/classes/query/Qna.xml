@@ -2,11 +2,101 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kap.client.qna.dao.QnaDao">
 
-	<!-- 게시판 리스트 기본 조회 -->
+	<!-- 검색 -->
+	<sql id="qnaSearch">
+		<if test="search == 'qna_title'">
+			<![CDATA[ qna_title LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'qna_content'">
+			<![CDATA[ qna_content LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'user_id'">
+			<![CDATA[ (SELECT user_id FROM kap_user WHERE kap_user.user_no = qnalist.user_no) LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
+	<!--  게시판 리스트 조회(페이징 처리와 검색 처리) 및 댓글 갯수 구하기 -->
 	<select id="qnaList" parameterType="qna" resultType="qna">
-		SELECT qna_no, qna_title, to_char(qna_date, 'YYYY-MM-DD') as qna_date
-		FROM qna
-		ORDER BY qna_no desc
+		<![CDATA[ 
+		SELECT
+			qna_no,
+			(SELECT user_id FROM kap_user WHERE user_no = qnalist.user_no) AS user_id,
+			qna_title, to_char(qna_date, 'YYYY-MM-DD') as qna_date, qna_readcnt,
+			(select count(qna_re_no) from qna_reply where qna_no = qnalist.qna_no) as qna_replycnt
+		FROM (
+			SELECT /*+ INDEX_DESC(qna qna_pk) */
+   				rownum AS rnum, qna_no, user_no, qna_title, qna_date, qna_readcnt
+			FROM qna
+			WHERE ]]>
+			<trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				<include refid="qnaSearch"></include>
+			</trim>
+			<![CDATA[ rownum <= #{pageNum} * #{amount}
+		) qnalist
+		WHERE rnum > (#{pageNum} - 1) * #{amount}
+		]]>
 	</select>
+
+	<!-- 상세 페이지를 위한 게시물 조회 -->
+	<select id="qnaDetail" parameterType="qna" resultType="qna">
+		/* Qna - qnaDetail */
+		SELECT
+			qna_no, 
+			(SELECT user_id FROM kap_user WHERE user_no = qna.user_no) AS user_id,
+			qna_title, qna_content,
+			TO_CHAR(qna_date, 'YYYY-MM-DD HH24:MI:SS') AS qna_date, qna_readcnt, qna_thumb, qna_file
+		FROM qna
+		WHERE qna_no = #{qna_no}
+	</select>
+	
+	<!-- 전체 레코드 수 조회 -->
+	<select id="qnaListCnt" parameterType="qna" resultType="int">
+		SELECT count(*) FROM qna
+		<trim prefix=" where (" suffix=")">
+			<include refid="qnaSearch"></include>
+		</trim>
+	</select>
+	
+	<!-- 조회수 증가 -->
+	<update id="readCntUpdate" parameterType="qna">
+		/* Qna - readCntUpdate */
+		UPDATE qna	
+		SET qna_readcnt = qna_readcnt + 1
+		WHERE qna_no = #{qna_no}
+	</update>
+	
+	<!-- 문의 게시글 등록 -->
+	<insert id="qnaInsert" parameterType="qna">
+		/* Qna - qnaInsert */
+		<selectKey keyProperty="qna_no" resultType="int" order="BEFORE">
+			select qna_seq.nextval from dual
+		</selectKey> 
+		
+		<!-- 로그인한 회원 정보 가져오는 코드 삽입 예정. 임시로 user_no에 1번 회원 넣어서 CRUD 기능 구현 -->
+		INSERT INTO qna(qna_no, user_no, qna_title, qna_content, qna_thumb, qna_file)
+		VALUES(#{qna_no}, 1, #{qna_title}, #{qna_content}, #{qna_thumb}, #{qna_file})
+	</insert>
+	
+	<!-- 게시물 수정 -->
+	<update id="qnaUpdate" parameterType="qna">
+		/* Qna - qnaUpdate */
+		UPDATE qna
+		SET qna_title = #{qna_title},
+			qna_content = #{qna_content},
+			qna_date = sysdate
+			<if test="qna_thumb != ''">
+				, qna_thumb = #{qna_thumb}
+			</if>
+			<if test="qna_file != ''">
+				, qna_file = #{qna_file}
+			</if>
+		WHERE qna_no = #{qna_no}
+	</update>
+	
+	<!-- 게시물 삭제 -->
+	<delete id="qnaDelete" parameterType="qna">
+		/* Qna - qnaDelete */
+		DELETE FROM qna WHERE qna_no = #{qna_no}
+	</delete>
 	
 </mapper>

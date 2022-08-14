@@ -14,22 +14,10 @@
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
 			$(function(){
-				let errorMsg = "${errorMsg}";
-				if(errorMsg != ""){
-					alert(errorMsg);
-					errorMsg = "";
-				}
-				
-				let updateMsg = "${updateMsg}";
-				if(updateMsg != ""){
-					alert(updateMsg);
-					updateMsg = "";
-				}
-				
-				let WithdrawalMsg = "${WithdrawalMsg}";
-				if(WithdrawalMsg != ""){
-					alert(WithdrawalMsg);
-					WithdrawalMsg = "";
+				let sendMsg = "${sendMsg}";
+				if(sendMsg != ""){
+					alert(sendMsg);
+					sendMsg = "";
 				}
 				
 				$("#pills-order-tab").click(function(){
@@ -45,7 +33,7 @@
 					location.href = "/reply/reply";
 				});
 				$("#pills-account-tab").click(function(){
-					location.href = "/myPage/account";
+					location.href = "/myPage/accountCheck";
 				});
 				$("#pills-address-tab").click(function(){
 					location.href = "/myPage/add";
@@ -54,7 +42,21 @@
 					location.href = "/myPage/withdrawal";
 				});
 				
-			}); //$함수 종료
+				$(".paginate_button a").click(function(e) {
+					e.preventDefault(); //원래 가진 이벤트 처리 배제
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href")); //클릭한 <a>의 href 속성값을 가져와 form의 pageNum 파라미터값을 갱신
+					goPage();
+				});
+				
+			}); //함수 종료
+			
+			function goPage() {
+				$("#searchForm").attr({
+					"method" : "get",
+					"action" : "/myPage/myPage"
+				});
+				$("#searchForm").submit();
+			}
 		</script>
 	</head>
 	<body>
@@ -82,8 +84,9 @@
 			<!-- container -->
 		</div>
 		<!--====== Breadcrumb Part Ends ======-->
-		<!--====== My Account Part Start ======-->
+		<form action=""></form>
 		
+		<!--====== My Account Part Start ======-->
 		<section class="my-account-area pt-10">
 			<div class="container-fluid custom-container">
 				<div class="row">
@@ -93,7 +96,7 @@
 								<li><a class="active" id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
 								<li><a id="pills-rez-tab" data-toggle="pill" href="#pills-rez" role="tab" aria-controls="pills-rez" aria-selected="true"><i class="far fa-map-marker-alt"></i>체험 예약 정보</a></li>
 								<li><a id="pills-qna-tab" data-toggle="pill" href="#pills-qna" role="tab" aria-controls="pills-qna" aria-selected="false"><i class="far fa-question"></i>문의 목록</a></li>
-								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>댓글 목록</a></li>
+								<li><a id="pills-review-tab" data-toggle="pill" href="#pills-review" role="tab" aria-controls="pills-review" aria-selected="false"><i class="far fa-comment-dots"></i>리뷰 목록</a></li>
 								<li><a id="pills-account-tab" data-toggle="pill" href="#pills-account" role="tab" aria-controls="pills-account" aria-selected="false"><i class="far fa-user"></i>회원정보 수정</a></li>
 								<li><a id="pills-address-tab" data-toggle="pill" href="#pills-address" role="tab" aria-controls="pills-address" aria-selected="false"><i class="far fa-map-marker-alt"></i>배송지 관리</a></li>
 								<li><a id="pills-withdrawal-tab" data-toggle="pill" href="#pills-withdrawal" role="tab" aria-controls="pills-withdrawal" aria-selected="false"><i class="far fa-user"></i>회원탈퇴</a></li>
@@ -106,48 +109,60 @@
 					<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 					
 					<div class="tab-pane fade show active" id="pills-order" role="tabpanel" aria-labelledby="pills-order-tab">
+							<form id="searchForm" name="searchForm" class="form-inline">
+								<%-- 페이징 처리를 위한 파라미터 --%>
+								<input type="hidden" name="pageNum" value="${pageMaker.cvo.pageNum}">
+								<input type="hidden" name="amount" value="${pageMaker.cvo.amount}">
+							</form>
 								<div class="my-account-order account-wrapper">
 									<h4 class="account-title">배송 / 주문 상태 확인</h4>
 									<div class="account-table text-center mt-30 table-responsive">
 										<table class="table">
 											<thead>
 												<tr>
-													<th class="no">No</th>
-													<th class="name">Name</th>
-													<th class="date">Date</th>
-													<th class="status">Status</th>
-													<th class="total">Total</th>
-													<th class="action">Action</th>
+													<th class="col-md-1">주문번호</th>
+													<th class="col-md-2">주문일</th>
+													<th class="col-md-2">상품 사진</th>
+													<th class="col-md-3">상품명</th>
+													<th class="col-md-1">결제 금액</th>
+													<th class="col-md-2">주문상태</th>
+													<th class="col-md-1">기타</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td>1</td>
-													<td>Mostarizing Oil</td>
-													<td>Aug 22,2020</td>
-													<td>Pending</td>
-													<td>$100</td>
-													<td><a href="#">View</a></td>
-												</tr>
-												<tr>
-													<td>2</td>
-													<td>Katopeno Altuni</td>
-													<td>July 22,2020</td>
-													<td>Approved</td>
-													<td>$45</td>
-													<td><a href="#">View</a></td>
-												</tr>
-												<tr>
-													<td>3</td>
-													<td>Murikhete Paris</td>
-													<td>June 22,2020</td>
-													<td>On Hold</td>
-													<td>$99</td>
-													<td><a href="#">View</a></td>
-												</tr>
+											<c:choose>
+												<c:when test="${not empty orderList}">
+													<tbody>
+														<c:forEach var="order" items="${orderList}" varStatus="status">
+															<input type="hidden" name="user_no" id="user_no" value="${order.order_no}" /> 
+															<tr class="text-center" data-num="${order.order_no}">
+																<td>${order.order_no}</td>
+																<td>${order.order_date}</td>
+																<td>
+																	<c:if test="${not empty order.pd_thumb}">
+																		<img src="/uploadStorage/product/thumbnail/${order.pd_thumb}" />
+																	</c:if>
+																</td>
+																<td><a href="/product/productDetail?pd_id=${order.pd_id}">${order.pd_name} 외 ${orderCount}건</a></td>
+																<td>${order.order_amount}</td>
+																<td>${order.order_state}</td>
+																<td style=padding:0px;>
+																	<a href="/reply/reply">상세보기</a> 
+																</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="6" class="tac text-center">구매한 상품이 존재하지 않습니다.</td>
+														</tr>
+													</c:otherwise>
+												</c:choose>
 											</tbody>
 										</table>
 									</div>
+									<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
+									startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
+									prev="${pageMaker.prev}" next="${pageMaker.next}" />
 								</div>
 							</div>
 						</div>

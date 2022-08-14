@@ -1,9 +1,9 @@
 package com.kap.client.login.service;
 
-import com.kap.client.login.vo.LoginVO;
+import com.kap.admin.member.vo.MemberVO;
 
 public interface LoginService {
 
-	LoginVO loginProcess(LoginVO login);
+	MemberVO loginProcess(MemberVO login);
 
 }
