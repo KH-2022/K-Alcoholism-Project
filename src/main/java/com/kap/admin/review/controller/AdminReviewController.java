@@ -27,7 +27,7 @@ public class AdminReviewController {
 	
 	@RequestMapping(value="/reply/replyList", method = RequestMethod.GET)
 	public String replyList(@ModelAttribute("data") MemberVO mvo, ReplyVO rvo, BreplyVO bvo, Model model) {
-		log.info("AdminReplyList í˜¸ì¶œ ì„±ê³µ");
+		log.info("AdminReplyList È£Ãâ¼º°ø");
 		
 		List<ReplyVO> pdReplyList = adminReviewService.pdReplyList(rvo);
 		List<BreplyVO> brReplyList = adminReviewService.brReplyList(bvo);
@@ -52,7 +52,7 @@ public class AdminReviewController {
 	
 	@RequestMapping(value="/reply/pdReplyDetail",method=RequestMethod.GET)
 	public String pdReplyDetail(@ModelAttribute ReplyVO rvo, Model model) {
-		log.info("admin pdReplyDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin pdReplyDetail È£Ãâ¼º°ø");
 		
 		ReplyVO pdReplyDetail = adminReviewService.pdReplyDetail(rvo);
 		model.addAttribute("detail",pdReplyDetail);
@@ -62,17 +62,17 @@ public class AdminReviewController {
 	
 	@RequestMapping(value="/reply/pdReplyDelete",method=RequestMethod.POST)
 	public String pdReviewDelete( ReplyVO rvo, RedirectAttributes ras) throws Exception {
-		log.info("admin pdReplyDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin pdReplyDelete È£Ãâ¼º°ø");
 		
 		adminReviewService.pdReplyDelete(rvo);
-		ras.addFlashAttribute("sendMsg", "ìƒí’ˆ ë¦¬ë·°ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("sendMsg", "»óÇ° ´ñ±ÛÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
 		
 		return "redirect:/admin/reply/replyList";
 	}
 	
 	@RequestMapping(value="/reply/brReplyDetail",method=RequestMethod.GET)
 	public String brReplyDetail(@ModelAttribute BreplyVO bvo, Model model) {
-		log.info("admin brReplyDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin brReplyDetail È£Ãâ¼º°ø");
 		
 		BreplyVO brReplyDetail = adminReviewService.brReplyDetail(bvo);
 		model.addAttribute("detail",brReplyDetail);
@@ -82,10 +82,10 @@ public class AdminReviewController {
 	
 	@RequestMapping(value="/reply/brReplyDelete",method=RequestMethod.POST)
 	public String brReviewDelete( BreplyVO bvo, RedirectAttributes ras) throws Exception {
-		log.info("admin brReplyDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin brReplyDelete È£Ãâ¼º°ø");
 		
 		adminReviewService.brReplyDelete(bvo);
-		ras.addFlashAttribute("sendMsg", "ì–‘ì¡°ì¥ ë¦¬ë·°ê°€ ì‚­ì œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("sendMsg", "¾çÁ¶Àå ´ñ±ÛÀÌ »èÁ¦ µÇ¾ú½À´Ï´Ù.");
 		
 		return "redirect:/admin/reply/replyList";
 	}

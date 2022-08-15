@@ -33,7 +33,7 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public int userWithdrawal(MemberVO mvo) throws Exception {
-			// ìƒˆ ë¹„ë°€ë²ˆí˜¸ ìƒì„±
+			// »õ ºñ¹Ğ¹øÈ£ »ı¼º
 			int index = 0;
 			char[] charSet = new char[] {
 	                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -47,10 +47,10 @@ public class MypageServiceImpl implements MypageService {
 			}
 			String user_pwd = pw.toString();
 			
-			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
+			// ºñ¹Ğ¹øÈ£ º¯°æ
 			mvo.setUser_pwd(user_pwd);
 			
-			// ìƒˆ ì•„ì´ë”” ìƒì„±
+			// »õ ¾ÆÀÌµğ »ı¼º
 			index = 0;
 			char[] charIdSet = new char[] {
 					'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -64,7 +64,7 @@ public class MypageServiceImpl implements MypageService {
 			}
 			String user_id = id.toString();
 			
-			// ì•„ì´ë”” ë³€ê²½
+			// ¾ÆÀÌµğ º¯°æ
 			mvo.setUser_id(user_id);
 			
 			
@@ -107,9 +107,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int orderCount(MyPageOrderVO ovo) {
-		int orderCount = mypageDao.orderCount(ovo);
+	public List<MyPageOrderVO> orderCount(MyPageOrderVO ovo) {
+		List<MyPageOrderVO> orderCount = mypageDao.orderCount(ovo);
 		return orderCount;
+	}
+
+	@Override
+	public List<MyPageOrderVO> orderDetail(MyPageOrderVO ovo) {
+		List<MyPageOrderVO> orderDetail = mypageDao.orderDetail(ovo);
+		return orderDetail;
+	}
+
+	@Override
+	public List<Integer> getOrderNo(MyPageOrderVO ovo) {
+		List<Integer> getOrderNo = mypageDao.getOrderNo(ovo);
+		return getOrderNo;
 	}
 
 }

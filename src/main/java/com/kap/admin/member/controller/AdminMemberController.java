@@ -26,7 +26,7 @@ public class AdminMemberController {
 	
 	@RequestMapping(value="/member/memberList", method = RequestMethod.GET)
 	public String memberList(MemberVO mvo, Model model) {
-		log.info("AdminMemeberList í˜¸ì¶œ ì„±ê³µ");
+		log.info("AdminMemeberList È£Ãâ ¼º°ø");
 		
 		List<MemberVO> memberList = adminMemberService.memberList(mvo);
 		model.addAttribute("memberList",memberList);
@@ -42,10 +42,10 @@ public class AdminMemberController {
 	
 	@RequestMapping(value="/member/memberDelete", method = RequestMethod.POST)
 	public String memberDelete(@RequestParam(required=false, value="user_no")Integer user_no, MemberVO mvo, RedirectAttributes ras, Model model) {
-		log.info("memberDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("memberDelete È£Ãâ ¼º°ø");
 		
 		adminMemberService.memberDelete(mvo);
-		ras.addFlashAttribute("deleteMsg", "íšŒì› íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+		ras.addFlashAttribute("deleteMsg","È¸¿øÅ»Åğ°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
 		
 		return "redirect:/admin/member/memberList";
 	}

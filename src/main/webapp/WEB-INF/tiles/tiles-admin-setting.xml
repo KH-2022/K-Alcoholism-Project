@@ -11,6 +11,12 @@
  		<put-attribute name="main" value="" />
  	</definition>
  	
+ 	<definition name="admin/member/*" extends="basic">  
+ 		<put-attribute name="title" value="관리자 회원 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/member/{1}.jsp" />
+ 	</definition>
+ 	
  	<definition name="admin/product/*" extends="basic">  
  		<put-attribute name="title" value="관리자 상품 관리" />
  		<put-attribute name="sub" value="" />
@@ -27,5 +33,17 @@
  		<put-attribute name="title" value="관리자 체험 예약 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/reserve/{1}.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="admin/reply/*" extends="basic">  
+ 		<put-attribute name="title" value="관리자 회원 댓글 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/reply/{1}.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="admin/qna/*" extends="basic">  
+ 		<put-attribute name="title" value="관리자 문의게시판 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/qna/{1}.jsp" />
  	</definition>
 </tiles-definitions>

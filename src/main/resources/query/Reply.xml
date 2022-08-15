@@ -35,11 +35,64 @@
 		    ]]>
 	</select>
 	
+	<select id="orderManage" parameterType="myOrder" resultType="myOrder">
+		<![CDATA[ 
+			SELECT * 
+	    	FROM (
+	        	SELECT
+	          	 	 A.*, rownum AS rnum
+				        FROM 
+				        (
+				            SELECT
+				                o.user_no,
+				                o.order_no,
+				                o.order_amount,
+				                to_char(o.order_date, 'YY-MM-DD HH24:MI')as order_date,
+				                o.order_state,
+				                (SELECT user_id FROM kap_user WHERE user_no = o.user_no) AS user_id,
+				                (SELECT pd_name from product where pd_id = od.pd_id) as pd_name,
+				                (SELECT pd_thumb from product where pd_id = od.pd_id) as pd_thumb,
+				                od.pd_id,
+				                od.orderdetail_no,
+				                od.cart_count,
+				                od.pd_price,
+				                od.pd_reply_yn,
+				                (select delete_yn from kap_user where user_no = o.user_no) as delete_yn
+				            FROM orders o LEFT OUTER JOIN order_detail od
+				            ON o.order_no = od.order_no
+				            ORDER BY o.order_no desc
+				        ) A
+				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no} and delete_yn ='N' and pd_reply_yn='N'
+				    )WHERE rnum > (#{pageNum} - 1) * #{amount}  
+		    ]]>
+	</select>
+	
 	<select id="brReplyForm" parameterType ="brewery" resultType ="brewery">
 		select br_id, br_thumb, br_name
 		from brewery
 		where br_id = #{br_id}
 	</select>
+	
+	<select id="pdReplyForm" parameterType ="myOrder" resultType ="myOrder">
+		SELECT
+           o.user_no,
+           o.order_no,
+           o.order_amount,
+           to_char(o.order_date, 'YY-MM-DD HH24:MI')as order_date,
+           o.order_state,
+           (SELECT user_id FROM kap_user WHERE user_no = o.user_no) AS user_id,
+           (SELECT pd_name from product where pd_id = od.pd_id) as pd_name,
+           (SELECT pd_thumb from product where pd_id = od.pd_id) as pd_thumb,
+           od.pd_id,
+           od.orderdetail_no,
+           od.cart_count,
+           od.pd_price,
+           od.pd_reply_yn,
+           (select delete_yn from kap_user where user_no = o.user_no) as delete_yn
+       FROM orders o LEFT OUTER JOIN order_detail od
+       ON o.order_no = od.order_no
+       WHERE user_no=#{user_no} and pd_reply_yn='N' and pd_id =#{pd_id}
+	</select> 
 	
 	<insert id="replyInsert" parameterType="reply">
 		<selectKey keyProperty="pd_review_no" resultType="int" order="BEFORE">
@@ -60,6 +113,11 @@
 	<update id="reserveUpdate" parameterType="reserve">
 		update reserve set rsv_reply_yn = 'Y'
  		where rsv_no = #{rsv_no}
+	</update>
+	
+	<update id="orderdetailUpdate" parameterType="myOrder">
+		update orders_detail set pd_reply_yn = 'Y'
+ 		where orderdetail_no = #{orderdetail_no}
 	</update>
 	
 	<select id="replyList" parameterType ="reply" resultType="reply">

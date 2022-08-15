@@ -9,6 +9,7 @@
 		<typeAlias type="com.kap.client.brewery.vo.BreweryVO" alias="brewery"/>
 		<typeAlias type="com.kap.client.reserve.vo.ReserveVO" alias="reserve" />
 		<typeAlias type="com.kap.client.cart.vo.CartVO" alias="cart"/>
+		<typeAlias type="com.kap.client.myPage.vo.MyPageOrderVO" alias="myOrder"/>
 		<typeAlias type="com.kap.client.order.vo.OrderVO" alias="order"/>
 		<typeAlias type="com.kap.client.order.vo.OrderDetailVO" alias="orderDetail"/>
 		<typeAlias type="com.kap.client.qna.vo.QnaVO" alias="qna"/>

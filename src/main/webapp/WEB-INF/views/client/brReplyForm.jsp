@@ -55,22 +55,6 @@
 				location.href = "/myPage/withdrawal";
 			});
 			
-			$("#pdReplyinsertBtn").click(function(){
-				if(!chkData("#pd_review_content","리뷰 내용을")) return;
-				else {
-					if($("#file").val() != ""){
-						if(!chkFile($("#file"))) return;
-					}
-					
-					$("#replyForm").attr({
-						"method" :"post",
-						"enctype" : "multipart/form-data",
-						"action" : "/reply/replyInsert"
-					});
-					$("#replyForm").submit();
-				}
-			});
-			
 			$("#brReplyinsertBtn").click(function(){
 				if(!chkData("#br_review_content","리뷰 내용을")) return;
 				else {
@@ -154,45 +138,6 @@
 												<div class="row">
 												
 												<c:choose>
-												<c:when test="${not empty orderList}">
-													<div class="col-md-6">
-														<div class="single-form">
-															<div>상품 사진란</div>
-															<div id="pd_id">1</div>
-														</div>
-													</div>
-													
-													<div class="col-md-12">
-														<div class="single-form">
-															<div>별찍기란</div>
-														</div>
-													</div>
-													
-													<div class="col-md-12">
-														<div class="single-form">
-															<div>상세 리뷰</div>
-															<textarea name="pd_review_content" id="pd_review_content" class="form-control"  rows="8"></textarea>
-															<span id="textMsg"></span>
-														</div>
-													</div>
-													
-													<div class="col-md-12">
-														<div class="single-form mt-25">
-															<div>사진 첨부</div>
-															<input type="file" id="file" name="file" />
-														</div>
-													</div>
-													
-													<div class="col-md-6">
-														<div class="single-form">
-															<button class="main-btn main-btn-2" type="button" id="cancelBtn">취소하기</button>
-															<button class="main-btn main-btn-2" type="button" id="pdReplyinsertBtn">등록하기</button>
-														</div>
-													</div>
-												</c:when>
-												</c:choose>
-												
-												<c:choose>
 												<c:when test="${not empty brReplyForm}">
 												<input type="hidden" name="br_id" id="br_id" value="${brReplyForm.br_id}" />
 												<input type="hidden" name="rsv_no" id="rsv_no" value="${reserve.rsv_no}" />
@@ -205,11 +150,11 @@
 														</div>
 													</div>
 													
-													<div class="col-md-12">
+													<!-- <div class="col-md-12">
 														<div class="single-form">
 															<div>별찍기란</div>
 														</div>
-													</div>
+													</div> -->
 													
 													<div class="col-md-12">
 														<div class="single-form">

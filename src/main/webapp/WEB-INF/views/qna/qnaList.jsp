@@ -123,6 +123,11 @@
 					<input type="hidden" id="qna_no" name="qna_no" />
 				</form>
 				
+				<%-- ================= 글쓰기 버튼 ================= --%>
+				<div class="form-group text-right">
+					<button type="button" id="insertFormBtn" class="btn btn-primary">글쓰기</button>
+				</div>
+				
 				<%-- 검색 기능 --%>
 				<div class="row text-left">
 					<form id="searchForm" name="searchForm" class="form-inline">
@@ -165,8 +170,10 @@
 							<c:when test="${not empty qnaList}">
 								<c:forEach var="qna" items="${qnaList}" varStatus="status">
 									<tr data-num="${qna.qna_no}">
-										<td class="text-center">${count - status.index}</td>	
-										<td class="goDetail">${qna.qna_title}</td>	
+										<td class="text-center">${qna.qna_no}</td>	
+										<td class="goDetail">${qna.qna_title}
+											<c:if test="${qna.qna_replycnt > 0}">&nbsp;<span class="reply_count">[${qna.qna_replycnt}]</span></c:if>
+										</td>	
 										<td class="name text-center">${qna.user_id}</td>
 										<td class="text-center">${qna.qna_date}</td>
 										<td class="text-center">${qna.qna_readcnt}</td>	
@@ -187,11 +194,6 @@
 			<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
 							startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
 							prev="${pageMaker.prev}" next="${pageMaker.next}" />
-			
-			<%-- ================= 글쓰기 버튼 ================= --%>
-			<div class="contentBtn text-right">
-				<button type="button" id="insertFormBtn" class="btn btn-primary">글쓰기</button>
-			</div>
 		</div>
 	</body>
 </html>

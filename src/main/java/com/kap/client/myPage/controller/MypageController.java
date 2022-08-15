@@ -1,5 +1,6 @@
 package com.kap.client.myPage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -34,18 +35,24 @@ public class MypageController {
 	
 	@RequestMapping(value="/myPage", method = RequestMethod.GET)
 	public String mypageForm(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, Model model) {
-		log.info("myPage order í˜¸ì¶œ ì„±ê³µ");
+		log.info("myPage order È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		ovo.setUser_no(loginMember.getUser_no());
 		
-		List<MyPageOrderVO> orderList = mypageService.orderList(ovo);
-		model.addAttribute("orderList",orderList);
-		log.info("orderList : "+ orderList);
+		List<Integer> getOrderNo = mypageService.getOrderNo(ovo);
 		
-		int orderCount = mypageService.orderCount(ovo);
-		model.addAttribute("orderCount",orderCount-1);
-		log.info("orderCount : " +orderCount);
+		List<MyPageOrderVO> orderList = new ArrayList<MyPageOrderVO>();
+		
+		List<MyPageOrderVO> orderCount = new ArrayList<MyPageOrderVO>();
+		
+		for(int i=0; i<getOrderNo.size(); i++) {
+			ovo.setOrder_no(getOrderNo.get(i));
+			orderList.addAll(mypageService.orderList(ovo));
+			orderCount.addAll(mypageService.orderCount(ovo));
+		}
+		model.addAttribute("orderList",orderList);
+		model.addAttribute("orderCount",orderCount);
 		
 		int total = mypageService.orderListCnt(ovo);
 		model.addAttribute("pageMaker", new PageDTO(total, ovo));
@@ -56,9 +63,22 @@ public class MypageController {
 		return "client/myPage";
 	}
 	
+	@RequestMapping(value="/orderDetail", method = RequestMethod.GET)
+	public String orderDetailForm(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, Model model) {
+		log.info("orderDetail È£Ãâ ¼º°ø");
+		
+		model.addAttribute(loginMember);
+		ovo.setUser_no(loginMember.getUser_no());
+		
+		List<MyPageOrderVO> orderDetail = mypageService.orderDetail(ovo);
+		model.addAttribute("orderDetail",orderDetail);
+		
+		return "client/orderDetail";
+	}
+	
 	@RequestMapping(value="/reserve", method = RequestMethod.GET)
 	public String rezForm(@SessionAttribute("login") MemberVO loginMember, ReserveVO rvo, Model model ) {
-		log.info("myPage reserve í˜¸ì¶œ ì„±ê³µ");
+		log.info("myPage reserve È£Ãâ ¼º°ø");
 		
 		model.addAttribute(loginMember);
 		rvo.setUser_no(loginMember.getUser_no());
@@ -109,15 +129,15 @@ public class MypageController {
 	public String userUpdate(HttpServletRequest request, @ModelAttribute MemberVO mvo, Model model, RedirectAttributes ras ) throws Exception{
 		HttpSession session = request.getSession();
 		
-		log.info("userUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("userUpdate È£Ãâ ¼º°ø");
 		String url = "";
 		int result = mypageService.userUpdate(mvo);
 		
 		if(result == 1) {
-			ras.addFlashAttribute("updateMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì´ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
+			ras.addFlashAttribute("updateMsg", "È¸¿øÁ¤º¸ ¼öÁ¤ÀÌ ¿Ï·áµÇ¾ú½À´Ï´Ù.");
 			url = "/myPage/accountCheck";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 		
@@ -132,14 +152,14 @@ public class MypageController {
 	public String editAdd(HttpServletRequest request, @ModelAttribute MemberVO mvo, RedirectAttributes ras, Model model) throws Exception{
 		HttpSession session = request.getSession();
 		
-		log.info("editAdd í˜¸ì¶œ ì„±ê³µ");
+		log.info("editAdd È£Ãâ ¼º°ø");
 		String url = "";
 		int result = mypageService.editAdd(mvo);
 		if(result == 1) {
-			ras.addFlashAttribute("updateMsg", "ê¸°ë³¸ ë°°ì†¡ì§€ê°€ ìˆ˜ì • ë˜ì—ˆìŠµë‹ˆë‹¤.");
+			ras.addFlashAttribute("updateMsg", "±âº» ¹è¼ÛÁö°¡ ¼öÁ¤ µÇ¾ú½À´Ï´Ù.");
 			url = "/myPage/add";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›ì •ë³´ ìˆ˜ì •ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÁ¤º¸ ¼öÁ¤¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 		MemberVO updateSession = mypageService.getUser(mvo);
@@ -151,16 +171,16 @@ public class MypageController {
 	
 	@RequestMapping(value="/userWithdrawal", method=RequestMethod.POST)
 	public String userWithdrawal(MemberVO mvo, RedirectAttributes ras, SessionStatus sessionStatus) throws Exception{
-		log.info("userWithdrawal í˜¸ì¶œ ì„±ê³µ");
+		log.info("userWithdrawal È£Ãâ ¼º°ø");
 		String url = "";
 		
 		int result = mypageService.userWithdrawal(mvo);
 		if(result == 1) {
-			ras.addFlashAttribute("WithdrawalMsg", "íšŒì›íƒˆí‡´ê°€ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤. ê°ì‚¬í•©ë‹ˆë‹¤.");
+			ras.addFlashAttribute("WithdrawalMsg", "È¸¿øÅ»Åğ°¡ ¿Ï·áµÇ¾ú½À´Ï´Ù. °¨»çÇÕ´Ï´Ù.");
 			sessionStatus.setComplete();
 			url = "/";
 		} else {
-			ras.addFlashAttribute("errorMsg", "íšŒì›íƒˆí‡´ì— ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤. ê´€ë¦¬ìì—ê²Œ ë¬¸ì˜í•˜ì„¸ìš”.");
+			ras.addFlashAttribute("errorMsg", "È¸¿øÅ»Åğ¿¡ ½ÇÆĞÇÏ¿´½À´Ï´Ù. °ü¸®ÀÚ¿¡°Ô ¹®ÀÇÇÏ¼¼¿ä.");
 			url = "/";
 		}
 

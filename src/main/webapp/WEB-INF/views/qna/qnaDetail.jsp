@@ -14,7 +14,7 @@
 				
 				/* 삭제 버튼 클릭시 처리이벤트 */
 				$("#qnaDeleteBtn").click(function() {
-					if (confirm("정말 삭제하시겠습니까?");) {
+					if (confirm("정말 삭제하시겠습니까?")) {
 						$("#f_data").attr("action","/qna/qnaDelete")
 						$("#f_data").submit();
 					}
@@ -47,7 +47,7 @@
 		<%-- 버튼 --%>
 		<div class="section">
 			<div class="container">
-				<div class="row text-left">
+				<div class="text-left form-group">
 					<form name="f_data" id="f_data" method="post">
 						<input type="hidden" name="qna_no" value="${detail.qna_no}">
 						<input type="hidden" name="qna_file" value="${detail.qna_file}" />
