@@ -81,7 +81,7 @@
 	</update>
 	
 	<!-- 예약 처리 -->
-	<insert id="breweryReserve" parameterType="reserve">
+	<insert id="reserveInsert" parameterType="reserve">
 		<selectKey keyProperty="rsv_no" resultType="int" order="BEFORE">
 			SELECT reserve_seq.NEXTVAL FROM DUAL
 		</selectKey>

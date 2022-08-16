@@ -11,7 +11,10 @@
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/plugins/default.css">
 		<!--====== Main Style CSS ======-->
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
+<<<<<<< HEAD
 		<link rel="stylesheet" href="/resources/include/css/star.css" />
+=======
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 		<script type ="text/javascript">
 		$(function() {
 
@@ -55,8 +58,18 @@
 				location.href = "/myPage/withdrawal";
 			});
 			
+<<<<<<< HEAD
 			$("#pdReplyinsertBtn").click(function(){
 				if(!chkData("#pd_review_content","리뷰 내용을")) return;
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+			$("#brReplyinsertBtn").click(function(){
+				if(!chkData("#br_review_content","리뷰 내용을")) return;
+========
+			$("#pdReplyinsertBtn").click(function(){
+				if(!chkData("#pd_review_content","리뷰 내용을")) return;
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 				else {
 					if($("#file").val() != ""){
 						if(!chkFile($("#file"))) return;
@@ -65,7 +78,15 @@
 					$("#replyForm").attr({
 						"method" :"post",
 						"enctype" : "multipart/form-data",
+<<<<<<< HEAD
 						"action" : "/reply/replyInsert"
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+						"action" : "/reply/bReplyInsert"
+========
+						"action" : "/reply/replyInsert"
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 					});
 					$("#replyForm").submit();
 				}
@@ -100,7 +121,11 @@
 	<section class="my-account-area pt-10">
 		<div class="container-fluid custom-container">
 			<div class="row">
+<<<<<<< HEAD
 				<div class="col-xl-3 col-md-4">
+=======
+				<div class="col-xl-3 col-md-3">
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 					<div class="my-account-menu mt-30">
 						<ul class="nav account-menu-list flex-column nav-pills" id="pills-tab" role="tablist">
 							<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
@@ -114,7 +139,11 @@
 						</ul>
 					</div>
 				</div>
+<<<<<<< HEAD
 				<div class="col-xl-8 col-md-8">	
+=======
+				<div class="col-xl-8 col-md-9">	
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 				<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 	
 				<div class="tab-pane fade show active" id="pills-account" role="tabpanel" aria-labelledby="pills-account-tab">
@@ -126,6 +155,19 @@
 												<div class="row">
 												
 												<c:choose>
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+												<c:when test="${not empty brReplyForm}">
+												<input type="hidden" name="br_id" id="br_id" value="${brReplyForm.br_id}" />
+												<input type="hidden" name="rsv_no" id="rsv_no" value="${reserve.rsv_no}" />
+													<div class="col-md-6">
+														<div class="single-form">
+															<div><h5 style=font-weight:bold;>${brReplyForm.br_name} 체험 서비스</h5></div>
+															<c:if test="${not empty brReplyForm.br_thumb}">
+																	<img src="/uploadStorage/brewery/thumbnail/${brReplyForm.br_thumb}" />
+========
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 												<c:when test="${not empty pdReplyForm}">
 												<input type="hidden" name="pd_id" id="pd_id" value="${pdReplyForm.pd_id}" />
 												<input type="hidden" name="orderdetail_no" id="orderdetail_no" value="${pdReplyForm.orderdetail_no}" />
@@ -134,6 +176,10 @@
 															<div><h5 style=font-weight:bold;>${pdReplyForm.pd_name} 구매 리뷰</h5></div>
 															<c:if test="${not empty pdReplyForm.pd_thumb}">
 																	<img src="/uploadStorage/product/thumbnail/${pdReplyForm.pd_thumb}" />
+<<<<<<< HEAD
+=======
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 															</c:if>
 														</div>
 													</div>
@@ -147,7 +193,15 @@
 													<div class="col-md-12">
 														<div class="single-form">
 															<div>상세 리뷰</div>
+<<<<<<< HEAD
 															<textarea name="pd_review_content" id="pd_review_content" class="form-control"  rows="8"></textarea>
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+															<textarea name="br_review_content" id="br_review_content" class="form-control"  rows="8"></textarea>
+========
+															<textarea name="pd_review_content" id="pd_review_content" class="form-control"  rows="8"></textarea>
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 															<span id="textMsg"></span>
 														</div>
 													</div>
@@ -162,12 +216,28 @@
 													<div class="col-md-6">
 														<div class="single-form">
 															<button class="main-btn main-btn-2" type="button" id="cancelBtn">취소하기</button>
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+															<button class="main-btn main-btn-2" type="button" id="brReplyinsertBtn">등록하기</button>
+														</div>
+													</div>
+												 </c:when>
+												</c:choose>
+												
+												
+========
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 															<button class="main-btn main-btn-2" type="button" id="pdReplyinsertBtn">등록하기</button>
 														</div>
 													</div>
 												</c:when>
 												</c:choose>
 												
+<<<<<<< HEAD
+=======
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 												</div>
 											</div>
 										</div>
@@ -180,7 +250,15 @@
 			</section>
 		<!--====== My Account Part Ends ======-->
 		<!--====== Features Banner Part Start ======-->
+<<<<<<< HEAD
 		<section class="features-banner-area pt-80 pb-100">
+=======
+<<<<<<<< HEAD:src/main/webapp/WEB-INF/views/client/brReplyForm.jsp
+<section class="features-banner-area pt-80 pb-100">
+========
+		<section class="features-banner-area pt-80 pb-100">
+>>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93:src/main/webapp/WEB-INF/views/client/pdReplyForm.jsp
+>>>>>>> bdcf5c1c1737f68cee75da9874946215a732fc93
 		<div class="container-fluid custom-container">
 			<div class="features-banner-wrapper d-flex flex-wrap">
 				<div class="single-features-banner d-flex">

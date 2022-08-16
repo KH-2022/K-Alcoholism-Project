@@ -40,6 +40,12 @@
 		
 		<!-- Custom -->
 		<link rel="stylesheet" href="/resources/include/css/common.css">
+		<style type="text/css">
+			#pd-template {display: none;}
+			#pd-re-template {display: none;}
+			#br-re-template {display: none;}
+			.brReList {margin-bottom: 30px;}
+		</style>
 		<script type="text/javascript">
 			$(function() {
 				/* 메인 페이지에서 메뉴바 active 설정 */
@@ -47,8 +53,8 @@
 				
 				/* 상품목록, 상품후기목록, 체험후기목록 불러오기 */
 				pdListAll();
-				/* pdReviewAll();
-				brReviewAll(); */
+				pdReviewAll();
+				brReviewAll();
 				
 				/* 검색 입력 양식 enter 제거 */
 				$("#keyword").bind("keydown", function(event) {
@@ -70,15 +76,9 @@
 				});
 				
 				/* 상품사진 클릭 시 상세페이지 이동을 위한 처리이벤트 */
-				$("productList .goDetail").click(function(){
+				$(document).on("click", "#productList .goDetail", function(){
 					let pd_id = $(this).parents(".property-item").attr("data-num");
-					$("#pd_id").val(pd_id);
-					console.log(pd_id);
-					/* $("#detailForm").attr({
-						"method" : "get",
-						"action" : "/product/productDetail"
-					});
-					$("#detailForm").submit(); */
+					location.href = "/product/productDetail?pd_id=" + pd_id;
 				});
 			}); //$함수 종료
 			
@@ -98,11 +98,11 @@
 				$("#searchForm").submit();
 			}
 			
-			/* 상품을 화면에 추가하기 위한 함수 */
+			/* 상품목록을 화면에 추가하기 위한 함수 */
 			function pdTemplate(pd_id, pd_name, pd_price, pd_sort, pd_image, pd_degree, pd_volume) {
 				let $div = $("#productList");
 				
-				let $element = $("#item-template").clone().removeAttr("id"); //기존의 요소를 복제하여 동적으로 추가
+				let $element = $("#pd-template").clone().removeAttr("id"); //기존의 요소를 복제하여 동적으로 추가
 				$element.attr("data-num", pd_id);
 				$element.addClass("pdList");
 				$element.find(".property-content > .price").html(pd_price + "원");
@@ -119,10 +119,10 @@
 				$div.append($element);
 			}
 			
-			/* 상품 목록을 불러오는 함수 */
+			/* 상품목록을 불러오는 함수 */
 			function pdListAll() {
 				$(".pdList").detach();
-				let url = "/product/all";
+				let url = "/product/mainList";
 				
 				$.getJSON(url, function(data) {
 					$(data).each(function() {
@@ -138,6 +138,70 @@
 					});
 				}).fail(function() {
 					alert("상품 목록을 불러오는 데 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+				});
+			}
+			
+			/* 상품후기를 화면에 추가하기 위한 함수 */
+			function pdReTemplate(pd_review_no, user_id, pd_review_content, pd_name) {
+				let $div = $("#pdReviewList");
+				
+				let $element = $("#pd-re-template").clone().removeAttr("id"); //기존의 요소를 복제하여 동적으로 추가
+				$element.attr("data-num", pd_review_no);
+				$element.addClass("pdReList");
+				$element.find(".testimonial > .userid").html(user_id);
+				$element.find(".testimonial > blockquote > p").html("&ldquo;"+ pd_review_content + "&rdquo;");
+				$element.find(".testimonial > .pdname").html(pd_name);
+				$div.append($element);
+			}
+			
+			/* 상품후기를 불러오는 함수 */
+			function pdReviewAll() {
+				$(".pdReList").detach();
+				let url = "/pdReview/main";
+				
+				$.getJSON(url, function(data) {
+					$(data).each(function() {
+						let pd_review_no = this.pd_review_no;
+						let user_id = this.user_id;
+						let pd_review_content = this.pd_review_content;
+						let pd_name = this.pd_name;
+						
+						pdReTemplate(pd_review_no, user_id, pd_review_content, pd_name);
+					});
+				}).fail(function() {
+					alert("상품후기 목록을 불러오는 데 실패하였습니다. 잠시 후 다시 시도해 주세요.");
+				});
+			}
+			
+			/* 양조장후기를 화면에 추가하기 위한 함수 */
+			function brReTemplate(br_review_no, user_id, br_review_content, br_name) {
+				let $div = $("#brReviewList");
+				
+				let $element = $("#br-re-template").clone().removeAttr("id"); //기존의 요소를 복제하여 동적으로 추가
+				$element.attr("data-num", br_review_no);
+				$element.addClass("brReList");
+				$element.find(".testimonial > .userid").html(user_id);
+				$element.find(".testimonial > blockquote > p").html("&ldquo;"+ br_review_content + "&rdquo;");
+				$element.find(".testimonial > .brname").html(br_name);
+				$div.append($element);
+			}
+			
+			/* 양조장후기를 불러오는 함수 */
+			function brReviewAll() {
+				$(".brReList").detach();
+				let url = "/brReview/main";
+				
+				$.getJSON(url, function(data) {
+					$(data).each(function() {
+						let br_review_no = this.br_review_no;
+						let user_id = this.user_id;
+						let br_review_content = this.br_review_content;
+						let br_name = this.br_name;
+						
+						brReTemplate(br_review_no, user_id, br_review_content, br_name);
+					});
+				}).fail(function() {
+					alert("양조장후기 목록을 불러오는 데 실패하였습니다. 잠시 후 다시 시도해 주세요.");
 				});
 			}
 		</script>
@@ -189,9 +253,6 @@
 		</div>
 	
 		<%-- 상품 추천 --%>
-		<form id="detailForm">
-			<input type="hidden" id="pd_id" name="pd_id" />
-		</form>
 		<div class="section">
 			<div class="container">
 				<div class="row mb-5 align-items-center">
@@ -207,9 +268,9 @@
 						<div class="property-slider-wrap">
 							<div id="productList" class="property-slider">
 								<!-- item -->
-								<div id="item-template" class="property-item">
-									<a class="img goDetail">
-										<img class="img-fluid" />
+								<div id="pd-template" class="property-item">
+									<a class="img">
+										<img class="img-fluid goDetail" />
 									</a>
 									<div class="property-content">
 										<div class="price mb-2"><span></span></div>
@@ -251,8 +312,8 @@
 					</div>
 					<div class="col-md-6 text-md-end">
 						<div id="testimonial-nav">
-							<span class="prev" data-controls="prev">이전</span>
-							<span class="next" data-controls="next">다음</span>
+							<!-- <span class="prev" data-controls="prev">이전</span>
+							<span class="next" data-controls="next">다음</span> -->
 						</div>
 					</div>
 				</div>
@@ -263,22 +324,15 @@
 					</div>
 				</div>
 				<div class="testimonial-slider-wrap">
-					<div class="testimonial-slider">
+					<div id="pdReviewList" class="testimonial-slider">
 						<%-- 자바스크립트로 clone 요소 동적으로 추가할 예정 --%>
-						<div class="item">
+						<div id="pd-re-template" class="item">
 							<div class="testimonial">
-								<div class="rate">
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-								</div>
-								<h3 class="h5 text-primary mb-4">James Smith</h3>
+								<h3 class="userid h5 text-primary mb-4"></h3>
 								<blockquote>
-									<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+									<p></p>
 								</blockquote>
-								<p class="text-black-50">Designer, Co-founder</p>
+								<p class="pdname text-black-50"></p>
 							</div>
 						</div>
 					</div>
@@ -295,8 +349,8 @@
 					</div>
 					<div class="col-md-6 text-md-end">
 						<div id="testimonial-nav">
-							<span class="prev" data-controls="prev">이전</span>
-							<span class="next" data-controls="next">다음</span>
+							<!-- <span class="prev" data-controls="prev">이전</span>
+							<span class="next" data-controls="next">다음</span> -->
 						</div>
 					</div>
 				</div>
@@ -307,22 +361,15 @@
 					</div>
 				</div>
 				<div class="testimonial-slider-wrap">
-					<div class="testimonial-slider">
+					<div id="brReviewList" class="testimonial-slider">
 						<%-- 자바스크립트로 clone 요소 동적으로 추가할 예정 --%>
-						<div class="item">
+						<div id="br-re-template" class="item">
 							<div class="testimonial">
-								<div class="rate">
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-									<span class="icon-star text-warning"></span>
-								</div>
-								<h3 class="h5 text-primary mb-4">James Smith</h3>
+								<h3 class="userid h5 text-primary mb-4"></h3>
 								<blockquote>
-									<p>&ldquo;Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.&rdquo;</p>
+									<p></p>
 								</blockquote>
-								<p class="text-black-50">Designer, Co-founder</p>
+								<p class="brname text-black-50"></p>
 							</div>
 						</div>
 					</div>
@@ -355,7 +402,7 @@
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-3 mb-5 mb-lg-0">
 						<div class="h-100 person">
-							<img src="/resources/images/member1.png" class="img-fluid" />
+							<img src="/resources/images/member2.png" class="img-fluid" />
 							<div class="person-contents">
 								<h2 class="mb-0"><a>유승협</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
@@ -368,7 +415,7 @@
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-3 mb-5 mb-lg-0">
 						<div class="h-100 person">
-							<img src="/resources/images/member1.png" class="img-fluid" />
+							<img src="/resources/images/member3.png" class="img-fluid" />
 							<div class="person-contents">
 								<h2 class="mb-0"><a>이민정</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
@@ -381,7 +428,7 @@
 					</div>
 					<div class="col-sm-4 col-md-4 col-lg-3 mb-5 mb-lg-0">
 						<div class="h-100 person">
-							<img src="/resources/images/member1.png" class="img-fluid" />
+							<img src="/resources/images/member4.png" class="img-fluid" />
 							<div class="person-contents">
 								<h2 class="mb-0"><a>이석환</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>

@@ -4,8 +4,10 @@ import com.kap.client.reserve.vo.ReserveVO;
 
 public interface ReserveService {
 
-	public int breweryReserve(ReserveVO rvo);
+	public int reserveInsert(ReserveVO rvo);
 
 	public ReserveVO reserveDetail(ReserveVO rvo);
+
+	public int reserveCancel(ReserveVO rvo);
 	
 }

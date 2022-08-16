@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<link rel="stylesheet" type="text/css" href="/resources/include/css/lightbox.min.css"/>
-		<script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				let br_id = ${br_id};
@@ -18,7 +16,7 @@
 				$element.find(".panel-heading > .panel-title > .userid").html(user_id);
 				$element.find(".panel-heading > .panel-title > .date").html(br_review_date);
 				$element.find(".panel-body").html(br_review_content);
-				if (pd_review_file != "") {
+				if (br_review_file != "") {
 					let imgPath = "/uploadStorage/brReview/" + br_review_file;
 					$element.find(".panel-img > a > img").attr("src", imgPath);
 				} else {
@@ -39,7 +37,10 @@
 						let br_review_no = this.br_review_no;
 						let user_id = this.user_id;
 						let br_review_content = this.br_review_content;
-						let br_review_file = this.br_review_file;
+						let br_review_file = "";
+						if (this.br_review_file != "") {
+							br_review_file = this.br_review_file;
+						}
 						let br_review_date = this.br_review_date;
 						
 						br_review_content = br_review_content.replace(/(\r\n|\r|\n)/g, "<br/>");
@@ -65,7 +66,7 @@
 				</div>
 				<div class="panel-body"></div>
 				<div class="panel-img">
-					<a data-lightbox="br-review"><img /></a>
+					<a><img class="review-img" /></a>
 				</div>
 			</div>
 		</div>

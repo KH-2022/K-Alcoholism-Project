@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/plugins/default.css">
 		<!--====== Main Style CSS ======-->
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
-		<link rel="stylesheet" href="/resources/include/css/star.css"/>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script>
 		$(function(){
@@ -91,11 +90,12 @@
 	<section class="my-account-area pt-10">
 		<div class="container-fluid custom-container">
 			<div class="row">
+			
 				<form id="orderDetailForm">
 					<input type="hidden" id="order_no" name="order_no" />
 				</form>
 			
-				<div class="col-xl-3 col-md-4">
+				<div class="col-xl-3 col-md-3">
 					<div class="my-account-menu mt-30">
 						<ul class="nav account-menu-list flex-column nav-pills" id="pills-tab" role="tablist">
 							<li><a class="active" id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
@@ -110,7 +110,7 @@
 					</div>
 				</div> 
 
-				<div class="col-xl-8 col-md-8">
+				<div class="col-xl-8 col-md-9">
 				<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 				
 				<div class="tab-pane fade show active" id="pills-order" role="tabpanel" aria-labelledby="pills-order-tab">
@@ -128,8 +128,8 @@
 												<th class="col-md-1">주문번호</th>
 												<th class="col-md-2">주문일</th>
 												<th class="col-md-2">상품 사진</th>
-												<th class="col-md-4">상품명</th>
-												<th class="col-md-1">결제 금액</th>
+												<th class="col-md-3">상품명</th>
+												<th class="col-md-2">결제 금액</th>
 												<th class="col-md-1">주문상태</th>
 												<th class="col-md-1">기타</th>
 											</tr>
@@ -181,7 +181,6 @@
 				</div>
 			</div>
 		</div>
-		
 	</section>
 	<!--====== My Account Part Ends ======-->
 	<!--====== Features Banner Part Start ======-->

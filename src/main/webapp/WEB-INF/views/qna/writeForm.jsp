@@ -64,7 +64,7 @@
 				<form id="f_writeForm" name="f_writeForm" class="form-horizontal">
 					
 					<%-- ===================== 버튼 추가 ===================== --%>
-					<div class="contentBtn text-right">
+					<div class="form-group text-right">
 						<input type="button" value="등록" id="qnaInsertBtn" class="btn btn-primary" />
 						<input type="button" value="취소" id="qnaCancelBtn" class="btn btn-primary" />
 						<input type="button" value="목록" id="qnaListBtn" class="btn btn-primary" />

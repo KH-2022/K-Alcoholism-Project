@@ -16,9 +16,9 @@ public class ReserveServiceImpl implements ReserveService {
 
 	/* ¿¹¾à Ã³¸® ±¸Çö */
 	@Override
-	public int breweryReserve(ReserveVO rvo) {
+	public int reserveInsert(ReserveVO rvo) {
 		int result = 0;
-		result = reserveDao.breweryReserve(rvo);
+		result = reserveDao.reserveInsert(rvo);
 		return result;
 	}
 
@@ -27,10 +27,18 @@ public class ReserveServiceImpl implements ReserveService {
 	public ReserveVO reserveDetail(ReserveVO rvo) {
 		ReserveVO detail = null;
 		detail = reserveDao.reserveDetail(rvo);
-		if (detail != null) {
+		if (detail != null && detail.getRsv_request() != null) {
 			detail.setRsv_request(detail.getRsv_request().toString().replaceAll("\n", "<br/>"));
 		}
 		return detail;
 	}
-	
+
+	/* ì˜ˆì•½ ì·¨ì†Œ êµ¬í˜„ */
+	@Override
+	public int reserveCancel(ReserveVO rvo) {
+		int result = 0;
+		result = reserveDao.reserveCancel(rvo);
+		return result;
+	}
+
 }

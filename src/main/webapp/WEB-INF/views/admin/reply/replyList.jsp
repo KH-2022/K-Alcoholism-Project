@@ -10,6 +10,7 @@
 			text-overflow: ellipsis;
 			white-space:nowrap; 
 		}
+		.table {margin-bottom: 80px;}
 		</style>
 		<script type="text/javascript">
 			$(function() {
@@ -150,7 +151,7 @@
 			</form>
 			
 			<%-- ================= 검색기능 시작 ================= --%>
-			<div id="replySearch" class="text-right">
+			<div id="replySearch" class="text-right btnGroup">
 				<form id="searchForm" name="searchForm" class="form-inline">
 					<%-- 페이징 처리를 위한 파라미터 --%>
 					<input type="hidden" name="pageNum" id="pageNum" value="${pageMaker.cvo.pageNum}">
@@ -213,7 +214,9 @@
 							</c:otherwise>
 						</c:choose>
 					</tbody>
-					
+				</table>
+				
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th data-value="br_review_no" class="order text-center col-md-1">양조장리뷰번호</th>
@@ -254,8 +257,6 @@
 							</c:otherwise>
 						</c:choose>
 					</tbody>
-					
-					
 				</table>
 			</div>
 			

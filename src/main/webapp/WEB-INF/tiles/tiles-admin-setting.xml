@@ -4,7 +4,7 @@
 
 <tiles-definitions>
 	<definition name="basic" template="/WEB-INF/views/template/admin/contentLayout.jsp">
- 		<put-attribute name="title" value="관리자 페이지" />
+ 		<put-attribute name="title" value="전통주의 관리자 페이지" />
  		<put-attribute name="header" value="/WEB-INF/views/template/admin/header.jsp" />
  		<put-attribute name="left" value="/WEB-INF/views/template/admin/left.jsp" />
  		<put-attribute name="sub" value="/WEB-INF/views/template/admin/sub.jsp" />
@@ -12,44 +12,44 @@
  	</definition>
  	
  	<definition name="admin/member/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 회원 관리" />
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 회원 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/member/{1}.jsp" />
  	</definition>
  	
+ 	<definition name="admin/qna/*" extends="basic">  
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 문의게시판 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/qna/{1}.jsp" />
+ 	</definition>
+ 	
+ 	<definition name="admin/reply/*" extends="basic">  
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 리뷰게시판 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/reply/{1}.jsp" />
+ 	</definition>
+ 	
  	<definition name="admin/product/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 상품 관리" />
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 전통주 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/product/{1}.jsp" />
  	</definition>
  	
  	<definition name="admin/order/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 상품 주문 관리" />
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 상품 주문 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/order/{1}.jsp" />
  	</definition>
  	
  	<definition name="admin/brewery/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 양조장 관리" />
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 양조장 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/brewery/{1}.jsp" />
  	</definition>
  	
  	<definition name="admin/reserve/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 체험 예약 관리" />
+ 		<put-attribute name="title" value="전통주의 관리자페이지 :: 체험 예약 관리" />
  		<put-attribute name="sub" value="" />
  		<put-attribute name="main" value="/WEB-INF/views/admin/reserve/{1}.jsp" />
- 	</definition>
- 	
- 	<definition name="admin/reply/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 회원 댓글 관리" />
- 		<put-attribute name="sub" value="" />
- 		<put-attribute name="main" value="/WEB-INF/views/admin/reply/{1}.jsp" />
- 	</definition>
- 	
- 	<definition name="admin/qna/*" extends="basic">  
- 		<put-attribute name="title" value="관리자 문의게시판 관리" />
- 		<put-attribute name="sub" value="" />
- 		<put-attribute name="main" value="/WEB-INF/views/admin/qna/{1}.jsp" />
  	</definition>
 </tiles-definitions>

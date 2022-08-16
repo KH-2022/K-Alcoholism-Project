@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/plugins/default.css">
 		<!--====== Main Style CSS ======-->
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
-		<link rel="stylesheet" href="/resources/include/css/star.css" />
 		<script type ="text/javascript">
 			$(function() {
 	
@@ -98,7 +97,7 @@
 	<section class="my-account-area pt-10">
 		<div class="container-fluid custom-container">
 			<div class="row">
-				<div class="col-xl-3 col-md-4">
+				<div class="col-xl-3 col-md-3">
 					<div class="my-account-menu mt-30">
 						<ul class="nav account-menu-list flex-column nav-pills" id="pills-tab" role="tablist">
 							<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
@@ -112,7 +111,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="col-xl-8 col-md-8">	
+				<div class="col-xl-8 col-md-9">	
 				<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 	
 				<div class="tab-pane fade show active" id="pills-account" role="tabpanel" aria-labelledby="pills-account-tab">

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.brewery.vo.BreweryVO;
 import com.kap.client.myPage.vo.MyPageOrderVO;
-import com.kap.client.product.vo.ProductVO;
 import com.kap.client.reply.service.ReplyService;
 import com.kap.client.reply.vo.BreplyVO;
 import com.kap.client.reply.vo.ReplyVO;

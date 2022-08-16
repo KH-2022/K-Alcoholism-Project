@@ -10,5 +10,9 @@ public interface ReviewService {
 	public List<ReplyVO> pdReviewList(Integer pd_id);
 	
 	public List<BreplyVO> brReviewList(Integer br_id);
+
+	public List<ReplyVO> pdReviewMain();
+
+	public List<BreplyVO> brReviewMain();
 	
 }

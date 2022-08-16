@@ -92,8 +92,8 @@
 				<%-- 페이지 이동을 위한 버튼 --%>
 				<div class="section">
 					<div class="container">
-						<div class="row mb-5 align-items-center">
-							<div class="col-md-6">
+						<div class="row align-items-center">
+							<div class="form-group col-md-12 text-center">
 								<button type="button" id="reserveListBtn" class="btn btn-primary">예약목록 확인</button>
 								<button type="button" id="breweryListBtn" class="btn btn-primary">양조장 목록으로</button>
 								<button type="button" id="homeBtn" class="btn btn-primary">홈으로</button>

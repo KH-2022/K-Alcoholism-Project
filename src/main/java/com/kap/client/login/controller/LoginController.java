@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.login.service.LoginService;
+import com.kap.admin.member.vo.MemberVO;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -25,7 +25,6 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/login/*")
 @RequiredArgsConstructor
 public class LoginController {
-	
 	private final LoginService loginService;
 	
 	@ModelAttribute

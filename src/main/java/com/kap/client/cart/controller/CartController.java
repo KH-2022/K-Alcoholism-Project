@@ -17,6 +17,7 @@ import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.cart.service.CartService;
 import com.kap.client.cart.vo.CartVO;
 
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
@@ -43,6 +44,7 @@ public class CartController {
 
 		int result = 0;
 		cvo.setUser_no(clientLogin.getUser_no()); 
+	
 		result = cartService.insertCart(cvo);
 	
 		return (result==1) ? "SUCCESS" : "FAILURE";

@@ -32,4 +32,19 @@ public class ReviewServiceImpl implements ReviewService {
 		list = reviewDao.brReviewList(br_id);
 		return list;
 	}
+
+	@Override
+	public List<ReplyVO> pdReviewMain() {
+		List<ReplyVO> list = null;
+		list = reviewDao.pdReviewMain();
+		return list;
+	}
+
+	@Override
+	public List<BreplyVO> brReviewMain() {
+		List<BreplyVO> list = null;
+		list = reviewDao.brReviewMain();
+		return list;
+	}
+
 }

@@ -26,5 +26,9 @@ public interface ReviewDao {
 	public int brReviewUpdate(BreplyVO bvo);
 	
 	public int brReviewCnt(int br_id);
+
+	public List<ReplyVO> pdReviewMain();
+
+	public List<BreplyVO> brReviewMain();
 	
 }

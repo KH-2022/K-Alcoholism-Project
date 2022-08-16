@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kap.admin.member.dao.AdminMemberDao">
-	
-	<select id="memberList" parameterType="member" resultType="member">
+		<select id="memberList" parameterType="member" resultType="member">
 		<![CDATA[
 			select user_no, user_date, delete_YN
 	        ,REGEXP_REPLACE(user_id, '.', '*', 4) as user_id
@@ -11,7 +10,7 @@
 	        ,concat('****',substr(user_email, 4, length(user_email))) as user_email
 	    from
 	        (
-	            select /*+ index_desc(kap_user PK_KAP_USER) */
+	            select /*+ index_desc(kap_user kap_user_pk) */
 	                rownum as rnum, user_no, user_id, user_name, user_email, user_tel, user_date, delete_YN
 	                from kap_user
 	            where rownum <= #{pageNum} * #{amount}
@@ -19,7 +18,6 @@
 	    where rnum > (#{pageNum} - 1) * #{amount}
 	    ]]>
 	</select>
-
 
 	<select id="memberListCnt" parameterType="member" resultType="int">
 		select count(*) from kap_user
@@ -29,4 +27,5 @@
 		update kap_user set delete_YN = 'Y', user_date=sysdate
 		where user_no = #{user_no} and delete_YN = 'N'
 	</update>
+	
 </mapper>
