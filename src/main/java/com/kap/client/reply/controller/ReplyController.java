@@ -11,8 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kap.client.brewery.vo.BreweryVO;
 import com.kap.admin.member.vo.MemberVO;
+import com.kap.client.brewery.vo.BreweryVO;
+import com.kap.client.myPage.vo.MyPageOrderVO;
 import com.kap.client.reply.service.ReplyService;
 import com.kap.client.reply.vo.BreplyVO;
 import com.kap.client.reply.vo.ReplyVO;
@@ -29,19 +30,33 @@ public class ReplyController {
 	private final ReplyService replyService;
 	
 	@RequestMapping(value="/reply", method = RequestMethod.GET)
-	public String review(@SessionAttribute("login") MemberVO loginMember, ReserveVO rvo, Model model) {
+	public String review(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, ReserveVO rvo, Model model) {
 		model.addAttribute(loginMember);
 		rvo.setUser_no(loginMember.getUser_no());
+		ovo.setUser_no(loginMember.getUser_no());
 		
 		List<ReserveVO> reserveManage = replyService.reserveManage(rvo);
 		model.addAttribute("reserveManage",reserveManage);
-		log.info("reserveManage" + reserveManage);
+		
+		List<MyPageOrderVO> orderManage = replyService.orderManage(ovo);
+		model.addAttribute("orderManage",orderManage);
+		log.info("orderManage : "+orderManage);
 		
 		return "client/reply";
 	}
 	
-	@RequestMapping(value="/replyForm", method = RequestMethod.GET)
-	public String reviewForm(@RequestParam(required=false, value="br_id")Integer br_id, @SessionAttribute("login") MemberVO loginMember, BreweryVO bvo, ReserveVO rvo, Model model) {
+	@RequestMapping(value="/pdReplyForm", method = RequestMethod.GET)
+	public String pdReviewForm(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, Model model) {
+		model.addAttribute(loginMember);
+		ovo.setUser_no(loginMember.getUser_no());
+		
+		MyPageOrderVO pdReplyForm = replyService.pdReplyForm(ovo);
+		model.addAttribute("pdReplyForm", pdReplyForm);
+		
+		return "client/pdReplyForm";
+	}
+	@RequestMapping(value="/brReplyForm", method = RequestMethod.GET)
+	public String brReviewForm(@RequestParam(required=false, value="br_id")Integer br_id, @SessionAttribute("login") MemberVO loginMember, BreweryVO bvo, ReserveVO rvo, Model model) {
 		model.addAttribute(loginMember);
 		rvo.setUser_no(loginMember.getUser_no());
 		
@@ -49,7 +64,9 @@ public class ReplyController {
 		model.addAttribute("brReplyForm", brReplyForm);
 		model.addAttribute("reserve",rvo);
 		
-		return "client/replyForm";
+		log.info("brReplyForm = " + brReplyForm);
+		
+		return "client/brReplyForm";
 	}
 	
 	@RequestMapping(value = "/replyList", method=RequestMethod.GET)
@@ -73,15 +90,17 @@ public class ReplyController {
 	}
 	
 	@RequestMapping(value = "/replyInsert", method = RequestMethod.POST)
-	public String replyInsert(@SessionAttribute("login") MemberVO loginMember, ReplyVO rvo, Model model) throws Exception {
+	public String replyInsert(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, ReplyVO rvo, Model model) throws Exception {
 		log.info("replyInsert 호출 성공");
 		
 		model.addAttribute(loginMember);
 		rvo.setUser_no(loginMember.getUser_no());
+		ovo.setUser_no(loginMember.getUser_no());
 		
 		replyService.replyInsert(rvo);
+		replyService.orderdetailUpdate(ovo);
 		
-		return "client/reply";
+		return "redirect:/reply/reply";
 	}
 	
 	@RequestMapping(value = "/bReplyInsert", method = RequestMethod.POST)

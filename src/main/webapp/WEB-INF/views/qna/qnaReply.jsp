@@ -37,7 +37,7 @@
 				$element.attr("data-num", qna_re_no);
 				$element.addClass("reply");
 				$element.find('.panel-heading > .panel-title > .name').html("관리자");
-				$element.find('.panel-heading > .panel-title > .date').html(" | " + qna_re_date);
+				$element.find('.panel-heading > .panel-title > .date').html(qna_re_date);
 				$element.find('.panel-body').html(qna_re_content);
 				
 				$div.append($element);
@@ -45,18 +45,15 @@
 		</script>
 	</head>
 	<body>
-		<div id="replyContainer">
-			<%-- 댓글 리스트 영역 --%>
-			<div id="qnaReplyList">
-				<div id="item-template" class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">
-							<span class="name"></span>
-							<span class="date"></span>
-						</h3>
-					</div>
-					<div class="panel-body"></div>
+		<div id="qnaReplyList">
+			<div id="item-template" class="panel">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<span class="name text-primary"></span>&nbsp;
+						<small class="date"></small>
+					</h3>
 				</div>
+				<div class="panel-body"></div>
 			</div>
 		</div>
 	</body>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kap.admin.review.dao.AdminReviewDao">
+
+	<sql id="brReplySearch">
+		<if test="search == 'br_name'">
+			<![CDATA[ br_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
+	<sql id="pdReplySearch">
+		<if test="search == 'pd_name'">
+			<![CDATA[ pd_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
+	<select id="pdReplyList" parameterType="reply" resultType="reply">
+		<![CDATA[
+			SELECT * 
+				FROM (
+			        SELECT
+			            A.*, rownum AS rnum
+			        FROM 
+			        (
+		                SELECT
+		                    pd.user_no,
+		                    pd.pd_review_no,
+		                    pd.pd_review_thumb,
+		                    p.pd_name,
+		                    (SELECT user_id FROM kap_user WHERE user_no = pd.user_no) AS user_id,
+		                    pd.pd_review_content,
+		                    pd.pd_review_file,
+		                    pd.pd_review_date,
+		                    (select delete_yn from kap_user where user_no = pd.user_no) as delete_yn
+		                FROM pd_review pd LEFT OUTER JOIN product p
+		                ON pd.pd_id = p.pd_id
+		                ORDER BY pd.pd_review_no desc
+			        ) A 
+			      WHERE ]]>
+			      <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				  		<include refid="pdReplySearch"></include>
+				  </trim>
+			      <![CDATA[rownum <= #{pageNum} * #{amount}
+			    )WHERE rnum > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
+	
+	<select id="brReplyList" parameterType="breply" resultType="breply">
+		<![CDATA[
+			SELECT * 
+				FROM (
+			        SELECT
+			            A.*, rownum AS rnum
+			        FROM 
+			        (
+			            SELECT
+		                    br.user_no,
+		                    br.br_review_no,
+		                    br.br_review_thumb,
+		                    b.br_name,
+		                    (SELECT user_id FROM kap_user WHERE user_no = br.user_no) AS user_id,
+		                    br.br_review_content,
+		                    br.br_review_file,
+		                    br.br_review_date,
+		                    (select delete_yn from kap_user where user_no = br.user_no) as delete_yn
+		                FROM br_review br LEFT OUTER JOIN brewery b
+		                ON br.br_id = b.br_id
+		                ORDER BY br.br_review_no desc
+			        ) A
+			        WHERE ]]>
+			        <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				  		<include refid="brReplySearch"></include>
+				    </trim>
+			       <![CDATA[  rownum <= #{pageNum} * #{amount}
+			    )WHERE rnum > (#{pageNum} - 1) * #{amount}
+	    ]]>
+	</select>
+
+	<select id="pdReplyListCnt" parameterType="reply" resultType="int">
+		select count(*) from pd_review
+	</select>
+	
+	<select id="brReplyListCnt" parameterType="breply" resultType="int">
+		select count(*) from br_review
+	</select>
+	
+	<select id="pdReplyDetail" parameterType="reply" resultType="reply">
+		select p.pd_name, pr.pd_review_no, pr.user_no, pr.pd_id, pr.pd_review_content, 
+		(SELECT user_id FROM kap_user WHERE user_no = pr.user_no) AS user_id,
+		pr.pd_review_file, pr.pd_review_thumb, to_char(pr.pd_review_date, 'YYYY-MM-DD HH24:MI')as pd_review_date
+		from pd_review pr left outer join product p
+		on pr.pd_id = p.pd_id
+		where pr.pd_review_no = #{pd_review_no}
+	</select>
+	
+	<delete id="pdReplyDelete" parameterType="reply">
+		delete from pd_review
+		where pd_review_no = #{pd_review_no}
+	</delete>
+	
+	<select id="brReplyDetail" parameterType="breply" resultType="breply">
+		select b.br_name, br.br_review_no, br.user_no, br.br_id, br.br_review_content, 
+		(SELECT user_id FROM kap_user WHERE user_no = br.user_no) AS user_id,
+		br.br_review_file, br.br_review_thumb, to_char(br.br_review_date, 'YYYY-MM-DD HH24:MI')as br_review_date
+		from br_review br left outer join brewery b
+		on br.br_id = b.br_id
+		where br.br_review_no = #{br_review_no}
+	</select>
+	
+	<delete id="brReplyDelete" parameterType="breply">
+		delete from br_review
+		where br_review_no = #{br_review_no}
+	</delete>
+	
+</mapper>

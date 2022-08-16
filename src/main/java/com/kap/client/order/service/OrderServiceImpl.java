@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 
-import com.kap.client.login.vo.LoginVO;
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.order.dao.OrderDao;
 import com.kap.client.order.vo.OrderDetailVO;
 import com.kap.client.order.vo.OrderVO;
@@ -37,7 +37,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		
 		OrderVO orderVO = new OrderVO();
-		orderVO.setUser_no(((LoginVO)request.getSession().getAttribute("login")).getUser_no());
+		orderVO.setUser_no(((MemberVO)request.getSession().getAttribute("login")).getUser_no());
 		orderVO.setOrder_amount(totalAmount);
 		orderDao.insertOrder(orderVO);
 		

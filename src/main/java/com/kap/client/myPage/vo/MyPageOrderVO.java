@@ -18,11 +18,12 @@ public class MyPageOrderVO extends CommonVO{
 	private int cart_count;
 	private int pd_price;
 	
+	private int order_count;
 	private String pd_name;
 	private String pd_thumb;
 	private String user_name;
 	private String user_tel;
 	private String user_postcode;
-	private String user_postadd;
+	private String user_add;
 	private String user_detailadd;
 }

@@ -11,7 +11,7 @@
 			<![CDATA[ qna_content LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 		<if test="search == 'user_id'">
-			<![CDATA[ (SELECT user_id FROM kap_user WHERE kap_user.user_no = qnalist.user_no) LIKE '%' || #{keyword} || '%' ]]>
+			<![CDATA[ (SELECT user_id FROM kap_user WHERE kap_user.user_no = qna.user_no) LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 	</sql>
 	
@@ -74,7 +74,7 @@
 		
 		<!-- 로그인한 회원 정보 가져오는 코드 삽입 예정. 임시로 user_no에 1번 회원 넣어서 CRUD 기능 구현 -->
 		INSERT INTO qna(qna_no, user_no, qna_title, qna_content, qna_thumb, qna_file)
-		VALUES(#{qna_no}, 1, #{qna_title}, #{qna_content}, #{qna_thumb}, #{qna_file})
+		VALUES(#{qna_no}, #{user_no}, #{qna_title}, #{qna_content}, #{qna_thumb}, #{qna_file})
 	</insert>
 	
 	<!-- 게시물 수정 -->

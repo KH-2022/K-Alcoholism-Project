@@ -22,10 +22,12 @@
 			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/brewery')}">class="active"</c:if>>
 				<a href="/brewery/breweryList">양조장 체험</a>
 			</li>
+			<c:if test="${empty login}">
 			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/signUp')}">class="active"</c:if>>
 				<a href="/signUp/signUpForm">회원가입</a>
 			</li>
-			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/client/login')}">class="active"</c:if>>
+			</c:if>
+			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/login')}">class="active"</c:if>>
 				<c:if test="${empty login}">
 					<a href="/login/login">로그인</a>
 				</c:if>
@@ -33,13 +35,15 @@
 					<a href="/login/logout">로그아웃</a>
 				</c:if>
 			</li>
-			<li>
+			<c:if test="${not empty login}">
+			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/myPage')}">class="active"</c:if>>
 				<a href="/myPage/myPage">마이페이지</a>
 			</li>
-			<li>
+			</c:if>
+			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/qna')}">class="active"</c:if>>
 				<a href="/qna/qnaList">1:1 문의</a>
 			</li>
-			<li>
+			<li <c:if test="${fn:containsIgnoreCase(clientUri, '/cart')}">class="active"</c:if>>
 				<a href="/cart/cartList"><span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span></a>
 			</li>
 		</ul>

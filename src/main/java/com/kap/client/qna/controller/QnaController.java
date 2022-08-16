@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.qna.service.QnaService;
 import com.kap.client.qna.vo.QnaVO;
 import com.kap.common.vo.PageDTO;
@@ -72,8 +74,10 @@ public class QnaController {
 	 * 글쓰기 구현
 	 ***************************************************/
 	@RequestMapping(value="/qnaInsert", method=RequestMethod.POST)
-	public String qnaInsert(QnaVO qvo, Model model) throws Exception {
+	public String qnaInsert(@SessionAttribute("login") MemberVO loginMember, QnaVO qvo, Model model) throws Exception {
 		log.info("qnaInsert 호출 성공");
+		
+		qvo.setUser_no(loginMember.getUser_no());
 		
 		int result = 0;
 		String url = "";

@@ -107,9 +107,21 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int orderCount(MyPageOrderVO ovo) {
-		int orderCount = mypageDao.orderCount(ovo);
+	public List<MyPageOrderVO> orderCount(MyPageOrderVO ovo) {
+		List<MyPageOrderVO> orderCount = mypageDao.orderCount(ovo);
 		return orderCount;
+	}
+
+	@Override
+	public List<MyPageOrderVO> orderDetail(MyPageOrderVO ovo) {
+		List<MyPageOrderVO> orderDetail = mypageDao.orderDetail(ovo);
+		return orderDetail;
+	}
+
+	@Override
+	public List<Integer> getOrderNo(MyPageOrderVO ovo) {
+		List<Integer> getOrderNo = mypageDao.getOrderNo(ovo);
+		return getOrderNo;
 	}
 
 }

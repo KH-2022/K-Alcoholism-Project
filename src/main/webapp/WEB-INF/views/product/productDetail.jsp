@@ -21,14 +21,13 @@
 						},
 						dataType : "text",
 						data : value,
-						error:function(xhr, textStatus, errorThrown){ //실행시 오류가 발생하였을 경우
-							//alert(textStatus + " (HTTP-" + xhr.status + "/" + errorThrown + ")");
-							alert("시스템에 문제가 있어 잠시 후 다시 진행해 주세요")
+						error:function(xhr, textStatus, errorThrown){
+							alert("시스템에 문제가 있어 잠시 후 다시 진행해 주세요.");
 						},
 						success :function(result){
-							if(result =="5"){
+							if(result == "5"){
 								alert("로그인이 필요합니다.");
-							}else if(result =="FAILURE"){
+							}else if(result == "FAILURE"){
 								alert("장바구니에 이미 추가되어있습니다.");
 							} else if(result == "SUCCESS"){
 								alert("장바구니에 상품이 등록되었습니다.");
@@ -147,14 +146,15 @@
 									<div class="mb-5"><input type="number" id="cart_count" name="cart_count" min="1" max="100" value="1" /></div>
 									<div class="specs d-flex mb-5">
 										<span class="d-block d-flex align-items-center">
-											<span class="caption">배송비 3,000원</span>
+											<span class="caption">무료배송</span>
 										</span>
 									</div>
 									<div>
 										<input type="hidden" id="pd_id" name="pd_id" value="${detail.pd_id}" />
+										<input type="hidden" id="pd_price" value="${detail.pd_price}">
+										<input type="hidden" id="pd_name" value="${detail.pd_name}">
 										<button type="button" id="insertCartBtn" class="btn btn-primary">장바구니 담기</button>
 										<button type="button" id="orderListBtn" class="btn btn-primary">구매하기</button>
-									
 									</div>
 								</form>
 							</div>

@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<link rel="stylesheet" type="text/css" href="/resources/include/css/lightbox.min.css"/>
-		<script type="text/javascript" src="/resources/include/js/lightbox.min.js"></script>
 		<script type="text/javascript">
 			$(function() {
 				let pd_id = ${pd_id};
@@ -39,7 +37,10 @@
 						let pd_review_no = this.pd_review_no;
 						let user_id = this.user_id;
 						let pd_review_content = this.pd_review_content;
-						let pd_review_file = this.pd_review_file;
+						let pd_review_file = "";
+						if (this.pd_review_file != "") {
+							pd_review_file = this.pd_review_file;
+						}
 						let pd_review_date = this.pd_review_date;
 						
 						pd_review_content = pd_review_content.replace(/(\r\n|\r|\n)/g, "<br/>");
@@ -65,7 +66,7 @@
 				</div>
 				<div class="panel-body"></div>
 				<div class="panel-img">
-					<a data-lightbox="pd-review"><img /></a>
+					<a><img class="review-img" /></a>
 				</div>
 			</div>
 		</div>
