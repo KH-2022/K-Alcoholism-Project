@@ -142,26 +142,13 @@
 		</script>
 	</head>
 	<body>
-		<%-- 상단 디자인 영역 --%>
-		<div class="hero page-inner overlay"
-			style="background-image: url('/resources/images/main_bg_3.jpg');">
-			<div class="container">
-				<div class="row justify-content-center align-items-center">
-					<div class="col-lg-9 text-center mt-5">
-						<h1 class="heading" data-aos="fade-up">마이페이지</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	
-	
 		<!--====== Breadcrumb Part Start ======-->
 		<div class="breadcrumb-area">
 			<div class="container-fluid custom-container">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="/">Home</a></li>
-						<li class="breadcrumb-item active">My Account</li>
+						<li class="breadcrumb-item"><a href="/">홈</a></li>
+						<li class="breadcrumb-item active">마이페이지</li>
 					</ol>
 				</nav>
 			</div>
@@ -219,8 +206,8 @@
 														<thead class="head">
 															<tr class="text-center">
 																<th class="col-md-2">구매일</th>
-																<th class="col-md-2">제품사진</th>
-																<th class="col-md-2">제품명</th>
+																<th class="col-md-3">제품사진</th>
+																<th class="col-md-3">제품명</th>
 																<th class="col-md-2">가격</th>
 																<th class="col-md-2">작성</th>
 															</tr>
@@ -306,67 +293,62 @@
 		<!--====== My Account Part Ends ======-->
 		<!--====== Features Banner Part Start ======-->
 		<section class="features-banner-area pt-80 pb-100">
-			<div class="container-fluid custom-container">
-				<div class="features-banner-wrapper d-flex flex-wrap">
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon1.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Free Shipping</h3>
-							<p>Free shipping on all Korea order</p>
-						</div>
+		<div class="container-fluid custom-container">
+			<div class="features-banner-wrapper d-flex flex-wrap">
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon1.png" alt="Icon">
 					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon2.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Support 24/7</h3>
-							<p>Contact us 24 hours a day</p>
-						</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">무료배송</h3>
+						<p>전통주의는 대한민국 어디라도 무료배송입니다.</p>
 					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon3.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">100% Money Back</h3>
-							<p>You have 30 days to Return</p>
-						</div>
-					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon4.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">90 Days Return</h3>
-							<p>If goods have problems</p>
-						</div>
-					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon5.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Payment Secure</h3>
-							<p>We ensure secure payment</p>
-						</div>
-					</div>
-					<!-- single features banner -->
 				</div>
-				<!-- features banner wrapper -->
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon2.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">24시간 운영</h3>
+						<p>전통주의는 24시간 언제라도 열려있습니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon3.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">100% 환불</h3>
+						<p>환불 요청 시 10일 이내에 반드시 환불해드립니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon4.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">교환 가능</h3>
+						<p>제품에 문제가 발생했을 경우 반드시 교환해드립니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon5.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">안전 결제</h3>
+						<p>전통주의는 안전 결제 서비스를 제공하고 있습니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
 			</div>
-			<!-- container -->
-		</section>
+			<!-- features banner wrapper -->
+		</div>
+		<!-- container -->
+	</section>
 	</body>
 </html>

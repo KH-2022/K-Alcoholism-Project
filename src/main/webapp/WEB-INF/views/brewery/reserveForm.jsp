@@ -156,6 +156,7 @@
 			    		"method" : "post",
 			    		"action" : "/breweryReserve"
 			    	});
+			    	$("#reserveForm").submit();
 			    });
 			}); //$함수 종료
 		</script>

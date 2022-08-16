@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.cart.service.CartService;
 import com.kap.client.cart.vo.CartVO;
-import com.kap.client.login.vo.LoginVO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -31,19 +31,18 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/insert", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String insertCart(@RequestBody CartVO cvo, HttpServletRequest request, Model model) {
-		log.info("insertCart ÏÑ±Í≥µ");
+		log.info("insertCart º∫∞¯");
 		log.info("cvo" +cvo);
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
-		if (clientLogin == null) { //Î°úÍ∑∏Ïù∏Ï≤¥ÌÅ¨
+		if (clientLogin == null) { //∑Œ±◊¿Œ√º≈©
 			return "5";
 		}
 
 		int result = 0;
 		cvo.setUser_no(clientLogin.getUser_no()); 
-	
 		result = cartService.insertCart(cvo);
 	
 		return (result==1) ? "SUCCESS" : "FAILURE";
@@ -52,12 +51,12 @@ public class CartController {
 
 	@GetMapping(value="/cartList")
 	public String cartList(CartVO cvo, HttpServletRequest request, Model model) {
-		log.info("cartList ÏÑ±Í≥µ");
+		log.info("cartList º∫∞¯");
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		 
-		if (clientLogin == null) { //Î°úÍ∑∏Ïù∏Ï≤¥ÌÅ¨
+		if (clientLogin == null) { //∑Œ±◊¿Œ√º≈©
 				return "5";
 		}
 		 
@@ -75,10 +74,10 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/update", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String updateCart(@RequestBody CartVO cvo, HttpServletRequest request, Model model) {
-		log.info("updateCart ÏÑ±Í≥µ");
+		log.info("updateCart º∫∞¯");
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
 		cvo.setUser_no(clientLogin.getUser_no()); 
 		
@@ -92,12 +91,12 @@ public class CartController {
 	@ResponseBody
 	@RequestMapping(value="/delete", method=RequestMethod.POST, produces = "text/plain; charset=UTF-8")
 	public String deleteCart(@RequestBody CartVO cvo, HttpServletRequest request, Model model) {
-		log.info("deleteCart ÏÑ±Í≥µ");
+		log.info("deleteCart º∫∞¯");
 		
 		log.info("cvo" +cvo);
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
 		cvo.setUser_no(clientLogin.getUser_no()); 
 		 

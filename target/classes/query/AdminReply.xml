@@ -2,6 +2,18 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kap.admin.review.dao.AdminReviewDao">
 
+	<sql id="brReplySearch">
+		<if test="search == 'br_name'">
+			<![CDATA[ br_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
+	<sql id="pdReplySearch">
+		<if test="search == 'pd_name'">
+			<![CDATA[ pd_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+	</sql>
+	
 	<select id="pdReplyList" parameterType="reply" resultType="reply">
 		<![CDATA[
 			SELECT * 
@@ -23,8 +35,12 @@
 		                FROM pd_review pd LEFT OUTER JOIN product p
 		                ON pd.pd_id = p.pd_id
 		                ORDER BY pd.pd_review_no desc
-			        ) A
-			        WHERE rownum <= #{pageNum} * #{amount}
+			        ) A 
+			      WHERE ]]>
+			      <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				  		<include refid="pdReplySearch"></include>
+				  </trim>
+			      <![CDATA[rownum <= #{pageNum} * #{amount}
 			    )WHERE rnum > (#{pageNum} - 1) * #{amount}
 	    ]]>
 	</select>
@@ -51,7 +67,11 @@
 		                ON br.br_id = b.br_id
 		                ORDER BY br.br_review_no desc
 			        ) A
-			        WHERE rownum <= #{pageNum} * #{amount}
+			        WHERE ]]>
+			        <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				  		<include refid="brReplySearch"></include>
+				    </trim>
+			       <![CDATA[  rownum <= #{pageNum} * #{amount}
 			    )WHERE rnum > (#{pageNum} - 1) * #{amount}
 	    ]]>
 	</select>

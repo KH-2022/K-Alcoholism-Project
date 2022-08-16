@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.qna.service.QnaService;
 import com.kap.client.qna.vo.QnaVO;
 import com.kap.common.vo.PageDTO;
@@ -27,30 +29,30 @@ public class QnaController {
 	private QnaService qnaService;
 
 	/***************************************************
-	 * ê¸€ ëª©ë¡ êµ¬í˜„í•˜ê¸°(í˜ì´ì§• ì²˜ë¦¬ ëª©ë¡ ì¡°íšŒ)
+	 * ±Û ¸ñ·Ï ±¸ÇöÇÏ±â(ÆäÀÌÂ¡ Ã³¸® ¸ñ·Ï Á¶È¸)
 	 ***************************************************/
 	@RequestMapping(value="/qnaList", method = RequestMethod.GET)
 	public String qnaList(@ModelAttribute QnaVO qvo, Model model) {
-		log.info("qnaList í˜¸ì¶œ ì„±ê³µ");
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		log.info("qnaList È£Ãâ ¼º°ø");
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<QnaVO> qnaList = qnaService.qnaList(qvo);
 		model.addAttribute("qnaList", qnaList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 		int total = qnaService.qnaListCnt(qvo);
 		
-		// í˜ì´ì§• ì²˜ë¦¬
+		// ÆäÀÌÂ¡ Ã³¸®
 		model.addAttribute("pageMaker", new PageDTO(total, qvo));
 		
 		return "qna/qnaList";
 	}
 	
 	/***************************************************
-	 * ê¸€ ìƒì„¸ë³´ê¸° êµ¬í˜„
+	 * ±Û »ó¼¼º¸±â ±¸Çö
 	 ***************************************************/
 	@RequestMapping(value="/qnaDetail", method=RequestMethod.GET)
 	public String qnaDetail(@ModelAttribute("data") QnaVO qvo, Model model) {
-		log.info("qnaDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaDetail È£Ãâ ¼º°ø");
 		
 		QnaVO detail = qnaService.qnaDetail(qvo);
 		model.addAttribute("detail", detail);
@@ -59,21 +61,23 @@ public class QnaController {
 	}
 	
 	/***************************************************
-	 * ê¸€ì“°ê¸° í¼ ì¶œë ¥
+	 * ±Û¾²±â Æû Ãâ·Â
 	 ***************************************************/
 	@RequestMapping(value="/writeForm")
 	public String writeForm() {
-		log.info("writeForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("writeForm È£Ãâ ¼º°ø");
 		
 		return "qna/writeForm";
 	}
 	
 	/***************************************************
-	 * ê¸€ì“°ê¸° êµ¬í˜„
+	 * ±Û¾²±â ±¸Çö
 	 ***************************************************/
 	@RequestMapping(value="/qnaInsert", method=RequestMethod.POST)
-	public String qnaInsert(QnaVO qvo, Model model) throws Exception {
-		log.info("qnaInsert í˜¸ì¶œ ì„±ê³µ");
+	public String qnaInsert(@SessionAttribute("login") MemberVO loginMember, QnaVO qvo, Model model) throws Exception {
+		log.info("qnaInsert È£Ãâ ¼º°ø");
+		
+		qvo.setUser_no(loginMember.getUser_no());
 		
 		int result = 0;
 		String url = "";
@@ -89,11 +93,11 @@ public class QnaController {
 	}
 	
 	/***************************************************
-	 * ê¸€ìˆ˜ì • í¼ ì¶œë ¥
+	 * ±Û¼öÁ¤ Æû Ãâ·Â
 	 ***************************************************/
 	@RequestMapping(value="/updateForm")
 	public String updateForm(@ModelAttribute("data") QnaVO qvo, Model model) {
-		log.info("updateForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("updateForm È£Ãâ ¼º°ø");
 		log.info("qna_no = " + qvo.getQna_no());
 		
 		QnaVO updateData = qnaService.updateForm(qvo);
@@ -104,11 +108,11 @@ public class QnaController {
 	
 	
 	/***************************************************
-	 * ê¸€ìˆ˜ì • êµ¬í˜„
+	 * ±Û¼öÁ¤ ±¸Çö
 	 ***************************************************/
 	@RequestMapping(value="/qnaUpdate", method=RequestMethod.POST)
 	public String qnaUpdate(@ModelAttribute QnaVO qvo, RedirectAttributes ras) throws Exception {
-		log.info("qnaUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaUpdate È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";
@@ -127,13 +131,13 @@ public class QnaController {
 	
 	
 	/***************************************************
-	 * ê¸€ì‚­ì œ êµ¬í˜„
+	 * ±Û»èÁ¦ ±¸Çö
 	 ***************************************************/
 	@RequestMapping(value="/qnaDelete")
 	public String qnaDelete(@ModelAttribute QnaVO qvo, RedirectAttributes ras) throws Exception {
-		log.info("qnaDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaDelete È£Ãâ ¼º°ø");
 		
-		// ì•„ë˜ ë³€ìˆ˜ì—ëŠ” ì…ë ¥ ì„±ê³µì— ëŒ€í•œ ìƒíƒœ ê°’ì„ ë‹´ëŠ”ë‹¤. (1 or 0)
+		// ¾Æ·¡ º¯¼ö¿¡´Â ÀÔ·Â ¼º°ø¿¡ ´ëÇÑ »óÅÂ °ªÀ» ´ã´Â´Ù. (1 or 0)
 		int result = 0;
 		String url = "";
 		
@@ -150,12 +154,12 @@ public class QnaController {
 	
 	
 	/***************************************************
-	 * ê¸€ ì‚­ì œ ì „ ëŒ“ê¸€ ê°œìˆ˜ êµ¬í˜„
+	 * ±Û »èÁ¦ Àü ´ñ±Û °³¼ö ±¸Çö
 	 ***************************************************/
 	@ResponseBody
 	@RequestMapping(value="/qnaReplyCnt")
 	public String qnaReplyCnt(@RequestParam("qna_no") int qna_no) {
-		log.info("qnaReplyCnt í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaReplyCnt È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		result = qnaService.qnaReplycnt(qna_no);

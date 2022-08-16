@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.cart.vo.CartVO;
 
 import com.kap.client.order.service.OrderService;

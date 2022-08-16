@@ -53,8 +53,10 @@
 						<input type="hidden" name="qna_file" value="${detail.qna_file}" />
 						<input type="hidden" name="qna_thumb" value="${detail.qna_thumb}" />
 					</form>
-					<button type="button" id="updateFormBtn" class="btn btn-primary">수정</button>
-					<button type="button" id="qnaDeleteBtn" class="btn btn-primary">삭제</button>
+					<c:if test="${login.user_id eq detail.user_id}">
+						<button type="button" id="updateFormBtn" class="btn btn-primary">수정</button>
+						<button type="button" id="qnaDeleteBtn" class="btn btn-primary">삭제</button>
+					</c:if>
 					<button type="button" id="insertFormBtn" class="btn btn-primary">새 문의하기</button>
 					<button type="button" id="qnaListBtn" class="btn btn-primary">문의 목록</button>
 				</div>

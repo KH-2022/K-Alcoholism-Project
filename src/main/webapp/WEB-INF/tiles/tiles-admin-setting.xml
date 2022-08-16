@@ -23,6 +23,12 @@
  		<put-attribute name="main" value="/WEB-INF/views/admin/product/{1}.jsp" />
  	</definition>
  	
+ 	<definition name="admin/order/*" extends="basic">  
+ 		<put-attribute name="title" value="관리자 상품 주문 관리" />
+ 		<put-attribute name="sub" value="" />
+ 		<put-attribute name="main" value="/WEB-INF/views/admin/order/{1}.jsp" />
+ 	</definition>
+ 	
  	<definition name="admin/brewery/*" extends="basic">  
  		<put-attribute name="title" value="관리자 양조장 관리" />
  		<put-attribute name="sub" value="" />

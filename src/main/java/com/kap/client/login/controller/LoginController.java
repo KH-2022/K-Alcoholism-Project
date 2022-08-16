@@ -33,15 +33,15 @@ public class LoginController {
 	      return new MemberVO();
 	   }
 	   
-	   /* ë¡œê·¸ì¸ í™”ë©´ êµ¬í˜„ */
+	   /* ·Î±×ÀÎ È­¸é ±¸Çö */
 	   @GetMapping("/login")
 	   public String loginForm() {
-	      log.info("ë¡œê·¸ì¸ í™”ë©´ í˜¸ì¶œ");
+	      log.info("·Î±×ÀÎ È­¸é È£Ãâ");
 	      
 	      return "login/login";
 	   }
 	   
-	   /* ë¡œê·¸ì¸ ì²˜ë¦¬ ë©”ì„œë“œ */
+	   /* ·Î±×ÀÎ Ã³¸® ¸Ş¼­µå */
 	   @PostMapping("/login")
 	   public String loginProcess(HttpServletRequest request, MemberVO login, Model model, RedirectAttributes ras) {
 		  HttpSession session = request.getSession();
@@ -53,19 +53,19 @@ public class LoginController {
 	    	 session.setAttribute("login",clientLogin);
 	         url = "/";
 	      } else {
-	         ras.addFlashAttribute("errorMsg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
+	         ras.addFlashAttribute("errorMsg", "·Î±×ÀÎ ½ÇÆĞ");
 	         url = "/login/login";
 	      }
 	      return "redirect:"+url;
 	   }
 	   
-	   /* ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬ ë©”ì„œë“œ */
+	   /* ·Î±×¾Æ¿ô Ã³¸® ¸Ş¼­µå */
 	   @RequestMapping("/logout")
 	   public String logout(HttpServletRequest request, SessionStatus sessionStatus) {
 			/*
 			 * HttpSession session = request.getSession(); session.invalidate();
 			 */
-	      log.info("ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬");
+	      log.info("·Î±×¾Æ¿ô Ã³¸®");
 	      sessionStatus.setComplete();
 	      return "redirect:/login/login";
 	   }

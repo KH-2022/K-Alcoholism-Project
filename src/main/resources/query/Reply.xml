@@ -99,7 +99,7 @@
 			select pd_r_seq.nextval from dual
 		</selectKey>
 		insert into pd_review(pd_review_no, user_no, pd_id, pd_review_content, pd_review_file, pd_review_thumb)
-		values(#{pd_review_no}, #{user_no}, 1, #{pd_review_content}, #{pd_review_file}, #{pd_review_thumb} )
+		values(#{pd_review_no}, #{user_no}, #{pd_id}, #{pd_review_content}, #{pd_review_file}, #{pd_review_thumb} )
 	</insert>
 	
 	<insert id="bReplyInsert" parameterType="breply">
@@ -116,7 +116,7 @@
 	</update>
 	
 	<update id="orderdetailUpdate" parameterType="myOrder">
-		update orders_detail set pd_reply_yn = 'Y'
+		update order_detail set pd_reply_yn = 'Y'
  		where orderdetail_no = #{orderdetail_no}
 	</update>
 	

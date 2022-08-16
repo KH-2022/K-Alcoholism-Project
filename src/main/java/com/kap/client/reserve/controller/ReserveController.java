@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kap.client.login.vo.LoginVO;
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.reserve.service.ReserveService;
 import com.kap.client.reserve.vo.ReserveVO;
 
@@ -27,14 +27,14 @@ public class ReserveController {
 	private ReserveService reserveService;
 	
 	/*******************************************************
-	 * ì˜ˆì•½ ì²˜ë¦¬ êµ¬í˜„ (ë¯¸ì™„ì„±)
+	 * ¿¹¾à Ã³¸® ±¸Çö (¹Ì¿Ï¼º)
 	 *******************************************************/
 	@RequestMapping(value = "/breweryReserve", method = RequestMethod.POST)
 	public String breweryReserve(@ModelAttribute ReserveVO rvo, HttpServletRequest request, Model model, RedirectAttributes reAttr) throws Exception {
-		log.info("breweryReserve í˜¸ì¶œ ì„±ê³µ");
+		log.info("breweryReserve È£Ãâ ¼º°ø");
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		rvo.setUser_no(clientLogin.getUser_no()); 
 		
 		int result = 0;
