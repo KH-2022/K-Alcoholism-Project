@@ -154,8 +154,9 @@
 			    	
 			    	$("#reserveForm").attr({
 			    		"method" : "post",
-			    		"action" : "/breweryReserve"
+			    		"action" : "/reserve/insert"
 			    	});
+			    	$("#reserveForm").submit();
 			    });
 			}); //$함수 종료
 		</script>
@@ -415,7 +416,7 @@
 					</div>
 					<div class="col-lg-8" data-aos="fade-up" data-aos-delay="200">
 						<form id="reserveForm" name="reserveForm">
-							<input type="hidden" id="user_no" name="user_no" value="${sessionScope.login.user_no}" />
+							<input type="hidden" id="user_no" name="user_no" value="${loginMember.user_no}" />
 							<input type="hidden" id="br_id" name="br_id" value="${breweryData.br_id}" />
 							<input type="hidden" id="rsv_day" name="rsv_day" />
 							<input type="hidden" id="rsv_time" name="rsv_time" />
@@ -423,10 +424,10 @@
 							<input type="hidden" id="rsv_price" name="rsv_price" />
 							<div class="row">
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_name" name="rsv_name" class="form-control" value="${sessionScope.login.user_name}">
+									<input type="text" id="rsv_name" name="rsv_name" class="form-control" value="${loginMember.user_name}">
 								</div>
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" value="${sessionScope.login.user_tel}">
+									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" value="${loginMember.user_tel}">
 								</div>
 								<div class="col-12 mb-3">
 									<textarea id="rsv_request" name="rsv_request" cols="30" rows="7" class="form-control" placeholder="요청사항이 있으실 경우에만 입력해 주세요"></textarea>

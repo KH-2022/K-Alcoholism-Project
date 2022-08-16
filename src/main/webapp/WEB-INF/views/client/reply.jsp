@@ -16,7 +16,6 @@
 		<!--====== Main Style CSS ======-->
 		<link rel="stylesheet"
 			href="/resources/include/mypage/assets/css/style.css">
-		<link rel="stylesheet" href="/resources/include/css/star.css" />
 		<script
 			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<style>
@@ -119,47 +118,36 @@
 					
 					$("#replyDetailForm").attr({
 						"method" : "get",
-						"action" : "/reply/replyForm"
+						"action" : "/reply/brReplyForm"
+					});
+					$("#replyDetailForm").submit();
+				});
+				
+				$(".pdReplyForm").click(function() {
+					let pd_id = $(this).parents("tr").attr("data-no");	
+					$("#pd_id").val(pd_id);
+					let orderdetail_no = $(this).parents("tr").attr("data-orderdetailNo");	
+					$("#orderdetail_no").val(orderdetail_no);
+					
+					$("#replyDetailForm").attr({
+						"method" : "get",
+						"action" : "/reply/pdReplyForm"
 					});
 					$("#replyDetailForm").submit();
 				});
 				
 			}); //메인 메서드 종료
 			
-			function brReplyForm() {$(this).parents("tr").attr("data-no");
-				let br_id =  $(".br_id2").val();	
-				$("#br_id").val(br_id);
-				
-				$("#replyDetailForm").attr({
-					"method" : "get",
-					"action" : "/reply/replyForm"
-				});
-				$("#replyDetailForm").submit();
-			} 
-						
 		</script>
 	</head>
 	<body>
-		<%-- 상단 디자인 영역 --%>
-		<div class="hero page-inner overlay"
-			style="background-image: url('/resources/images/main_bg_3.jpg');">
-			<div class="container">
-				<div class="row justify-content-center align-items-center">
-					<div class="col-lg-9 text-center mt-5">
-						<h1 class="heading" data-aos="fade-up">마이페이지</h1>
-					</div>
-				</div>
-			</div>
-		</div>
-	
-	
 		<!--====== Breadcrumb Part Start ======-->
 		<div class="breadcrumb-area">
 			<div class="container-fluid custom-container">
 				<nav aria-label="breadcrumb">
 					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="/">Home</a></li>
-						<li class="breadcrumb-item active">My Account</li>
+						<li class="breadcrumb-item"><a href="/">홈</a></li>
+						<li class="breadcrumb-item active">마이페이지</li>
 					</ol>
 				</nav>
 			</div>
@@ -174,11 +162,13 @@
 				<div class="row">
 				
 					<form id="replyDetailForm">
-						<input type="hidden" id="br_id" name="br_id" />
+						<input type="hidden" id="orderdetail_no" name="orderdetail_no" />
 						<input type="hidden" id="rsv_no" name="rsv_no" />
+						<input type="hidden" id="br_id" name="br_id" />
+						<input type="hidden" id="pd_id" name="pd_id" />
 					</form>
 					
-					<div class="col-xl-3 col-md-4">
+					<div class="col-xl-3 col-md-3">
 						<div class="my-account-menu mt-30">
 							<ul class="nav account-menu-list flex-column nav-pills" id="pills-tab" role="tablist">
 								<li><a id="pills-order-tab" data-toggle="pill" href="#pills-order" role="tab" aria-controls="pills-order" aria-selected="false"><i class="far fa-shopping-cart"></i>배송 / 주문 상태 확인</a></li>
@@ -192,7 +182,7 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-xl-8 col-md-8">	
+					<div class="col-xl-8 col-md-9">	
 					<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 					
 							<div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
@@ -208,6 +198,51 @@
 													<a href="replyList"> 작성한 리뷰 </a>
 												</li>
 											</ul>
+											
+												<table class="table tab_cont">
+												 <c:choose>
+													<c:when test="${not empty orderManage}">
+														<thead class="head">
+															<tr class="text-center">
+																<th class="col-md-2">구매일</th>
+																<th class="col-md-3">제품사진</th>
+																<th class="col-md-3">제품명</th>
+																<th class="col-md-2">가격</th>
+																<th class="col-md-2">작성</th>
+															</tr>
+														</thead>
+															<tbody>
+																<c:forEach var="order" items="${orderManage}" varStatus="status"> 
+																	<input type="hidden" class="pd_id2" value="${order.pd_id}"/>
+																	<tr class="text-center" data-no="${order.pd_id}" data-orderdetailNo="${order.orderdetail_no}">
+																		<c:if test="${order.order_state eq '배송 완료'}">
+																		<td>${order.order_date}</td>
+																		<td>
+																			<c:if test="${not empty order.pd_thumb}">
+																				<img src="/uploadStorage/product/thumbnail/${order.pd_thumb}" />
+																			</c:if>
+																		</td>
+																		<td style=font-weight:bold;><a href="/product/productDetail?pd_id=${order.pd_id}">${order.pd_name}&nbsp;${order.cart_count}병</a></td>
+																		<td>각 ${order.pd_price}원</td>
+																		<td style=font-weight:bold; >
+																			<!-- <a href="javascript:void(0);" onclick="brReplyForm();">리뷰 작성</a>  -->
+																			<a href="javascript:void(0);" class="pdReplyForm">리뷰 작성</a> 
+																		</td>
+																		</c:if> 
+																	</tr>
+												 				</c:forEach>
+															 </c:when> 
+													</c:choose>  
+														<c:if test="${order.order_state eq '주문 완료'}">
+															<tr>
+																<td colspan="6" class="tac text-center">구매 내역은 존재하지 않습니다.</td>
+															</tr>
+														</c:if>
+												</tbody>
+											</table>
+											
+											<hr />
+											
 												<table class="table tab_cont">
 												 <c:choose>
 													<c:when test="${not empty reserveManage}">
@@ -238,54 +273,14 @@
 												 				</c:forEach>
 															 </c:when> 
 													</c:choose>  
-														<%-- <c:otherwise>  --%>
 														<c:if test="${reserve.rsv_state eq '예약 완료'}">
 															<tr>
 																<td colspan="6" class="tac text-center">체험 내역은 존재하지 않습니다.</td>
 															</tr>
 														</c:if>
-														<%-- </c:otherwise>  --%>
 												</tbody>
 											</table>
 											
-									<hr />
-											
-											<table class="table tab_cont">
-												 <c:choose>
-													<c:when test="${not empty ordersList}">
-														<thead class="head">
-															<tr class="text-center">
-																<th class="col-md-2">사진</th>
-																<th class="col-md-6">제품명</th>
-																<th class="col-md-2">날짜</th>
-																<th class="col-md-2">작성</th>
-															</tr>
-														</thead>
-															<tbody>
-																<c:forEach var="orders" items="${ordersList}" varStatus="status"> 
-																	<tr class="text-center" data-no="${orders.rsv}">
-																		<td>
-																			<c:if test="${not empty orders.br_review_thumb}">
-																				<img src="/uploadStorage/brReview/thumbnail/${orders.br_review_thumb}" />
-																			</c:if>
-																		</td>
-																		<td>${orders.br_name}</td>
-																		<td>${orders.br_review_date}</td>
-																		<td>
-																			<a href="/reply/replyForm">리뷰 작성하기</a> 
-																		</td>
-																	</tr>
-												 				</c:forEach>
-															</c:when>
-														<c:otherwise>
-															<tr>
-																<td colspan="6" class="tac text-center">구매 내역은 존재하지 않습니다.</td>
-															</tr>
-													</c:otherwise>
-												</c:choose> 
-											</tbody>
-										</table>
-												
 									</div>
 								</div>
 							</div>
@@ -297,67 +292,62 @@
 		<!--====== My Account Part Ends ======-->
 		<!--====== Features Banner Part Start ======-->
 		<section class="features-banner-area pt-80 pb-100">
-			<div class="container-fluid custom-container">
-				<div class="features-banner-wrapper d-flex flex-wrap">
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon1.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Free Shipping</h3>
-							<p>Free shipping on all Korea order</p>
-						</div>
+		<div class="container-fluid custom-container">
+			<div class="features-banner-wrapper d-flex flex-wrap">
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon1.png" alt="Icon">
 					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon2.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Support 24/7</h3>
-							<p>Contact us 24 hours a day</p>
-						</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">무료배송</h3>
+						<p>전통주의는 대한민국 어디라도 무료배송입니다.</p>
 					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon3.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">100% Money Back</h3>
-							<p>You have 30 days to Return</p>
-						</div>
-					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon4.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">90 Days Return</h3>
-							<p>If goods have problems</p>
-						</div>
-					</div>
-					<!-- single features banner -->
-					<div class="single-features-banner d-flex">
-						<div class="banner-icon">
-							<img src="/resources/include/mypage/assets/images/icon5.png"
-								alt="Icon">
-						</div>
-						<div class="banner-content media-body">
-							<h3 class="banner-title">Payment Secure</h3>
-							<p>We ensure secure payment</p>
-						</div>
-					</div>
-					<!-- single features banner -->
 				</div>
-				<!-- features banner wrapper -->
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon2.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">24시간 운영</h3>
+						<p>전통주의는 24시간 언제라도 열려있습니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon3.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">100% 환불</h3>
+						<p>환불 요청 시 10일 이내에 반드시 환불해드립니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon4.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">교환 가능</h3>
+						<p>제품에 문제가 발생했을 경우 반드시 교환해드립니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
+				<div class="single-features-banner d-flex">
+					<div class="banner-icon">
+						<img src="/resources/include/mypage/assets/images/icon5.png" alt="Icon">
+					</div>
+					<div class="banner-content media-body">
+						<h3 class="banner-title">안전 결제</h3>
+						<p>전통주의는 안전 결제 서비스를 제공하고 있습니다.</p>
+					</div>
+				</div>
+				<!-- single features banner -->
 			</div>
-			<!-- container -->
-		</section>
+			<!-- features banner wrapper -->
+		</div>
+		<!-- container -->
+	</section>
 	</body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="row">
 	<div class="col-lg-4">
 		<div class="widget">
@@ -31,7 +32,14 @@
 			<h3>전통酒의를 이용하시려면</h3>
 			<ul class="list-unstyled links">
 				<li><a href="/signUp/signUpForm">회원가입</a></li>
-				<li><a href="/login/login">로그인</a></li>
+				<li>
+					<c:if test="${empty login}">
+						<a href="/login/login">로그인</a>
+					</c:if>
+					<c:if test="${not empty login}">
+						<a href="/login/logout">로그아웃</a>
+					</c:if>
+				</li>
 			</ul>
 
 			<ul class="list-unstyled social">

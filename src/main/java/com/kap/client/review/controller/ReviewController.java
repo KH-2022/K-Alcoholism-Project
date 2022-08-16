@@ -44,4 +44,25 @@ public class ReviewController {
 		return entity;
 	}
 	
+	/* 메인페이지 상품후기 조회 */
+	@GetMapping(value = "/pdReview/main", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReplyVO>> mainPdReview() {
+		log.info("mainPdReview 호출 성공");
+		
+		ResponseEntity<List<ReplyVO>> entity = null;
+		entity = new ResponseEntity<>(reviewService.pdReviewMain(), HttpStatus.OK);
+				
+		return entity;
+	}
+	
+	/* 메인페이지 양조장후기 조회 */
+	@GetMapping(value = "/brReview/main", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<BreplyVO>> mainBrReview() {
+		log.info("mainBrReview 호출 성공");
+		
+		ResponseEntity<List<BreplyVO>> entity = null;
+		entity = new ResponseEntity<>(reviewService.brReviewMain(), HttpStatus.OK);
+				
+		return entity;
+	}
 }

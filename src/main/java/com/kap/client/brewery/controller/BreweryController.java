@@ -7,8 +7,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.brewery.service.BreweryService;
 import com.kap.client.brewery.vo.BreweryVO;
 import com.kap.common.vo.PageDTO;
@@ -19,7 +21,6 @@ import lombok.extern.log4j.Log4j;
 @Controller
 @Log4j
 @RequestMapping("/brewery")
-@SessionAttributes("login")
 @AllArgsConstructor
 public class BreweryController {
 	
@@ -61,8 +62,14 @@ public class BreweryController {
 	 * 체험 예약 폼 호출
 	 *******************************************************/
 	@RequestMapping(value = "/reserveForm")
-	public String reserveForm(@ModelAttribute BreweryVO bvo, Model model) {
+	public String reserveForm(@ModelAttribute("data") BreweryVO bvo, @SessionAttribute("login") MemberVO loginMember, Model model, RedirectAttributes reAttr) {
 		log.info("reserveForm 호출 성공");
+		
+		if (loginMember == null) {
+			reAttr.addFlashAttribute("errorMsg", "로그인이 필요합니다.");
+			return "redirect:/login/login";
+		}
+		model.addAttribute("loginMember", loginMember);
 		
 		BreweryVO breweryData = breweryService.reserveForm(bvo);
 		model.addAttribute("breweryData", breweryData);

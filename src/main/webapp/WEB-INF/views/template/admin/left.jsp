@@ -10,7 +10,7 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/qna')}">class="active"</c:if>>
     	<a href="/admin/qna/qnaList">문의게시판 관리</a>
     </li>
-    <li>
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply')}">class="active"</c:if>>
 		<a href="/admin/reply/replyList">리뷰 관리</a>
 	</li>
 </ul>
@@ -18,7 +18,7 @@
 	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/product')}">class="active"</c:if>>
     	<a href="/admin/product/productList">상품 관리</a>
     </li>
-    <li>
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/order')}">class="active"</c:if>>
 		<a href="/admin/order/orderList">상품 주문 관리</a>
 	</li>
 </ul>

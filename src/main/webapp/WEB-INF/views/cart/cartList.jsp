@@ -92,7 +92,7 @@
 					}
 				});
 				
-				// 구매하기 버튼 클릭 시 처리 이벤트 
+				// 주문하기 버튼 클릭 시 처리 이벤트 
 				$("#orderListBtn").click(function(){
 					if(confirm("정말 주문하시겠습니까?")){
 						let checkArr = new Array();
@@ -191,8 +191,8 @@
 					</table>
 				</div>
 				
-				<div class="text-right">
-					<input type="button" value="주문하기" id="orderListBtn" class="btn btn-default btn-lg"/>
+				<div class="form-group text-right">
+					<button type="button" id="orderListBtn" class="btn btn-primary">주문하기</button>
 				</div>
 			</div>
 		</div>

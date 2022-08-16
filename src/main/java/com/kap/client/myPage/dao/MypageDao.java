@@ -27,6 +27,11 @@ public interface MypageDao {
 
 	int orderListCnt(MyPageOrderVO ovo);
 
-	int orderCount(MyPageOrderVO ovo);
+	List<MyPageOrderVO> orderCount(MyPageOrderVO ovo);
+
+	List<MyPageOrderVO> orderDetail(MyPageOrderVO ovo);
+
+	List<Integer> getOrderNo(MyPageOrderVO ovo);
+
 
 }

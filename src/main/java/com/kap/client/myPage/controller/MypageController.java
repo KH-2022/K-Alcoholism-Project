@@ -1,5 +1,6 @@
 package com.kap.client.myPage.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -39,13 +40,19 @@ public class MypageController {
 		model.addAttribute(loginMember);
 		ovo.setUser_no(loginMember.getUser_no());
 		
-		List<MyPageOrderVO> orderList = mypageService.orderList(ovo);
-		model.addAttribute("orderList",orderList);
-		log.info("orderList : "+ orderList);
+		List<Integer> getOrderNo = mypageService.getOrderNo(ovo);
 		
-		int orderCount = mypageService.orderCount(ovo);
-		model.addAttribute("orderCount",orderCount-1);
-		log.info("orderCount : " +orderCount);
+		List<MyPageOrderVO> orderList = new ArrayList<MyPageOrderVO>();
+		
+		List<MyPageOrderVO> orderCount = new ArrayList<MyPageOrderVO>();
+		
+		for(int i=0; i<getOrderNo.size(); i++) {
+			ovo.setOrder_no(getOrderNo.get(i));
+			orderList.addAll(mypageService.orderList(ovo));
+			orderCount.addAll(mypageService.orderCount(ovo));
+		}
+		model.addAttribute("orderList",orderList);
+		model.addAttribute("orderCount",orderCount);
 		
 		int total = mypageService.orderListCnt(ovo);
 		model.addAttribute("pageMaker", new PageDTO(total, ovo));
@@ -54,6 +61,19 @@ public class MypageController {
 		model.addAttribute("count",count);
 		
 		return "client/myPage";
+	}
+	
+	@RequestMapping(value="/orderDetail", method = RequestMethod.GET)
+	public String orderDetailForm(@SessionAttribute("login") MemberVO loginMember, MyPageOrderVO ovo, Model model) {
+		log.info("orderDetail 호출 성공");
+		
+		model.addAttribute(loginMember);
+		ovo.setUser_no(loginMember.getUser_no());
+		
+		List<MyPageOrderVO> orderDetail = mypageService.orderDetail(ovo);
+		model.addAttribute("orderDetail",orderDetail);
+		
+		return "client/orderDetail";
 	}
 	
 	@RequestMapping(value="/reserve", method = RequestMethod.GET)

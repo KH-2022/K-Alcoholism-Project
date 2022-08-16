@@ -35,7 +35,11 @@
 		    ]]>
 	</select>
 	
-	<select id="orderList" parameterType="order" resultType="order">
+	<select id="getOrderNo" parameterType="Integer" resultType="Integer">
+		select order_no from orders where user_no = #{user_no}
+	</select>
+	
+	<select id="orderList" parameterType="myOrder" resultType="myOrder">
 		<![CDATA[ 
 		SELECT * 
 	    	FROM (
@@ -62,29 +66,52 @@
                                 (select user_add from kap_user where user_no = o.user_no) as user_postadd,
                                 (select user_detailadd from kap_user where user_no = o.user_no) as user_detailadd,
 				                (select delete_yn from kap_user where user_no = o.user_no) as delete_yn
-				            FROM orders o LEFT OUTER JOIN orders_detail od
+				            FROM orders o LEFT OUTER JOIN order_detail od
 				            ON o.order_no = od.order_no
 				            ORDER BY o.order_no desc
 				        ) A
-				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no} and delete_yn ='N' order by orderdetail_no
+				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no}
+				        and orderdetail_no=(select min(orderdetail_no) FROM orders o LEFT OUTER JOIN order_detail od ON o.order_no = od.order_no where o.order_no = #{order_no})
+				        order by orderdetail_no
 				    )WHERE rnum > (#{pageNum} - 1) * #{amount}
 		    ]]>
+	</select>
+	
+	<select id="orderDetail" parameterType="myOrder" resultType="myOrder">
+         SELECT
+		        o.order_no,
+		        o.user_no,
+		        o.order_amount,
+		        to_char(o.order_date, 'YY-MM-DD HH24:MI')as order_date,
+		        o.order_state,
+		        od.pd_reply_yn,
+		        od.orderdetail_no,
+		        od.pd_id,
+		        od.pd_price,
+		        od.cart_count,
+		        (select pd_name from product where pd_id = od.pd_id) as pd_name,
+		        (select pd_thumb from product where pd_id = od.pd_id) as pd_thumb,
+		        (select user_name from kap_user where user_no = o.user_no) as user_name,
+		        (select user_tel from kap_user where user_no = o.user_no) as user_tel,
+		        (select user_postcode from kap_user where user_no = o.user_no) as user_postcode,
+		        (select user_add from kap_user where user_no = o.user_no) as user_add,
+		        (select user_detailadd from kap_user where user_no = o.user_no) as user_detailadd,
+		        (select delete_yn from kap_user where user_no = o.user_no) as delete_yn
+		FROM orders o LEFT OUTER JOIN order_detail od
+		ON o.order_no = od.order_no
+		WHERE user_no = #{user_no} and o.order_no = #{order_no} and (select delete_yn from kap_user where user_no = #{user_no}) = 'N' order by orderdetail_no
+	</select>
+	
+	<select id="orderCount" parameterType="myOrder" resultType="myOrder">
+		select count(orderdetail_no) as order_count from order_detail where order_no = #{order_no}
 	</select>
 	
 	<select id="reserveListCnt" parameterType="reserve" resultType="int">
 		select count(*) from reserve where user_no=#{user_no}
 	</select>
 	
-	<select id="orderListCnt" parameterType="order" resultType="int">
+	<select id="orderListCnt" parameterType="myOrder" resultType="int">
 		select count(*) from orders where user_no=#{user_no}
-	</select>
-	
-	<select id="orderCount" parameterType="order" resultType="int">
-		 SELECT
-		    count(od.orderdetail_no) as orderCount
-		FROM orders o LEFT OUTER JOIN orders_detail od
-		ON o.order_no = od.order_no
-		where user_no = #{user_no}
 	</select>
 	
 	<update id="userUpdate" parameterType="member" >

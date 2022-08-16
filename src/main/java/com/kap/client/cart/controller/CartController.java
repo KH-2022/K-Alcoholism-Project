@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kap.admin.member.vo.MemberVO;
 import com.kap.client.cart.service.CartService;
 import com.kap.client.cart.vo.CartVO;
-import com.kap.client.login.vo.LoginVO;
+
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
@@ -35,7 +36,7 @@ public class CartController {
 		log.info("cvo" +cvo);
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
 		if (clientLogin == null) { //로그인체크
 			return "5";
@@ -55,7 +56,7 @@ public class CartController {
 		log.info("cartList 성공");
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		 
 		if (clientLogin == null) { //로그인체크
 				return "5";
@@ -78,7 +79,7 @@ public class CartController {
 		log.info("updateCart 성공");
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
 		cvo.setUser_no(clientLogin.getUser_no()); 
 		
@@ -97,7 +98,7 @@ public class CartController {
 		log.info("cvo" +cvo);
 		
 		HttpSession session = request.getSession();
-		LoginVO clientLogin = (LoginVO) session.getAttribute("login");
+		MemberVO clientLogin = (MemberVO) session.getAttribute("login");
 		
 		cvo.setUser_no(clientLogin.getUser_no()); 
 		 

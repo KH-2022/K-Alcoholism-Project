@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kap.client.brewery.vo.BreweryVO;
+import com.kap.client.myPage.vo.MyPageOrderVO;
 import com.kap.client.reply.dao.ReplyDao;
 import com.kap.client.reply.vo.BreplyVO;
 import com.kap.client.reply.vo.ReplyVO;
@@ -153,6 +154,24 @@ public class ReplyServiceImpl implements ReplyService {
 	public List<ReserveVO> reserveManage(ReserveVO rvo) {
 		List<ReserveVO> reserveManage = replyDao.reserveManage(rvo);
 		return reserveManage;
+	}
+
+	@Override
+	public List<MyPageOrderVO> orderManage(MyPageOrderVO ovo) {
+		List<MyPageOrderVO> orderManage = replyDao.orderManage(ovo);
+		return orderManage;
+	}
+
+	@Override
+	public MyPageOrderVO pdReplyForm(MyPageOrderVO ovo) {
+		MyPageOrderVO pdReplyForm = replyDao.pdReplyForm(ovo);
+		return pdReplyForm;
+	}
+
+	@Override
+	public void orderdetailUpdate(MyPageOrderVO ovo) {
+		replyDao.orderdetailUpdate(ovo);
+		
 	}
 
 }

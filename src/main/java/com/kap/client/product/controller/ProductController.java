@@ -64,11 +64,11 @@ public class ProductController {
 	 * 메인페이지 상품 목록 구현
 	 *******************************************************/
 	@ResponseBody
-	@GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/mainList", produces = MediaType.APPLICATION_JSON_VALUE)
 	public List<ProductVO> mainProduct() {
 		log.info("mainProduct 호출 성공");
 		ProductVO pvo = new ProductVO();
-		pvo.setAmount(9);
+		pvo.setAmount(3);
 		List<ProductVO> entity = productService.productList(pvo);
 		return entity;
 	}
