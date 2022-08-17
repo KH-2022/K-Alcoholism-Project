@@ -1,8 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<style type="text/css">
-			.reply-count {font-size: 11px; color: red;}
-		</style>
 		<script type="text/javascript">
 			$(function() {
 				/* 검색 후 검색 대상과 검색 단어 출력 */
@@ -68,7 +65,7 @@
 				/* 페이징처리 */
 				$(".paginate_button a").click(function(e) {
 					e.preventDefault();
-					$("#f_search").find("input[name='pageNum']").val($(this).attr("href"));
+					$("#searchForm").find("input[name='pageNum']").val($(this).attr("href"));
 					goPage();
 				});
 				
@@ -79,11 +76,11 @@
 				if($("#search").val() == "all") {
 					$("#keyword").val("");
 				}
-				$("#f_search").attr({
+				$("#searchForm").attr({
 					"method" : "get",
 					"action" : "/admin/qna/qnaList"
 				});
-				$("#f_search").submit();
+				$("#searchForm").submit();
 			}
 		</script>
 	</head>
@@ -134,9 +131,10 @@
 									<tr class="text-center" data-num="${qna.qna_no}">
 										<td>${qna.qna_no}</td>
 										<td class="goDetail">${qna.qna_title}
-											<c:if test="${qna.qna_replycnt > 0}">&nbsp;<span class="reply-count">[${qna.qna_replycnt}]</span></c:if>
+											<c:if test="${qna.qna_replycnt == 0}">&nbsp;<span class="reply-wait">[답변대기]</span></c:if>
+											<c:if test="${qna.qna_replycnt > 0}">&nbsp;<span class="reply-com">[답변완료]</span></c:if>
 										</td>
-										<td>${qna.user_id}</td>
+										<td class="name">${qna.user_id}</td>
 										<td>${qna.qna_date}</td>
 									</tr>
 								</c:forEach>

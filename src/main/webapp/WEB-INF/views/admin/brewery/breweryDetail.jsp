@@ -41,11 +41,11 @@
 			</form>
 
 			<%-- 버튼 --%>
-			<div class="btnGroup contentBtn text-right">
-					<input type="button" value="양조장 수정" id="updateFormBtn" class="btn btn-primary" />
-					<input type="button" value="양조장 삭제" id="breweryDeleteBtn" class="btn btn-primary" />
-					<input type="button" value="양조장 등록" id="insertFormBtn" class="btn btn-primary" />
-					<input type="button" value="양조장 목록" id="breweryListBtn" class="btn btn-primary" />
+			<div class="btnGroup text-right">
+				<input type="button" value="양조장 수정" id="updateFormBtn" class="btn btn-primary" />
+				<input type="button" value="양조장 삭제" id="breweryDeleteBtn" class="btn btn-primary" />
+				<input type="button" value="양조장 등록" id="insertFormBtn" class="btn btn-primary" />
+				<input type="button" value="양조장 목록" id="breweryListBtn" class="btn btn-primary" />
 			</div>
 			
 			<%-- 양조장 상세 --%>

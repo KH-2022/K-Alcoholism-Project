@@ -25,29 +25,46 @@ import lombok.extern.log4j.Log4j;
 public class AdminReviewController {
 	private  AdminReviewService adminReviewService;
 	
-	@RequestMapping(value="/reply/replyList", method = RequestMethod.GET)
-	public String replyList(@ModelAttribute("data") MemberVO mvo, ReplyVO rvo, BreplyVO bvo, Model model) {
-		log.info("AdminReplyList 호출 성공");
+	@RequestMapping(value="/reply/pdReplyList", method = RequestMethod.GET)
+	public String pdReplyList(@ModelAttribute("data") MemberVO mvo, ReplyVO rvo, Model model) {
+		log.info("Admin pdReplyList 호출 성공");
 		
 		List<ReplyVO> pdReplyList = adminReviewService.pdReplyList(rvo);
-		List<BreplyVO> brReplyList = adminReviewService.brReplyList(bvo);
 		
 		log.info("pdReplyList : " + pdReplyList);
-		log.info("brReplyList : " + brReplyList);
 		
 		model.addAttribute("pdReplyList",pdReplyList);
-		model.addAttribute("brReplyList",brReplyList);
 		
 		int pdCnt = adminReviewService.pdRelyListCnt(rvo);
-		int brCnt = adminReviewService.brRelyListCnt(bvo);
 		
-		int total = pdCnt + brCnt;
+		int total = pdCnt;
 		model.addAttribute("pageMaker", new PageDTO(total, mvo));
 		
 		int count = total - (mvo.getPageNum()-1) * mvo.getAmount();
 		model.addAttribute("count",count);
 		
-		return "admin/reply/replyList";
+		return "admin/reply/pdReplyList";
+	}
+	
+	@RequestMapping(value="/reply/brReplyList", method = RequestMethod.GET)
+	public String brReplyList(@ModelAttribute("data") MemberVO mvo, BreplyVO bvo, Model model) {
+		log.info("Admin brReplyList 호출 성공");
+		
+		List<BreplyVO> brReplyList = adminReviewService.brReplyList(bvo);
+		
+		log.info("brReplyList : " + brReplyList);
+		
+		model.addAttribute("brReplyList",brReplyList);
+		
+		int brCnt = adminReviewService.brRelyListCnt(bvo);
+		
+		int total = brCnt;
+		model.addAttribute("pageMaker", new PageDTO(total, mvo));
+		
+		int count = total - (mvo.getPageNum()-1) * mvo.getAmount();
+		model.addAttribute("count",count);
+		
+		return "admin/reply/brReplyList";
 	}
 	
 	@RequestMapping(value="/reply/pdReplyDetail",method=RequestMethod.GET)

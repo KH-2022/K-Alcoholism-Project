@@ -43,20 +43,21 @@
 		<div class="contentContainer container">
 			<div class="contentTit page-header"><h2 class="text-center">주문내역 상세</h2></div>
 			
-			<div>
+			<%-- 버튼 --%>
+			<div class="btnGroup text-right">
 				<input type="button" value="주문목록" id="boardListBtn" class="btn btn-primary" />
 			</div>
 
 			<%--=================리스트 시작======================== --%>
-			<div id="orderDetailList" class="table-height">
+			<div id="orderDetailList" class="text-center table-height">
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th class="order text-center col-md-1">주문번호</th>
-							<th class="text-center col-md-3">주문상품아이디</th>
-							<th class="text-center col-md-4">주문상품이름</th>
-							<th class="text-center col-md-1">수량</th>
-							<th class="order col-md-3">상품가격</th>
+							<th class="order col-md-1 text-center">주문번호</th>
+							<th class="col-md-2 text-center">주문상품아이디</th>
+							<th class="col-md-4 text-center">주문상품이름</th>
+							<th class="col-md-2 text-center">주문수량</th>
+							<th class="order col-md-3 text-center">상품가격</th>
 						</tr>
 					</thead>
 					<tbody id="list" class="table-striped">
@@ -65,11 +66,11 @@
 							<c:when test="${not empty orderDetail}">
 								<c:forEach var="detail" items="${orderDetail}" varStatus="status">
 									<tr class="text-center"> 
-										<td class="text-center">${detail.order_no}</td>
-										<td class="text-center">${detail.pd_id}</td>
-										<td class="text-center">${detail.pd_name}</td>
-										<td class="text-center">${detail.cart_count}</td>
-										<td class="text-center"><fmt:formatNumber value="${detail.pd_price}" type="number" var="pd_price" />${pd_price}원</td>
+										<td>${detail.order_no}</td>
+										<td>${detail.pd_id}</td>
+										<td>${detail.pd_name}</td>
+										<td>${detail.cart_count}</td>
+										<td><fmt:formatNumber value="${detail.pd_price}" type="number" var="pd_price" />${pd_price}원</td>
 									</tr>
 								</c:forEach>
 							</c:when>

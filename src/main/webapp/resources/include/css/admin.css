@@ -12,6 +12,9 @@
 	font-size: 0.8em;
 	color: gray;
 }
+.reply-count {font-size: 11px; color: red;}
+.reply-com {font-size: 11px; color: green;}
+.reply-wait {font-size: 11px; color: orange;}
 
 /* 페이징 버튼 부분 */
 /* .paginate{width:100%; height:20px; text-align:center; vertical-align:top; font-size:14px;}

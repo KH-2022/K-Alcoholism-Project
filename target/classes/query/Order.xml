@@ -19,7 +19,9 @@
 
 	<!-- 전체 유저의 주문목록-->
 	<select id="orderList" resultType="order" parameterType="order">
-		select order_no, user_no, order_amount, order_state, TO_CHAR(order_date, 'YYYY-MM-DD') as order_date
+		select order_no, user_no, 
+		(select user_id from kap_user where user_no = orders.user_no) as user_id,
+		order_amount, order_state, TO_CHAR(order_date, 'YYYY-MM-DD') as order_date
 		from orders
 		order by order_no desc
 	</select>

@@ -9,7 +9,7 @@
 			/* 예약하기 버튼 클릭 시 처리 이벤트 */
 			$("#goReserveBtn").click(function() {
 				$("#goReserveForm").attr({
-					"method" : "get",
+					"method" : "post",
 					"action" : "/brewery/reserveForm"
 				});
 				$("#goReserveForm").submit();

@@ -30,7 +30,7 @@
 					<thead>
 						<tr>
 							<th data-value="order_no" class="order text-center col-md-1">주문번호</th>
-							<th class="text-center col-md-1">회원번호</th>
+							<th class="text-center col-md-2">회원 아이디</th>
 							<th class="text-center col-md-3">주문상태</th>
 							<th class="text-center col-md-4">결제금액</th>
 							<th data-value="rsv_fin_date" class="order text-center col-md-2">주문일</th>
@@ -42,7 +42,7 @@
 								<c:forEach var="order" items="${orderList}" varStatus="status">
 									<tr class="text-center" data-num="${order.order_no}">
 										<td class="goDetail">${order.order_no}</td>
-										<td class="goDetail">${order.user_no}</td>
+										<td class="goDetail">${order.user_id}</td>
 										<td class="goDetail">${order.order_state}</td>
 										<td class="goDetail"><fmt:formatNumber value="${order.order_amount}" type="number" var="order_price" />${order_price}원</td>
 										<td>${order.order_date}</td>
@@ -51,13 +51,18 @@
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="5" class="text-center">등록된 게시물이 존재하지 않습니다.</td>
+									<td colspan="5" class="text-center">주문내역이 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>
 					</tbody>
 				</table>
 			</div>
+			
+			<%-- 페이징 처리 커스텀태그(pagination) 정의 --%>
+			<tag:pagination pageNum="${pageMaker.cvo.pageNum}" amount="${pageMaker.cvo.amount}"
+							startPage="${pageMaker.startPage}" endPage="${pageMaker.endPage}"
+							prev="${pageMaker.prev}" next="${pageMaker.next}" />
 		</div>		
 	</body>
 </html>

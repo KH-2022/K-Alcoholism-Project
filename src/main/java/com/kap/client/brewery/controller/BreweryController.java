@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -61,7 +62,7 @@ public class BreweryController {
 	/*******************************************************
 	 * 체험 예약 폼 호출
 	 *******************************************************/
-	@RequestMapping(value = "/reserveForm")
+	@PostMapping(value = "/reserveForm")
 	public String reserveForm(@ModelAttribute("data") BreweryVO bvo, @SessionAttribute("login") MemberVO loginMember, Model model, RedirectAttributes reAttr) {
 		log.info("reserveForm 호출 성공");
 		
