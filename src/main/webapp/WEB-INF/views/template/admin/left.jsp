@@ -10,9 +10,6 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/qna')}">class="active"</c:if>>
     	<a href="/admin/qna/qnaList">문의게시판 관리</a>
     </li>
-    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply')}">class="active"</c:if>>
-		<a href="/admin/reply/replyList">리뷰 관리</a>
-	</li>
 </ul>
 <ul class="nav nav-sidebar">
 	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/product')}">class="active"</c:if>>
@@ -20,6 +17,9 @@
     </li>
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/order')}">class="active"</c:if>>
 		<a href="/admin/order/orderList">상품 주문 관리</a>
+	</li>
+	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/pdReplyList')}">class="active"</c:if>>
+		<a href="/admin/reply/pdReplyList">상품 리뷰 관리</a>
 	</li>
 </ul>
 <ul class="nav nav-sidebar">
@@ -29,4 +29,7 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reserve')}">class="active"</c:if>>
     	<a href="/admin/reserve/reserveList">체험 예약 관리</a>
     </li>
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/brReplyList')}">class="active"</c:if>>
+		<a href="/admin/reply/brReplyList">체험 리뷰 관리</a>
+	</li>
 </ul>

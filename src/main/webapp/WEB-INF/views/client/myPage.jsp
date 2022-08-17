@@ -153,7 +153,7 @@
 																	외&nbsp;<c:out value="${order_count}" />건
 																</c:if>
 															</a></td>
-															<td>${order.order_amount}</td>
+															<td>${order.order_amount}원</td>
 															<td>${order.order_state}</td>
 															<td style=padding:0px;>
 																<a href="javascript:void(0);" class="orderDetail">상세 보기</a> 
