@@ -113,7 +113,7 @@
 										</span>
 									</span>
 								</div>
-								<div>
+								<div class="form-group">
 									<form id="goReserveForm">
 										<input type="hidden" id="br_id" name="br_id" value="${detail.br_id}" />
 										<input type="hidden" id="user_no" name="user_no" value="${login.user_no}" />

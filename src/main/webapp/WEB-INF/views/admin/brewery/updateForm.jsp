@@ -1,18 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-
 	<script type="text/javascript">
 		$(function(){
 			/* 수정 버튼 클릭시 처리 이벤트 */
 			$("#brUpdateBtn").click(function(){
-				//추후 입력값 체크 기입
-				
-				$("#brUpdateForm").attr({
-					"method" : "post",
-					"enctype" : "multipart/form-data",
-					"action" : "/admin/brewery/breweryUpdate"
-				});
-				$("#brUpdateForm").submit();
+				// 입력값 체크
+				if (!chkData("#br_name", "양조장 이름을")) return;
+				else if (!chkData("#br_region", "지역을")) return;
+				else if (!chkData("#br_addr", "주소를")) return;
+				else if (!chkData("#br_tel", "전화번호를")) return;
+				else if (!chkData("#br_info", "양조장 정보를")) return;
+				else if (!chkData("#br_type", "취급주종을")) return;
+				else if (!chkData("#br_program", "체험 프로그램을")) return;
+				else if (!chkData("#br_time", "소요시간을")) return;
+				else if (!chkData("#br_price", "인당 체험비용을")) return;
+				else {
+					if ($("#file").val() != "") { //br_image
+						if (!chkFile($("#file"))) return;
+					}
+					
+					$("#brUpdateForm").attr({
+						"method" : "post",
+						"enctype" : "multipart/form-data",
+						"accept-charset" : "UTF-8",
+						"action" : "/admin/brewery/breweryUpdate"
+					});
+					$("#brUpdateForm").submit();
+				}
 			});
 			
 			/* 취소 버튼 클릭시 처리 이벤트 */
@@ -35,7 +49,7 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			 <div class="contentTit page-header"><h3 class="text-center">양조장 수정</h3></div>
+			 <div class="contentTit page-header"><h3 class="text-center">양조장 정보 수정</h3></div>
 
 			 <div class="contentTB text-center">
 			 	<form id="brUpdateForm" name="brUpdateForm">

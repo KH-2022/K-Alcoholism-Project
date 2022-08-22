@@ -17,7 +17,7 @@
 	</definition>
 	
 	<definition name="error/*" extends="content">
-		<put-attribute name="title" value="" />
+		<put-attribute name="title" value="전통주 플랫폼, 전통酒의" />
 		<put-attribute name="body" value="/WEB-INF/views/error/{1}.jsp" />
 	</definition>
 	

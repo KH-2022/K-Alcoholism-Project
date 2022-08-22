@@ -10,8 +10,10 @@
 				
 				/* 예약취소 버튼 클릭 시 */
 				$("#reserveCancelBtn").click(function() {
-					$("#formData").attr("action", "/admin/reserve/reserveCancel");
-					$("#formData").submit();
+					if (confirm("정말 예약을 취소하시겠습니까?")) {
+						$("#formData").attr("action", "/admin/reserve/reserveCancel");
+						$("#formData").submit();
+					}
 				});
 				
 				/* 목록 버튼 클릭 시 */

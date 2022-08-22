@@ -1,21 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
-		<style type="text/css">
-			.complete{
-				margin : 100px;
-				padding : 100px;
-				font-size: xx-large;
-			}
-			#mainBtn{margin-top : 30px;}
-		</style>
 		<script type="text/javascript">
-			$(function() {
-				/* 메인페이지로 이동 버튼 클릭시 처리이벤트 */
-				$("#mainBtn").click(function(){
+			$(function(){
+				/* 홈 버튼 클릭 시 처리 이벤트 */
+				$("#homeBtn").click(function(){
 					location.href = "/";
 				});
-			});//최상위
+				
+				/* 상품 목록 버튼 클릭 시 처리 이벤트 */
+				$("#productListBtn").click(function() {
+					location.href = "/product/productList";
+				});
+				
+				/* 주문내역 확인 버튼 클릭 시 처리 이벤트 */
+				$("#orderListBtn").click(function() {
+					location.href = "/myPage/myPage";
+				});
+			});
 		</script>
+		<style>
+			.form-group > button {margin-right: 10px;}
+		</style>
 	</head>
 	<body>
 		<%-- 상단 디자인 영역 --%>
@@ -29,12 +34,28 @@
 			</div>
 		</div>
 		
+		<%-- 예약정보 확인 --%>
 		<div class="section">
 			<div class="container">
 				<div class="row mb-5 align-items-center">
 					<div class="col-lg-6 text-center mx-auto">
-						<h2 class="complete font-weight-bold text-primary heading">주문이 완료되었습니다.</h2>
-						<button type="button" id="mainBtn" class="btn btn-primary btn-lg">메인페이지로 이동</button>
+						<h2 class="font-weight-bold text-primary heading">상품 주문이 완료되었습니다.</h2>
+					</div>
+				</div>
+				<div class="row text-center">
+					
+				</div>
+				
+				<%-- 페이지 이동을 위한 버튼 --%>
+				<div class="section">
+					<div class="container">
+						<div class="row align-items-center">
+							<div class="form-group col-md-12 text-center">
+								<button type="button" id="orderListBtn" class="btn btn-primary">주문내역 확인</button>
+								<button type="button" id="productListBtn" class="btn btn-primary">전통주 목록으로</button>
+								<button type="button" id="homeBtn" class="btn btn-primary">홈으로</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

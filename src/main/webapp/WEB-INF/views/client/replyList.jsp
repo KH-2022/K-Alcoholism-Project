@@ -11,34 +11,27 @@
 		<!--====== Main Style CSS ======-->
 		<link rel="stylesheet" href="/resources/include/mypage/assets/css/style.css">
 		<style>
-			.over {
-				width: 350px;
-			}
-			hr{
-				width:1000px;
-			}
+			.over {width: 350px;}
+			hr {width:1000px;}
 			li:hover{
 				background-color: #666362;
 				transition: all 0.65s;
 				font-weight: bold;
 			}
-			a:link{
-				color:black;
-			}
-			a:visited{
-				color:black;
-			}
-			.tab_title li {
+			a:link {color:black;}
+			a:visited {color:black;}
+			.tab_title > ul > li {
 				font-size: 35 px;
 				list-style: none;
 				float: left;
-				width: 500px;
+				width: 480px;
 				padding: 10px 15px;
+				margin: 30px 10px 50px 10px;
 				cursor: pointer;
 				text-align: center;
 				border: 1px solid #bebebe;
 			}
-			
+			.viewReview {margin-top: 50px;}
 			.tab_cont {
 				clear: both;
 				border: 1px solid #dedede;
@@ -49,19 +42,14 @@
 				padding: 10px 15px;
 				background-color: #D3D3D3;
 			}
-			
 			.tab_cont div {
 				display: none;
 				text-align: center;
 			}
-			
-			.tab_cont div.on {
-				display: block;
-			}
+			.tab_cont div.on {display: block;}
 		</style>
 		<script>
 			$(function() {
-		
 				let errorMsg = "${errorMsg}";
 				if (errorMsg != "") {
 					alert(errorMsg);
@@ -102,53 +90,56 @@
 					location.href = "/myPage/withdrawal";
 				});
 				
-				
-			}); //메인 메서드 종료
-				function replyUpdateForm(){
+				$(".pdReplyDelete").click(function() {
+					let pd_review_no = $(this).parents("tr").attr("data-no");	
+					$("#pd_review_no").val(pd_review_no);
 					
-					$("#reviewForm").attr({
-						"method" :"post",
-						"action" : "/reply/replyUpdateForm"
-					});
-					$("#reviewForm").submit();
-				}
-			
-				function bReplyUpdateForm(){
-					$("#reviewForm").attr({
-						"method" :"post",
-						"action" : "/reply/bReplyUpdateForm"
-					});
-					$("#reviewForm").submit();
-				}
-			
-				function replyDelete(e){
 					var choice = confirm("상품 리뷰를 삭제하시겠습니까?");
-					
 					if(choice){
-						
-						$("#reviewForm").attr({
+						$("#pdReviewForm").attr({
 							"method" :"post",
 							"action" : "/reply/replyDelete"
 						});
-						$("#reviewForm").submit();
+						$("#pdReviewForm").submit();
 					} else {
 						location.href = "/reply/replyList"
 					}
-				};
+					
+				});
 				
-				function bReplyDelete(e){
+				$(".bReplyDelete").click(function() {
+					let br_review_no = $(this).parents("tr").attr("data-no");	
+					$("#br_review_no").val(br_review_no);
+					
 					var choice = confirm("양조장 체험 리뷰를 삭제하시겠습니까?");
 					if(choice){
-						
-						$("#reviewForm").attr({
+						$("#brReviewForm").attr({
 							"method" :"post",
 							"action" : "/reply/bReplyDelete"
 						});
-						$("#reviewForm").submit();
+						$("#brReviewForm").submit();
 					} else {
 						location.href = "/reply/replyList"
 					}
-			};
+					
+				});
+			}); //$함수 종료
+			
+			function replyUpdateForm(){
+				$("#pdReviewForm").attr({
+					"method" :"post",
+					"action" : "/reply/replyUpdateForm"
+				});
+				$("#pdReviewForm").submit();
+			}
+		
+			function bReplyUpdateForm(){
+				$("#brReviewForm").attr({
+					"method" :"post",
+					"action" : "/reply/bReplyUpdateForm"
+				});
+				$("#brReviewForm").submit();
+			}
 		</script>
 	</head>
 	<body>
@@ -188,107 +179,111 @@
 					<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 					
 							<div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-								<form id="reviewForm">
-									<input type="hidden" name="user_no" id="user_no" value="${login.user_no}" /> 
-									
-									<div class="my-account-download account-wrapper">
-										<div class="container">
-											<ul class="tab_title">
+								<form id="brReviewForm">
+									<input type="hidden" name="br_review_no" id="br_review_no" /> 
+								</form>
+								<form id="pdReviewForm">
+									<input type="hidden" name="pd_review_no" id="pd_review_no" /> 
+								</form>
+								
+								<div class="my-account-download account-wrapper">
+									<h4 class="account-title">전통주/양조장 리뷰 목록</h4>
+									<div class="container">
+										<div class="tab_title">
+											<ul>
 												<li class="on account-table text-center mt-30 table-responsive">
-													<a href="reply"> 리뷰 작성 </a>
+													<a href="reply">작성 가능한 리뷰</a>
 												</li>
 												<li class="on account-table text-center mt-30 table-responsive">
-													<a href="replyList"> 작성한 리뷰 </a> 
+													<a href="replyList">리뷰 목록</a> 
 												</li>
 											</ul>
-											
-											<div id="viewReview" class="viewReview">
+										</div>
+										
+										<div class="viewReview">
 											<table class="table tab_cont">
-											<c:choose>
-												<c:when test="${not empty pdReplyList}">
 												<thead class="head">
 													<tr class="text-center" style=padding:40px;>
-														<th class="col-md-2">사진</th>
-														<th class="col-md-2">제품명</th>
-														<th class="col-md-4">내용</th>
-														<th class="col-md-2">날짜</th>
-														<th class="col-md-2">수정/삭제</th>
+														<th class="col-md-2 text-center">사진</th>
+														<th class="col-md-2 text-center">제품명</th>
+														<th class="col-md-4 text-center">내용</th>
+														<th class="col-md-2 text-center">날짜</th>
+														<th class="col-md-2 text-center">수정/삭제</th>
 													</tr>
 												</thead>
 												<tbody>
-													<c:forEach var="pdReply" items="${pdReplyList}" varStatus="status">
-														<input type="hidden" name="pd_review_no" name="pd_review_no" value="${pdReply.pd_review_no}" />
-														<tr class="text-center" data-num="${pdReply.pd_review_no}">
-															<td>
-																<c:if test="${not empty pdReply.pd_review_thumb}">
-																	<img src="/uploadStorage/pdReview/thumbnail/${pdReply.pd_review_thumb}" />
-																</c:if>
-															</td>
-															<td><a href="/product/productDetail?pd_id=${pdReply.pd_id}">${pdReply.pd_name}</a></td>
-															<td class="over">${pdReply.pd_review_content}</td>
-															<td>${pdReply.pd_review_date}</td>
-															<td>
-																<a href="replyUpdateForm?pd_review_no=${pdReply.pd_review_no}">수정</a> / 
-																<a href="javascript:void(0);" onclick="replyDelete();">삭제</a>
-															</td>
+													<c:choose>
+													<c:when test="${not empty pdReplyList}">
+														<c:forEach var="pdReply" items="${pdReplyList}" varStatus="status">
+															<input type="hidden" name="pd_review_no" name="pd_review_no" value="${pdReply.pd_review_no}" />
+															<tr class="text-center" data-num="${pdReply.pd_review_no}">
+																<td>
+																	<c:if test="${not empty pdReply.pd_review_thumb}">
+																		<img src="/uploadStorage/pdReview/thumbnail/${pdReply.pd_review_thumb}" />
+																	</c:if>
+																</td>
+																<td><a href="/product/productDetail?pd_id=${pdReply.pd_id}">${pdReply.pd_name}</a></td>
+																<td class="over">${pdReply.pd_review_content}</td>
+																<td>${pdReply.pd_review_date}</td>
+																<td>
+																	<a href="replyUpdateForm?pd_review_no=${pdReply.pd_review_no}">수정</a> / 
+																	<a href="javascript:void(0);" onclick="replyDelete();">삭제</a>
+																</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="5" class="text-center">등록된 상품 리뷰가 존재하지 않습니다.</td>
 														</tr>
-													</c:forEach>
-												</c:when>
-											<c:otherwise>
-												<tr>
-													<td colspan="6" class="tac text-center">등록된 상품 리뷰가 존재하지 않습니다.</td>
-												</tr>
-											</c:otherwise>
-										</c:choose>
-									</tbody>
-								</table>
-												
-							<hr />
-												
-														<table class="table tab_cont">
-														<c:choose>
-															<c:when test="${not empty brReplyList}">
-															<thead class ="head">
-																<tr class="text-center">
-																	<th class="col-md-2">사진</th>
-																	<th class="col-md-2">양조장</th>
-																	<th class="col-md-4">내용</th>
-																	<th class="col-md-2">날짜</th>
-																	<th class="col-md-2">수정/삭제</th>
-																</tr>
-															</thead>
-															<tbody>
-																<c:forEach var="brReply" items="${brReplyList}" varStatus="status">
-																<input type="hidden" name="br_review_no" name="br_review_no" value="${brReply.br_review_no}" />
-																	<tr class="text-center" data-num="${brReply.br_review_no}">
-																		<td>
-																			<c:if test="${not empty brReply.br_review_thumb}">
-																				<img src="/uploadStorage/brReview/thumbnail/${brReply.br_review_thumb}" />
-																			</c:if>
-																		</td>
-																		<td><a href="/brewery/breweryDetail?br_id=${brReply.br_id}">${brReply.br_name}</a></td>
-																		<td class="over">${brReply.br_review_content}</td>
-																		<td>${brReply.br_review_date}</td>
-																		<td>
-																			<a href="bReplyUpdateForm?br_review_no=${brReply.br_review_no}">수정</a> / 
-																			<a href="javascript:void(0);" onclick="bReplyDelete();">삭제</a>
-																		</td>
-																	</tr>
-																</c:forEach>
-															</c:when>
-															<c:otherwise>
-																<tr>
-																	<td colspan="6" class="tac text-center">등록된 체험장 리뷰가 존재하지 않습니다.</td>
-																</tr>
-															</c:otherwise>
-														</c:choose>
-													</tbody>
-												</table>
-											</div>	
-													
+													</c:otherwise>
+													</c:choose>
+												</tbody>
+											</table>
+										</div>
+										<div class="viewReview">
+											<table class="table tab_cont">
+												<thead class ="head">
+													<tr class="text-center">
+														<th class="col-md-2 text-center">사진</th>
+														<th class="col-md-2 text-center">양조장</th>
+														<th class="col-md-4 text-center">내용</th>
+														<th class="col-md-2 text-center">날짜</th>
+														<th class="col-md-2 text-center">수정/삭제</th>
+													</tr>
+												</thead>
+												<tbody>
+													<c:choose>
+													<c:when test="${not empty brReplyList}">
+														<c:forEach var="brReply" items="${brReplyList}" varStatus="status">
+															<input type="hidden" name="br_review_no" name="br_review_no" value="${brReply.br_review_no}" />
+															<tr class="text-center" data-num="${brReply.br_review_no}">
+																<td>
+																	<c:if test="${not empty brReply.br_review_thumb}">
+																		<img src="/uploadStorage/brReview/thumbnail/${brReply.br_review_thumb}" />
+																	</c:if>
+																</td>
+																<td><a href="/brewery/breweryDetail?br_id=${brReply.br_id}">${brReply.br_name}</a></td>
+																<td class="over">${brReply.br_review_content}</td>
+																<td>${brReply.br_review_date}</td>
+																<td>
+																	<a href="bReplyUpdateForm?br_review_no=${brReply.br_review_no}">수정</a> / 
+																	<a href="javascript:void(0);" onclick="bReplyDelete();">삭제</a>
+																</td>
+															</tr>
+														</c:forEach>
+													</c:when>
+													<c:otherwise>
+														<tr>
+															<td colspan="5" class="text-center">등록된 체험 리뷰가 존재하지 않습니다.</td>
+														</tr>
+													</c:otherwise>
+													</c:choose>
+												</tbody>
+											</table>
 										</div>
 									</div>
-								</form>
+								</div>
 							</div>
 						</div>
 					</div>

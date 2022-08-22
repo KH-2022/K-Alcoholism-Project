@@ -124,18 +124,17 @@
 											<h4 class="account-title">(주)전통酒의 서비스 리뷰</h4>
 											<div class="account-details">
 												<div class="row">
-													<div class="col-md-6">
-														<div class="single-form">
-															<div>양조장 사진란</div>
-															<div id="pd_id">1</div>
-														</div>
-													</div>
-													
-													<div class="col-md-12">
-														<div class="single-form">
-															<div>별찍기란</div>
-														</div>
-													</div>
+												
+													<c:choose>
+														<c:when test="${not empty bReplyUpdate}">
+															<div class="col-md-6">
+																<div class="single-form">
+																	<div><h5 style=font-weight:bold;>${bReplyUpdate.br_name} 구매 리뷰 수정</h5></div>
+																	<c:if test="${not empty bReplyUpdate.br_thumb}">
+																			<img src="/uploadStorage/brewery/thumbnail/${bReplyUpdate.br_thumb}" />
+																	</c:if>
+																</div>
+															</div>
 													
 													<div class="col-md-12">
 														<div class="single-form">
@@ -158,6 +157,8 @@
 															<button class="main-btn main-btn-2" type="button" id="bReplyupdateBtn">등록하기</button>
 														</div>
 													</div>
+													</c:when>
+													</c:choose>
 												</div>
 											</div>
 										</div>

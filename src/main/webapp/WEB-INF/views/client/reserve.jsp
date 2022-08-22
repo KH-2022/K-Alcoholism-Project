@@ -116,15 +116,15 @@
 													<c:when test="${not empty reserveList}">
 													<thead>
 														<tr style=padding:0px>
-															<th class="col-md-1">예약일</th>
-															<th class="col-md-1">예약시간</th>
-															<th class="col-md-1">예약인원</th>
-															<th class="col-md-3">양조장</th>
-															<th class="col-md-1">예약자명</th>
-															<th class="col-md-2">예약자번호</th>
-															<th class="col-md-1">총금액</th>
-															<th class="col-md-1">예약상태</th>
-															<th class="col-md-1">기타</th>
+															<th class="col-md-1 text-center">예약일</th>
+															<th class="col-md-1 text-center">예약시간</th>
+															<th class="col-md-1 text-center">예약인원</th>
+															<th class="col-md-3 text-center">양조장</th>
+															<th class="col-md-1 text-center">예약자명</th>
+															<th class="col-md-2 text-center">예약자번호</th>
+															<th class="col-md-1 text-center">총금액</th>
+															<th class="col-md-1 text-center">예약상태</th>
+															<th class="col-md-1 text-center">기타</th>
 														</tr>
 													</thead>
 															<tbody>
@@ -138,16 +138,14 @@
 																		<td>${reserve.rsv_tel}</td>
 																		<td>${reserve.rsv_price}원</td>
 																		<td>${reserve.rsv_state}</td>
+																		<td style=padding:0px;>
 																		<c:if test="${reserve.rsv_state eq '예약 완료'}">
-																			<td style=padding:0px;>
-																				<a href="/reply/reply">예약취소</a>  
-																			</td>
+																			<a href="/reply/reply">예약취소</a> 
 																		</c:if>
 																		<c:if test="${reserve.rsv_state eq '체험 완료'}">
-																			<td style=padding:0px;>
-																				<a href="/reply/reply">리뷰작성</a> 
-																			</td>
+																			<a href="/reply/reply">리뷰작성</a>
 																		</c:if>
+																		</td>
 																	</tr>
 																</c:forEach>
 															</c:when>

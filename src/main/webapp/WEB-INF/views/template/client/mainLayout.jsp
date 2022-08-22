@@ -393,7 +393,7 @@
 							<div class="person-contents">
 								<h2 class="mb-0"><a>안새롬</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
-								<p>저는 전통주 상세, 장바구니, 전통주 주문 및 결제 기능 구현을 담당했습니다.</p>
+								<p>저는 전통주 목록, 장바구니, 주문 관리, 주문 기능 구현을 담당했습니다.</p>
 								<ul class="social list-unstyled list-inline dark-hover">
 									<li class="list-inline-item"><a href="https://github.com/saecomy90" target="_blank"><span class="glyphicon glyphicon-link"></span></a></li>
 								</ul>
@@ -406,7 +406,7 @@
 							<div class="person-contents">
 								<h2 class="mb-0"><a>유승협</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
-								<p>저는 전통주 목록, 상품 관리, 문의게시판 기능 구현을 담당했습니다.</p>
+								<p>저는 양조장 목록, 상품 관리, 양조장 관리, 문의게시판 구현을 담당했습니다.</p>
 								<ul class="social list-unstyled list-inline dark-hover">
 									<li class="list-inline-item"><a href="https://github.com/SeungHyeopYoo" target="_blank"><span class="glyphicon glyphicon-link"></span></a></li>
 								</ul>
@@ -419,7 +419,7 @@
 							<div class="person-contents">
 								<h2 class="mb-0"><a>이민정</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
-								<p>저는 메인페이지, 양조장 목록 및 상세, 체험 예약 기능 구현을 담당했습니다.</p>
+								<p>저는 메인페이지, 전통주 및 양조장 상세, 예약 관리, 예약 기능 구현을 담당했습니다.</p>
 								<ul class="social list-unstyled list-inline dark-hover">
 									<li class="list-inline-item"><a href="https://github.com/lxxmnmn" target="_blank"><span class="glyphicon glyphicon-link"></span></a></li>
 								</ul>
@@ -432,7 +432,7 @@
 							<div class="person-contents">
 								<h2 class="mb-0"><a>이석환</a></h2>
 								<span class="meta d-block mb-3">Full-stack Developer</span>
-								<p>저는 회원가입, 로그인, 회원 관리, 마이페이지 기능 구현을 담당했습니다.</p>
+								<p>저는 회원가입, 로그인, 회원정보 관리, 리뷰 관리, 마이페이지 구현을 담당했습니다.</p>
 								<ul class="social list-unstyled list-inline dark-hover">
 									<li class="list-inline-item"><a href="https://github.com/dra-Lee" target="_blank"><span class="glyphicon glyphicon-link"></span></a></li>
 								</ul>
