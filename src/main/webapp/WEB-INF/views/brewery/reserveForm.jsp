@@ -41,8 +41,6 @@
 			        var nextDate = endDay.getDate();
 			        var nextDay = endDay.getDay();
 		
-			        //console.log(prevDate, prevDay, nextDate, nextDay);
-		
 			        //현재 월 표기
 			        var currentMonthString = currentMonth + 1;
 			        if (currentMonth + 1 < 10) {
@@ -67,17 +65,29 @@
 			            calendar.innerHTML = calendar.innerHTML + '<div class="day next disable">' + i + '</div>'
 			        }
 		
+			        var currentMonthDate = document.querySelectorAll('.dates .current');
+		        	var lastDay = new Date(currentYear, currentMonth + 1, 0);
+			        var lastDate = lastDay.getDate();
+			        
 			        //오늘 날짜 표기
-			        if (today.getMonth() == currentMonth) {
+			        if (today.getMonth() == currentMonth && today.getFullYear() == currentYear) { //달력에 보이는 연,월과 현재 연,월이 같을 경우
 			            todayDate = today.getDate();
-			            var currentMonthDate = document.querySelectorAll('.dates .current');
 			            currentMonthDate[todayDate -1].classList.add('today');
+			            for (var i = todayDate; i >= 2; i--) {
+			            	currentMonthDate[todayDate -i].classList.add('disable'); //이전 날짜 선택 불가 표기
+			            }
+			        } else if ((today.getMonth() > currentMonth && today.getFullYear() == currentYear) || today.getFullYear() > currentYear) {
+				        for (var j = 0; j < lastDate; j++) {
+			        		currentMonthDate[j].classList.add('disable'); //이전 날짜 선택 불가 표기
+			        	}
 			        }
 			        
 			        /* 날짜 클릭 시 선택 표시 */
 				    $('.day').on('click', function() {
 				    	if ($(this).hasClass('disable') === true) {
-				    		alert("선택할 수 없습니다.");
+				    		alert("현재 선택할 수 없는 날짜입니다.");
+				    	} else if ($(this).hasClass('today') === true) {
+				    		alert("오늘 날짜는 선택할 수 없습니다.");
 				    	} else {
 					    	if ($(this).hasClass('choice') === false) {
 					    		$(this).parents('.dates').find('div').removeClass('choice');
@@ -143,22 +153,34 @@
 			    
 			    /* 예약하기 버튼 클릭 시 처리 이벤트 */
 			    $("#reserveBtn").click(function() {
-			    	var rsvDate = $(".day.current.choice").text();
-				    if (parseInt(rsvDate) < 10) {
-				    	rsvDate = "0" + rsvDate;
+			    	var rsvDay = $(".day.current.choice").text();
+				    if (parseInt(rsvDay) < 10) {
+				    	rsvDay = "0" + rsvDay;
 					}
-				    var rsvDayString = $('.year-month').text() + "-" + rsvDate;
+				    var rsvDayString = $(".year-month").text() + "-" + rsvDay;
 				    
-			    	$("#rsv_day").val(rsvDayString); //hidden타입 예약날짜 값 설정
+				    if (rsvDay == "") {
+				    	$("#rsv_day").val("");
+				    } else {
+				    	$("#rsv_day").val(rsvDayString); //hidden타입 예약날짜 값 설정
+				    }
 			    	$("#rsv_time").val($(".time.choice").text()); //hidden타입 예약시간 값 설정
 			    	$("#rsv_count").val($(".count").text()); //hidden타입 인원 값 설정
 			    	$("#rsv_price").val($(".price").text()); //hidden타입 총액 값 설정
 			    	
-			    	$("#reserveForm").attr({
-			    		"method" : "post",
-			    		"action" : "/reserve/insert"
-			    	});
-			    	$("#reserveForm").submit();
+			    	//유효성 검사
+			    	if (!chkSelect("#rsv_day", "예약 날짜를")) return;
+					else if (!chkSelect("#rsv_time", "예약 시간을")) return;
+					else if (!chkSelect("#rsv_count", "예약 인원을")) return;
+					else if (!chkData("#rsv_name", "예약자 이름을")) return;
+					else if (!chkData("#rsv_tel", "예약자 전화번호를")) return;
+					else {
+						$("#reserveForm").attr({
+				    		"method" : "post",
+				    		"action" : "/reserve/insert"
+				    	});
+				    	$("#reserveForm").submit();
+					}
 			    });
 			}); //$함수 종료
 		</script>

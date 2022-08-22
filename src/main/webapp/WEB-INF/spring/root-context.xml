@@ -34,7 +34,7 @@
 		<property name="mapperLocations" value="classpath:query/*.xml" />
 	</bean> -->
 	
-	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage"><value>com.kap.**.**.dao</value></property>
-	</bean> -->
+	</bean>
 </beans>

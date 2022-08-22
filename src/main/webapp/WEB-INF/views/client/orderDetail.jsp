@@ -99,12 +99,12 @@
 										<table class="table">
 											<thead>
 												<tr>
-													<th class="col-md-2">주문일</th>
-													<th class="col-md-2">상품 사진</th>
-													<th class="col-md-4">상품명</th>
-													<th class="col-md-1">결제 금액</th>
-													<th class="col-md-1">주문상태</th>
-													<th class="col-md-1">기타</th>
+													<th class="col-md-2 text-center">주문일</th>
+													<th class="col-md-2 text-center">상품 사진</th>
+													<th class="col-md-4 text-center">상품명</th>
+													<th class="col-md-2 text-center">결제 금액</th>
+													<th class="col-md-1 text-center">주문상태</th>
+													<th class="col-md-1 text-center">기타</th>
 												</tr>
 											</thead>
 													<tbody>
@@ -119,16 +119,14 @@
 																<td><a href="/product/productDetail?pd_id=${order.pd_id}">${order.pd_name}&nbsp;${order.cart_count}병</a></td>
 																<td>${order.pd_price}원</td>
 																<td>${order.order_state}</td>
+																<td style=padding:0px;>
 																<c:if test="${order.order_state eq '주문 완료'}">
-																	<td style=padding:0px;>
-																		<a href="/reply/reply">주문취소</a>  
-																	</td>
+																	<a href="/reply/reply">주문취소</a>
 																</c:if>
 																<c:if test="${order.order_state eq '배송 완료'}">
-																	<td style=padding:0px;>
-																		<a href="/reply/reply">리뷰작성</a> 
-																	</td>
+																	<a href="/reply/reply">리뷰작성</a>
 																</c:if>
+																</td>
 															</tr>
 														</c:forEach>
 													</tbody>

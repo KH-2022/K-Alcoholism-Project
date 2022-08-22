@@ -137,7 +137,7 @@
 	</select>
 	
 	<select id="replyUpdateForm" parameterType ="reply" resultType="reply">
-		select p.pd_name, pr.pd_review_no, pr.user_no, pr.pd_id, pr.pd_review_content, pr.pd_review_file, pr.pd_review_thumb, to_char(pr.pd_review_date, 'YYYY-MM-DD HH24:MI')as pd_review_date
+		select p.pd_name, p.pd_thumb, pr.pd_review_no, pr.user_no, pr.pd_id, pr.pd_review_content, pr.pd_review_file, pr.pd_review_thumb, to_char(pr.pd_review_date, 'YYYY-MM-DD HH24:MI')as pd_review_date
 		from pd_review pr left outer join product p
 		on pr.pd_id = p.pd_id
 		where pr.pd_review_no = #{pd_review_no}
@@ -145,9 +145,9 @@
 	</select>
 	
 	<select id="bReplyUpdateForm" parameterType ="breply" resultType="breply">
-		select p.pd_name, br.br_review_no, br.user_no, br.br_id, br.br_review_content,br.br_review_file, br.br_review_thumb, to_char(br.br_review_date, 'YYYY-MM-DD HH24:MI')as br_review_date
-		from br_review br left outer join product p
-		on br.br_id = p.pd_id
+		select b.br_name,b.br_thumb, br.br_review_no, br.user_no, br.br_id, br.br_review_content,br.br_review_file, br.br_review_thumb, to_char(br.br_review_date, 'YYYY-MM-DD HH24:MI')as br_review_date
+		from br_review br left outer join brewery b
+		on br.br_id = b.br_id
 		where br.br_review_no = #{br_review_no}
 		order by br_review_no desc
 	</select>

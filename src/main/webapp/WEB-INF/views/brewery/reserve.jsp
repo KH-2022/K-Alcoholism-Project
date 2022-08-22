@@ -23,6 +23,7 @@
 				font-size: 0.8em;
 				color: gray;
 			}
+			.form-group > button {margin-right: 10px;}
 		</style>
 	</head>
 	<body>
@@ -42,7 +43,7 @@
 			<div class="container">
 				<div class="row mb-5 align-items-center">
 					<div class="col-lg-6 text-center mx-auto">
-						<h2 class="font-weight-bold text-primary heading">양조장 체험 예약 내역</h2>
+						<h2 class="font-weight-bold text-primary heading">체험 예약이 완료되었습니다.</h2>
 					</div>
 				</div>
 				<div class="row contentTB text-center">
@@ -94,7 +95,7 @@
 					<div class="container">
 						<div class="row align-items-center">
 							<div class="form-group col-md-12 text-center">
-								<button type="button" id="reserveListBtn" class="btn btn-primary">예약목록 확인</button>
+								<button type="button" id="reserveListBtn" class="btn btn-primary">예약 목록으로</button>
 								<button type="button" id="breweryListBtn" class="btn btn-primary">양조장 목록으로</button>
 								<button type="button" id="homeBtn" class="btn btn-primary">홈으로</button>
 							</div>

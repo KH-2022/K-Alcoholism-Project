@@ -104,9 +104,9 @@
 													<table class="table">
 														<thead>
 															<tr>
-																<th class="col-md-2">문의글 번호</th>
-																<th class="col-md-8">제목</th>
-																<th class="col-md-2">날짜</th>
+																<th class="col-md-2 text-center">문의글 번호</th>
+																<th class="col-md-8 text-center">제목</th>
+																<th class="col-md-2 text-center">작성일</th>
 															</tr>
 														</thead>
 														<c:choose>

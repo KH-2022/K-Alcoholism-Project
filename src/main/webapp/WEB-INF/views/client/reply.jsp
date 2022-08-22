@@ -36,16 +36,18 @@
 			.brReviewForm:hover{
 				color:red;
 			}
-			.tab_title li {
+			.tab_title > ul > li {
 				font-size: 35 px;
 				list-style: none;
 				float: left;
-				width: 500px;
+				width: 480px;
 				padding: 10px 15px;
+				margin: 30px 10px 50px 10px;
 				cursor: pointer;
 				text-align: center;
 				border: 1px solid #bebebe;
 			}
+			.viewReview {margin-top: 50px;}
 			.tab_cont {
 				clear: both;
 				border: 1px solid #dedede;
@@ -187,100 +189,101 @@
 					
 							<div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
 								<div class="my-account-order account-wrapper">
-									<h4 class="account-title">리뷰  관리</h4>
-									
+									<h4 class="account-title">전통주/양조장 리뷰 목록</h4>
 										<div class="account-table text-center mt-30 table-responsive">
-											<ul class="tab_title">
-												<li class="text-center mt-30">
-													<a href="reply"> 리뷰 작성 </a> 
-												</li>
-												<li class="text-center mt-30 ">
-													<a href="replyList"> 작성한 리뷰 </a>
-												</li>
-											</ul>
+											<div class="tab_title">
+												<ul>
+													<li class="text-center mt-30">
+														<a href="reply">작성 가능한 리뷰</a>
+													</li>
+													<li class="text-center mt-30">
+														<a href="replyList">리뷰 목록</a> 
+													</li>
+												</ul>
+											</div>
 											
+											<div class="viewReview">
 												<table class="table tab_cont">
-												 <c:choose>
-													<c:when test="${not empty orderManage}">
-														<thead class="head">
-															<tr class="text-center">
-																<th class="col-md-2">구매일</th>
-																<th class="col-md-3">제품사진</th>
-																<th class="col-md-3">제품명</th>
-																<th class="col-md-2">가격</th>
-																<th class="col-md-2">작성</th>
-															</tr>
-														</thead>
-															<tbody>
-																<c:forEach var="order" items="${orderManage}" varStatus="status"> 
-																	<input type="hidden" class="pd_id2" value="${order.pd_id}"/>
-																	<tr class="text-center" data-no="${order.pd_id}" data-orderdetailNo="${order.orderdetail_no}">
-																		<c:if test="${order.order_state eq '배송 완료'}">
-																		<td>${order.order_date}</td>
-																		<td>
-																			<c:if test="${not empty order.pd_thumb}">
-																				<img src="/uploadStorage/product/thumbnail/${order.pd_thumb}" />
-																			</c:if>
-																		</td>
-																		<td style=font-weight:bold;><a href="/product/productDetail?pd_id=${order.pd_id}">${order.pd_name}&nbsp;${order.cart_count}병</a></td>
-																		<td>각 ${order.pd_price}원</td>
-																		<td style=font-weight:bold; >
-																			<!-- <a href="javascript:void(0);" onclick="brReplyForm();">리뷰 작성</a>  -->
-																			<a href="javascript:void(0);" class="pdReplyForm">리뷰 작성</a> 
-																		</td>
-																		</c:if> 
-																	</tr>
-												 				</c:forEach>
-															 </c:when> 
-													</c:choose>  
-														<c:if test="${order.order_state eq '주문 완료'}">
-															<tr>
-																<td colspan="6" class="tac text-center">구매 내역은 존재하지 않습니다.</td>
-															</tr>
-														</c:if>
-												</tbody>
-											</table>
-											
-											<hr />
-											
+													<thead class="head">
+														<tr class="text-center">
+															<th class="col-md-2 text-center">구매일</th>
+															<th class="col-md-3 text-center">제품사진</th>
+															<th class="col-md-3 text-center">제품명</th>
+															<th class="col-md-2 text-center">가격</th>
+															<th class="col-md-2 text-center">작성</th>
+														</tr>
+													</thead>
+													<tbody>
+														<c:choose>
+															<c:when test="${not empty orderManage}">
+															<c:forEach var="order" items="${orderManage}" varStatus="status"> 
+																<input type="hidden" class="pd_id2" value="${order.pd_id}"/>
+																<tr class="text-center" data-no="${order.pd_id}" data-orderdetailNo="${order.orderdetail_no}">
+																	<c:if test="${order.order_state eq '배송 완료'}">
+																	<td>${order.order_date}</td>
+																	<td>
+																		<c:if test="${not empty order.pd_thumb}">
+																			<img src="/uploadStorage/product/thumbnail/${order.pd_thumb}" />
+																		</c:if>
+																	</td>
+																	<td style=font-weight:bold;><a href="/product/productDetail?pd_id=${order.pd_id}">${order.pd_name}&nbsp;${order.cart_count}병</a></td>
+																	<td>각 ${order.pd_price}원</td>
+																	<td style=font-weight:bold; >
+																		<!-- <a href="javascript:void(0);" onclick="brReplyForm();">리뷰 작성</a>  -->
+																		<a href="javascript:void(0);" class="pdReplyForm">리뷰 작성</a> 
+																	</td>
+																	</c:if>
+																</tr>
+											 				</c:forEach>
+											 				</c:when>
+											 				<c:otherwise>
+											 					<tr>
+																	<td colspan="5" class="text-center">리뷰를 작성할 수 있는 주문건이 존재하지 않습니다.</td>
+																</tr>
+											 				</c:otherwise>
+														</c:choose>
+											 		</tbody>
+												</table>
+											</div>
+											<div class="viewReview">
 												<table class="table tab_cont">
-												 <c:choose>
-													<c:when test="${not empty reserveManage}">
-														<thead class="head">
-															<tr class="text-center">
-																<th class="col-md-2">체험일</th>
-																<th class="col-md-2">체험시간</th>
-																<th class="col-md-4">양조장</th>
-																<th class="col-md-2">예약자명</th>
-																<th class="col-md-2">작성</th>
-															</tr>
-														</thead>
-															<tbody>
-																<c:forEach var="reserve" items="${reserveManage}" varStatus="status"> 
-																	<input type="hidden" class="br_id2" value="${reserve.br_id}"/>
-																	<tr class="text-center" data-no="${reserve.br_id}" data-rsv="${reserve.rsv_no}">
-																		<c:if test="${reserve.rsv_state eq '체험 완료'}">
-																		<td>${reserve.rsv_day}</td>
-																		<td>${reserve.rsv_time}</td>
-																		<td style=font-weight:bold;><a href="/brewery/breweryDetail?br_id=${reserve.br_id}">${reserve.br_name}</a></td>
-																		<td>${reserve.rsv_name }</td>
-																		<td style=font-weight:bold; >
-																			<!-- <a href="javascript:void(0);" onclick="brReplyForm();">리뷰 작성</a>  -->
-																			<a href="javascript:void(0);" class="brReplyForm">리뷰 작성</a> 
-																		</td>
-																		</c:if> 
-																	</tr>
-												 				</c:forEach>
-															 </c:when> 
-													</c:choose>  
-														<c:if test="${reserve.rsv_state eq '예약 완료'}">
-															<tr>
-																<td colspan="6" class="tac text-center">체험 내역은 존재하지 않습니다.</td>
-															</tr>
-														</c:if>
-												</tbody>
-											</table>
-											
+													<thead class="head">
+														<tr class="text-center">
+															<th class="col-md-2 text-center">체험일</th>
+															<th class="col-md-2 text-center">체험시간</th>
+															<th class="col-md-4 text-center">양조장</th>
+															<th class="col-md-2 text-center">예약자명</th>
+															<th class="col-md-2 text-center">작성</th>
+														</tr>
+													</thead>
+													<tbody>
+														 <c:choose>
+															<c:when test="${not empty reserveManage}">
+															<c:forEach var="reserve" items="${reserveManage}" varStatus="status"> 
+																<input type="hidden" class="br_id2" value="${reserve.br_id}"/>
+																<tr class="text-center" data-no="${reserve.br_id}" data-rsv="${reserve.rsv_no}">
+																	<c:if test="${reserve.rsv_state eq '체험 완료'}">
+																	<td>${reserve.rsv_day}</td>
+																	<td>${reserve.rsv_time}</td>
+																	<td style=font-weight:bold;><a href="/brewery/breweryDetail?br_id=${reserve.br_id}">${reserve.br_name}</a></td>
+																	<td>${reserve.rsv_name }</td>
+																	<td style=font-weight:bold; >
+																		<!-- <a href="javascript:void(0);" onclick="brReplyForm();">리뷰 작성</a>  -->
+																		<a href="javascript:void(0);" class="brReplyForm">리뷰 작성</a> 
+																	</td>
+																	</c:if> 
+																</tr>
+											 				</c:forEach>
+															</c:when>
+															<c:otherwise>
+																<tr>
+																	<td colspan="5" class="text-center">리뷰를 작성할 수 있는 예약건이 존재하지 않습니다.</td>
+																</tr>
+															</c:otherwise>
+														</c:choose>
+													</tbody>
+												</table>
+											</div>
 									</div>
 								</div>
 							</div>

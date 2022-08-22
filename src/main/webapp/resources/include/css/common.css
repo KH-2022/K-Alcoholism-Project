@@ -55,7 +55,15 @@ select#search {
 }
 .reply_count { font-size: 10px; color: red; }
 .pd-thumb {height: 400px;}
-.br-thumb img {height: 300px;}
+.pd-thumb img {
+	height: 400px;
+	width: 350px;
+}
+.br-thumb {height: 350px;}
+.br-thumb img {
+	height: 350px;
+	width: 350px;
+}
 .section > .container > .nav-tabs {
 	font-size: 18px;
 	font-weight: 400;
@@ -70,5 +78,6 @@ select#search {
 .reply-wait {font-size: 11px; color: orange;}
 
 /* footer */
+.site-footer {margin-top: 80px;}
 .site-footer a {text-decoration: none;}
 #footer-copyright {font-size: 9px;}

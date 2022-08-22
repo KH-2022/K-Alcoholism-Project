@@ -8,6 +8,8 @@
 				
 				/* 장바구니 버튼 클릭 시 처리 이벤트 */
 				$("#insertCartBtn").click(function(){
+					alert("만 19세 미만의 미성년자는 구매할 수 없습니다.");
+					
 					let value = JSON.stringify({
 						pd_id:$("#pd_id").val(),
 						cart_count:$("#cart_count").val()
@@ -27,6 +29,7 @@
 						success :function(result){
 							if(result == "5"){
 								alert("로그인이 필요합니다.");
+								location.href="/login/login";
 							}else if(result == "FAILURE"){
 								alert("장바구니에 이미 추가되어있습니다.");
 							} else if(result == "SUCCESS"){
@@ -39,6 +42,8 @@
 
 				/* 구매하기 버튼 클릭 시 처리 이벤트 */
 				$("#orderListBtn").click(function(){
+					alert("만 19세 미만의 미성년자는 구매할 수 없습니다.");
+					
 					if(confirm("로그인이 필요합니다.")){
 						let checkArr = new Array();
 						
@@ -149,7 +154,7 @@
 											<span class="caption">무료배송</span>
 										</span>
 									</div>
-									<div>
+									<div class="form-group">
 										<input type="hidden" id="pd_id" name="pd_id" value="${detail.pd_id}" />
 										<input type="hidden" id="pd_price" value="${detail.pd_price}">
 										<input type="hidden" id="pd_name" value="${detail.pd_name}">

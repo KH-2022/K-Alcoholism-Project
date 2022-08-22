@@ -17,6 +17,7 @@ public class ReplyVO extends CommonVO {
 	private String	pd_review_content 	="";
 	private String	pd_review_date;
 	private String 	pd_name 			="";
+	private String 	pd_thumb 			="";
 	
 	private MultipartFile file;		
 	private String pd_review_thumb		="";	

@@ -62,7 +62,7 @@
 	<body>
 		<div class="contentContainer container">
 			<div class="contentTit page-header">
-				<h3 class="text-center">예약정보 수정</h3>
+				<h3 class="text-center">체험 예약 정보 수정</h3>
 				<h5 class="text-center">예약번호: ${updateData.rsv_no}</h5>
 			</div>
 			

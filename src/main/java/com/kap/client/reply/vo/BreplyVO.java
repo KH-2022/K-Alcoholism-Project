@@ -17,6 +17,7 @@ public class BreplyVO extends CommonVO {
 	private String 	br_review_content 	="";
 	private String 	br_review_date;
 	private String 	br_name 			="";
+	private String 	br_thumb 			="";
 	
 	private MultipartFile file;
 	private String br_review_file 		="";
