@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 		<script type="text/javascript">
 			$(function() {
@@ -17,18 +16,19 @@
 							if (!chkFile($("#file"))) return;
 						}
 					
-						$("#f_updateForm").attr({
+						$("#pdUpdateForm").attr({
 							"method" : "post",
 							"enctype" : "multipart/form-data",
+							"accept-charset" : "UTF-8",
 							"action" : "/admin/product/productUpdate"
 						});
-						$("#f_updateForm").submit();
+						$("#pdUpdateForm").submit();
 					}
 				});
 				
 				/* 취소 버튼 클릭시 처리 이벤트 */
 				$("#productCancelBtn").click(function(){
-					$("#f_updateForm").each(function(){
+					$("#pdUpdateForm").each(function(){
 						this.reset();
 					});
 				});
@@ -44,13 +44,10 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header text-center">
-				<h2>상품 관리</h2>
-				<h4>상품 정보 수정</h4>
-			</div>
+			<div class="contentTit page-header"><h3 class="text-center">전통주 정보 수정</h3></div>
 
 			<div class="contentTB text-center">
-				<form id="f_updateForm" name="f_updateForm">
+				<form id="pdUpdateForm" name="pdUpdateForm">
 					<input type="hidden" id="pd_id" name="pd_id" value="${updateData.pd_id}" />
 					<input type="hidden" id="pd_image" name="pd_image" value="${updateData.pd_image}" />
 					<input type="hidden" id="pd_thumb" name="pd_thumb" value="${updateData.pd_thumb}" />

@@ -53,6 +53,7 @@
 		</script>
 		<style>
 			#item-template {display: none;}
+			.panel-img {padding: 15px;}
 		</style>
 	</head>
 	<body>

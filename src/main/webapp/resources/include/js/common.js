@@ -14,6 +14,22 @@
 }
 
 
+/* 유효성 체크 함수
+ * chkSelect(유효성 체크 대상의 선택자, 메시지 내용)
+ * alert 경고창으로 사용자에게 알림
+ */
+ function chkSelect(item, msg) {
+	if ($(item).val().replace(/\s/g, "") == "") {
+		alert(msg + " 선택해 주세요.");
+		$(item).val("");
+		$(item).focus();
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
 /* chkForm(유효성 체크 대상, 메시지 내용)
  * placeholder 속성으로 사용자에게 알림
  */

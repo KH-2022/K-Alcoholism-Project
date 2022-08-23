@@ -125,13 +125,13 @@
 									<table class="table">
 										<thead>
 											<tr>
-												<th class="col-md-1">주문번호</th>
-												<th class="col-md-2">주문일</th>
-												<th class="col-md-2">상품 사진</th>
-												<th class="col-md-3">상품명</th>
-												<th class="col-md-2">결제 금액</th>
-												<th class="col-md-1">주문상태</th>
-												<th class="col-md-1">기타</th>
+												<th class="col-md-1 text-center">주문번호</th>
+												<th class="col-md-2 text-center">주문일</th>
+												<th class="col-md-2 text-center">상품 사진</th>
+												<th class="col-md-3 text-center">상품명</th>
+												<th class="col-md-2 text-center">결제 금액</th>
+												<th class="col-md-1 text-center">주문상태</th>
+												<th class="col-md-1 text-center">기타</th>
 											</tr>
 										</thead>
 										<c:choose>

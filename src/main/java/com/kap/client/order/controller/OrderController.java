@@ -29,6 +29,8 @@ public class OrderController {
 	
 	private OrderService orderService;
 	
+
+	
 	@ResponseBody
 	@RequestMapping(value="/order", method=RequestMethod.POST)
 	public String orderList(HttpServletRequest request, @RequestBody List<CartVO> cvoList, Model model) {
@@ -36,25 +38,30 @@ public class OrderController {
 		session.setAttribute("cvoList", cvoList);
 		
 		return "SUCCESS";
+		
 	}
+	
 	
 	@RequestMapping(value="/orderList", method=RequestMethod.GET)
 	public String orderList(HttpServletRequest request, OrderVO order, Model model) {
 		HttpSession session = request.getSession();
+		
 		model.addAttribute("orderList", session.getAttribute("cvoList"));
 		
 		return "cart/orderList";
 	}
 	
+	
 	@ResponseBody
 	@RequestMapping(value="/save", method=RequestMethod.POST)
 	public String orderSave(HttpServletRequest request, @RequestBody List<OrderDetailVO> orderDetailList, Model model) {
 		return orderService.save(request, orderDetailList);
+		
 	}
+	
 	
 	@RequestMapping(value="/complete", method=RequestMethod.GET)
 	public String orderComplete() {	
 		return "cart/orderComplete";
 	}
-
 }

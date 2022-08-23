@@ -36,8 +36,8 @@
 	</select>
 	
 	<select id="getOrderNo" parameterType="Integer" resultType="Integer">
-		select order_no from orders where user_no = #{user_no} order by order_no desc
-	</select>
+      select order_no from orders where user_no = #{user_no} order by order_no desc
+   </select>
 	
 	<select id="orderList" parameterType="myOrder" resultType="myOrder">
 		<![CDATA[ 

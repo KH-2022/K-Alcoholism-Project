@@ -32,49 +32,42 @@
 				<input type="hidden" name="pd_review_thumb" value="${detail.pd_review_thumb}" />
 			</form>
 
-			
-			<%--================버튼 추가============================= --%>
-			<div class="text-left">
-				<input type="button" value="글삭제" id="pdReplyDeleteBtn" class="btn btn-success" />
-				<input type="button" value="목록" id="replyListBtn" class="btn btn-success" />
+			<%-- 버튼 --%>
+			<div class="btnGroup text-right">
+				<input type="button" value="리뷰 삭제" id="pdReplyDeleteBtn" class="btn btn-primary" />
+				<input type="button" value="전통주 리뷰 목록" id="replyListBtn" class="btn btn-primary" />
 			</div>
 			
 			<%--==============상세정보 보여주기 시작=================== --%>
 			<div class="contentTB text-center">
-				<table class="table table-striped">
-					<tbody>
-						<tr>
-							<td class="text-center col-md-2">상품 리뷰번호</td>
-							<td data-num="pd_review_no">${detail.pd_review_no}</td>
-						</tr>
-						<tr>
-							<td>제품명</td>
-							<td>${detail.pd_name}</td>
-						</tr>
-						<tr>
-							<td>회원 아이디</td>
-							<td>${detail.user_id}</td>
-						</tr>
-						<tr>
-							<td>리뷰 내용</td>
-							<td>${detail.pd_review_content}</td>
-						</tr>
-						<tr>
-							<td>작성일</td>
-							<td>${detail.pd_review_date}</td>
-						</tr>
-						<tr>
-							<td>리뷰 사진</td>
-							<td>
+				<table class="table table-bordered">
+					<tr>
+						<td class="col-md-3">상품 리뷰 번호</td>
+						<td class="col-md-3 text-left" data-num="pd_review_no">${detail.pd_review_no}</td>
+						<td class="col-md-3">상품명</td>
+						<td class="col-md-3 text-left">${detail.pd_name}</td>
+					</tr>
+					<tr>
+						<td class="col-md-3">회원 아이디</td>
+						<td class="col-md-3 text-left">${detail.user_id}</td>
+						<td class="col-md-3">작성일</td>
+						<td class="col-md-3 text-left">${detail.pd_review_date}</td>
+					</tr>
+					<tr>
+						<td class="col-md-3">리뷰 내용</td>
+						<td colspan="3" class="col-md-9">${detail.pd_review_content}</td>
+					</tr>
+					<tr>
+						<td class="col-md-3">리뷰 사진</td>
+						<td colspan="3" class="col-md-9">
 							<c:if test="${not empty detail.pd_review_file}">
-								<img src="/uploadStorage/pdReview/${detail.pd_review_file}" />
+								<img class="detail-img" src="/uploadStorage/pdReview/${detail.pd_review_file}" />
 							</c:if>
 							<c:if test="${empty detail.pd_review_file}">
 								<img class="img-responsive" src="/resources/images/common/noImage.jpg" />
 							</c:if>
-							</td>
-						</tr>
-					</tbody>
+						</td>
+					</tr>
 				</table>
 			</div>
 		</div>

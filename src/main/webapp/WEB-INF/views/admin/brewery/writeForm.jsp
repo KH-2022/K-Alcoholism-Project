@@ -91,11 +91,11 @@
 							</tr>
 							<tr>
 								<td>소요시간(분 단위) </td>
-								<td class="text-left"><input type="text" class="form-control" id="br_time" name="br_time" placeholder="숫자만(나중에 폼변경예정)"/></td>
+								<td class="text-left"><input type="text" class="form-control" id="br_time" name="br_time" placeholder="숫자만 입력"/></td>
 							</tr>
 							<tr>
 								<td>인당 체험비용</td>
-								<td class="text-left"><input type="text" class="form-control" id="br_price" name="br_price" placeholder="숫자만(나중에 폼변경예정)"/></td>
+								<td class="text-left"><input type="text" class="form-control" id="br_price" name="br_price" placeholder="숫자만 입력"/></td>
 							</tr>
 							<tr>
 								<td>이미지 파일 첨부</td>
