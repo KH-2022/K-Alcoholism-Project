@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 		<script type="text/javascript">
 			$(function() {
-				let deleteMsg = "${deleteMsg}";
-				if (deleteMsg != "") {
-					alert(deleteMsg);
-					deleteMsg = "";
+				let sendMsg = "${sendMsg}";
+				if (sendMsg != "") {
+					alert(sendMsg);
+					sendMsg = "";
 				}
 				
 				/* 검색 후 검색대상과 검색단어 초기화 방지 */
@@ -18,12 +18,10 @@
 					console.log(search + ", " + keyword);
 					
 					/* 검색 결과에서 검색단어 글자색 변경 */
-					if ($("#search").val() == "user_no") { 
-						value = "#list tr td.user_no";
-					} else if ($("#search").val() == "user_id") { 
-						value = "#list tr td.user_id";
-					} else if ($("#search").val() == "user_name") { 
-						value = "#list tr td.user_name";
+					if ($("#search").val() == "br_name") { //검색조건이 "양조장명"일 경우
+						value = "#list tr td.br_name";
+					} else if ($("#search").val() == "user_id") { //검색조건이 "회원아이디"일 경우
+						value = "#list2 tr td.user_id";
 					}
 					console.log($(value+":contains('"+word+"')").html());
 					
@@ -42,40 +40,38 @@
 				
 				/* 검색 조건 변경 시마다 처리할 이벤트 */
 				$("#search").change(function(){
-					if($("#search").val()=="all"){
-						$("#keyword").val("전체 데이터를 조회 합니다.");
-					} else if($("#search").val() !="all"){
-						$("#keyword").val("");
-						$("#keyword").focus();
-					}
+					$("#keyword").val("");
+					$("#keyword").focus();
 				});
 				
 				/* 검색 버튼 클릭 시 */
 				$("#searchBtn").click(function() {
-					if($("#search").val() != "all"){
-						if (!chkData("#keyword", "검색어를")) return;
-					}
+					if (!chkData("#keyword", "검색어를")) return;
 					$("#pageNum").val(1);
 					goPage();
 				});
 				
-				$(".memberDeleteBtn").click(function() {
-					var delete_yn = $(this).parents("tr").attr("data-yn");
+				$(".goDetail").click(function() {
+					let br_review_no = $(this).parents("tr").attr("data-num");
+					$("#br_review_no").val(br_review_no);
 					
-					if(delete_yn == 'Y'){
-						alert("이미 탈퇴된 회원입니다.");
-						return false;
-					} 
+					$("#replyDetailForm").attr({
+						"method" : "get",
+						"action" : "/admin/reply/brReplyDetail"
+					});
+					$("#replyDetailForm").submit();
+				});
+				
+				$(".brReplyDelete").click(function() {
+					if(confirm("정말 삭제하시겠습니까?")) {
+						let br_review_no = $(this).parents("tr").attr("data-num");
+						$("#br_review_no").val(br_review_no);
 						
-					if(confirm("정말 회원을 탈퇴시키겠습니까?")) { //확인:true, 취소:false 
-						let user_no = $(this).parents("tr").attr("data-no");	
-						$("#user_no").val(user_no);
-						
-						$("#memberDeleteForm").attr({
+						$("#replyDetailForm").attr({
 							"method" : "post",
-							"action" : "/admin/member/memberDelete"
+							"action" : "/admin/reply/brReplyDelete"
 						});
-						$("#memberDeleteForm").submit();
+						$("#replyDetailForm").submit();
 					} else {
 						return;
 					} 
@@ -90,12 +86,9 @@
 			}); //$함수 종료
 			
 			function goPage() {
-				if($("#search").val() == "all"){
-					$("#keyword").val("");
-				}
 				$("#searchForm").attr({
 					"method" : "get",
-					"action" : "/admin/member/memberList"
+					"action" : "/admin/reply/brReplyList"
 				});
 				$("#searchForm").submit();
 			}
@@ -103,13 +96,11 @@
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header"><h2 class="text-center">회원 관리 목록</h2></div>
+			<div class="contentTit page-header"><h2 class="text-center">체험 리뷰 관리 목록</h2></div>
 			
-			<%-- ================= 탈퇴를 위한 form================= --%>
-			<form id="memberDeleteForm" name="memberDeleteForm">
-					<input type="hidden" id="user_no" name="user_no" />
+			<form id="replyDetailForm">
+				<input type="hidden" id="br_review_no" name="br_review_no"/>
 			</form>
-			<%-- ================= 탈퇴를 위한 form================= --%>
 			
 			<%-- ================= 검색기능 시작 ================= --%>
 			<div id="replySearch" class="text-right btnGroup">
@@ -121,10 +112,8 @@
 					<label>검색조건</label>&nbsp;
 					<div class="form-group">
 						<select id="search" name="search" class="form-control">
-							<option value="all">전체</option>
-							<option value="user_no">회원번호</option>
-							<option value="user_id">아이디</option>
-							<option value="user_name">회원명</option>
+							<option value="br_name">양조장명</option>
+							<option value="user_id">회원 ID</option>
 						</select>
 						<input type="text" id="keyword" name="keyword" class="form-control" placeholder="검색어를 입력하세요" />
 						<button type="button" class="btn btn-primary" id="searchBtn">검색</button>
@@ -133,45 +122,47 @@
 			</div>
 			<%-- ================= 검색기능 종료 ================= --%>
 		
-			<%-- ================= 회원정보 리스트 ================= --%>
-			<div id="List" class="table-height">
+			<%-- ================= 후기정보 리스트 ================= --%>
+			<div id="replyList" class="table-height">
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th class="text-center col-md-1">회원번호</th>
-							<th class="text-center col-md-2">회원아이디</th>
-							<th class="text-center col-md-1">회원명</th>
-							<th class="text-center col-md-2">회원이메일</th>
-							<th class="text-center col-md-2">회원핸드폰</th>
-							<th class="text-center col-md-2">등록일</th>
-							<th class="text-center col-md-1">탈퇴여부</th>
-							<th class="text-center col-md-1">강제탈퇴</th>
+							<th data-value="br_review_no" class="order text-center col-md-1">리뷰 번호</th>
+							<th class="text-center col-md-2">리뷰 사진</th>
+							<th class="text-center col-md-2">양조장</th>
+							<th class="text-center col-md-1">회원 ID</th>
+							<th class="text-center col-md-3">리뷰 내용</th>
+							<th class="text-center col-md-2">작성일</th>
+							<th class="text-center col-md-1">삭제</th>
 						</tr>
 					</thead>
-					
 					<tbody id="list" class="table-striped">
 						<c:choose>
-							<c:when test="${not empty memberList}">
-								<c:forEach var="member" items="${memberList}" varStatus="status">
-								
-									<tr class="text-center" data-no="${member.user_no}" data-yn="${member.delete_YN}">
-										<td class="user_no">${member.user_no}</td>
-										<td class="goDetail user_id">${member.user_id}</td>
-										<td class="user_name">${member.user_name}</td>
-										<td>${member.user_email}</td>
-										<td>${member.user_tel}</td>
-										<td>${member.user_date}</td> 
-										<td>${member.delete_YN}</td> 
+							<c:when test="${not empty brReplyList}">
+								<c:forEach var="br" items="${brReplyList}" varStatus="status">
+									<tr class="text-center" data-num="${br.br_review_no}">
+										<td class="goDetail"><strong>${br.br_review_no}</strong></td>
 										<td>
-											<button type="button" class="btn btn-success memberDeleteBtn">탈퇴</button>
-										</td> 
+											<c:if test="${not empty br.br_review_thumb}">
+												<img class="listImage" src="/uploadStorage/brReview/thumbnail/${br.br_review_thumb}" />
+											</c:if>
+											<c:if test="${empty br.br_review_thumb}">
+												<img class="listImage" src="/resources/images/common/noImage.jpg" />
+											</c:if>
+										</td>
+										<td class="br_name">${br.br_name}</td>
+										<td class="user_id">${br.user_id}</td>
+										<td>${br.br_review_content}</td>
+										<td>${br.br_review_date}</td>
+										<td>
+											<a href="javascript:void(0);" class="brReplyDelete" >삭제</a>
+										</td>
 									</tr>
-									
 								</c:forEach>
 							</c:when>
 							<c:otherwise>
 								<tr>
-									<td colspan="8" class="text-center">등록된 회원정보가 존재하지 않습니다.</td>
+									<td colspan="7" class="text-center">양조장 체험 리뷰가 존재하지 않습니다.</td>
 								</tr>
 							</c:otherwise>
 						</c:choose>

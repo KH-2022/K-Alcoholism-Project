@@ -108,6 +108,8 @@
 			    $(".count").text(cntNum);  //인원 수 초기화
 			    let price = ${breweryData.br_price};
 			    $(".price").text(price); //가격 초기화
+			   	$("#rsv_name").val("${loginMember.user_name}"); //예약자명 초기화
+			    $("#rsv_tel").val("${loginMember.user_tel}"); //전화번호 초기화
 			    
 			    /* 시간 클릭 시 선택 표시 */
 			    $('.time').on('click', function() {
@@ -424,16 +426,16 @@
 							<input type="hidden" id="rsv_price" name="rsv_price" />
 							<div class="row">
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_name" name="rsv_name" class="form-control" value="${loginMember.user_name}">
+									<input type="text" id="rsv_name" name="rsv_name" class="form-control" />
 								</div>
 								<div class="col-6 mb-3">
-									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" value="${loginMember.user_tel}">
+									<input type="text" id="rsv_tel" name="rsv_tel" class="form-control" />
 								</div>
 								<div class="col-12 mb-3">
 									<textarea id="rsv_request" name="rsv_request" cols="30" rows="7" class="form-control" placeholder="요청사항이 있으실 경우에만 입력해 주세요"></textarea>
 								</div>
 								<%-- 예약 버튼 --%>
-								<div class="col-12">
+								<div class="col-12 form-group">
 									<button type="button" id="reserveBtn" class="btn btn-primary">예약하기</button>
 								</div>
 							</div>

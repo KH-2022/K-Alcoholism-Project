@@ -6,11 +6,17 @@
 		<if test="search == 'br_name'">
 			<![CDATA[ br_name LIKE '%' || #{keyword} || '%' ]]>
 		</if>
+		<if test="search == 'user_id'">
+			<![CDATA[ user_id LIKE '%' || #{keyword} || '%' ]]>
+		</if>
 	</sql>
 	
 	<sql id="pdReplySearch">
 		<if test="search == 'pd_name'">
 			<![CDATA[ pd_name LIKE '%' || #{keyword} || '%' ]]>
+		</if>
+		<if test="search == 'user_id'">
+			<![CDATA[ user_id LIKE '%' || #{keyword} || '%' ]]>
 		</if>
 	</sql>
 	

@@ -30,41 +30,41 @@ public class AdminProductController {
 	private AdminProductService adminProductService;
 	
 	/****************************************************
-	 * ìƒí’ˆëª©ë¡ êµ¬í˜„í•˜ê¸° (í˜ì´ì§• ì²˜ë¦¬)
+	 * »óÇ°¸ñ·Ï ±¸ÇöÇÏ±â (ÆäÀÌÂ¡ Ã³¸®)
 	 ****************************************************/
 	@RequestMapping(value="product/productList", method = RequestMethod.GET)
 	public String productList(@ModelAttribute("data") ProductVO pvo, Model model) {
-		log.info("productList í˜¸ì¶œ ì„±ê³µ");
+		log.info("productList È£Ãâ ¼º°ø");
 		
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<ProductVO> productList = adminProductService.productList(pvo);
 		model.addAttribute("productList", productList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 		int total = adminProductService.productListCnt(pvo);
 		
-		// í˜ì´ì§• ì²˜ë¦¬
+		// ÆäÀÌÂ¡ Ã³¸®
 		model.addAttribute("pageMaker", new PageDTO(total, pvo));
 		
 		return "admin/product/productList"; 
 	} 
 	
 	/******************************************************
-	 * ìƒí’ˆë“±ë¡ í¼ ì¶œë ¥í•˜ê¸°
+	 * »óÇ°µî·Ï Æû Ãâ·ÂÇÏ±â
 	 ******************************************************/
 	@RequestMapping(value="/product/writeForm")
 	public String writeForm(@ModelAttribute("data") ProductVO pvo) {
-		log.info("admin writeForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin writeForm È£Ãâ ¼º°ø");
 		
 		return "admin/product/writeForm";
 	}
 	
 	/******************************************************
-	 * ê¸€ì“°ê¸° êµ¬í˜„í•˜ê¸°
+	 * ±Û¾²±â ±¸ÇöÇÏ±â
 	 ******************************************************/
 	@RequestMapping(value="/product/productInsert", method=RequestMethod.POST)
 	public String productInsert(ProductVO pvo, Model model) throws Exception {
-		log.info("admin productInsert í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin productInsert È£Ãâ ¼º°ø");
 		
 		int result=0;
 		String url="";
@@ -80,11 +80,11 @@ public class AdminProductController {
 	}
 	
 	/******************************************************
-	 * ê¸€ìƒì„¸ë³´ê¸° êµ¬í˜„
+	 * ±Û»ó¼¼º¸±â ±¸Çö
 	 ******************************************************/
 	@RequestMapping(value="/product/productDetail", method=RequestMethod.GET)
 	public String productDetail(@ModelAttribute ProductVO pvo, Model model) {
-		log.info("admin productDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin productDetail È£Ãâ ¼º°ø");
 		
 		ProductVO detail = adminProductService.productDetail(pvo);
 		model.addAttribute("detail",detail);
@@ -94,11 +94,11 @@ public class AdminProductController {
 	
 	
 	/****************************************************
-	 * ê¸€ìˆ˜ì • í¼ ì¶œë ¥í•˜ê¸°
+	 * ±Û¼öÁ¤ Æû Ãâ·ÂÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/product/updateForm")
 	public String updateForm(@ModelAttribute("data") ProductVO pvo, Model model) {
-		log.info("admin writeForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin writeForm È£Ãâ ¼º°ø");
 		log.info("pd_id = " + pvo.getPd_id());
 		
 		ProductVO updateData = adminProductService.updateForm(pvo);
@@ -109,11 +109,11 @@ public class AdminProductController {
 	}
 	
 	/****************************************************
-	 * ê¸€ìˆ˜ì • êµ¬í˜„í•˜ê¸°
+	 * ±Û¼öÁ¤ ±¸ÇöÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/product/productUpdate", method=RequestMethod.POST)
 	public String productUpdate(@ModelAttribute ProductVO pvo, RedirectAttributes ras) throws Exception {
-		log.info("admin productUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin productUpdate È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url="";
@@ -131,11 +131,11 @@ public class AdminProductController {
 	}
 	
 	/****************************************************
-	 * ê¸€ì‚­ì œ êµ¬í˜„í•˜ê¸°
+	 * ±Û»èÁ¦ ±¸ÇöÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/product/productDelete")
 	public String productDelete(@ModelAttribute ProductVO pvo, RedirectAttributes ras) throws Exception {
-		log.info("admin productDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin productDelete È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";

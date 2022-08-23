@@ -32,17 +32,17 @@ public class FindIdServiceImpl implements FindIdService {
 		MemberVO cvo = findIdDao.readClient(mvo.getUser_id());
 		PrintWriter out = response.getWriter();
 		
-		// ì•„ì´ë”” ì—†ìœ¼ë©´
+		// ¾ÆÀÌµğ ¾øÀ¸¸é
 		if(findIdDao.idCheck(mvo.getUser_id()) == null) {
-			out.print("ë“±ë¡ë˜ì§€ ì•Šì€ ì•„ì´ë””ì…ë‹ˆë‹¤.");
+			out.print("µî·ÏµÇÁö ¾ÊÀº ¾ÆÀÌµğÀÔ´Ï´Ù.");
 			out.close();
 		}
-		// ì´ë©”ì¼ ì—†ìœ¼ë©´
+		// ÀÌ¸ŞÀÏ ¾øÀ¸¸é
 		else if(!mvo.getUser_email().equals(cvo.getUser_email())) {
-			out.print("ë“±ë¡ë˜ì§€ ì•Šì€ ì´ë©”ì¼ì…ë‹ˆë‹¤.");
+			out.print("µî·ÏµÇÁö ¾ÊÀº ÀÌ¸ŞÀÏÀÔ´Ï´Ù.");
 			out.close();
 		}else {
-			// ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ ìƒì„±
+			// ÀÓ½Ã ºñ¹Ğ¹øÈ£ »ı¼º
 			int index = 0;
 			char[] charSet = new char[] {
 	                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
@@ -56,14 +56,14 @@ public class FindIdServiceImpl implements FindIdService {
 			}
 			String user_pwd = pw.toString();
 			
-			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½
+			// ºñ¹Ğ¹øÈ£ º¯°æ 
 			mvo.setUser_pwd(user_pwd);
 			findIdDao.updatePw(mvo);
 			
-			// ë¹„ë°€ë²ˆí˜¸ ë³€ê²½ ë©”ì¼ ë°œì†¡
+			// ºñ¹Ğ¹øÈ£ º¯°æ ¸ŞÀÏ ¹ß¼Û
 			sendEmail(mvo, "findpw");
 
-			out.print("ì´ë©”ì¼ë¡œ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ë¥¼ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤.");
+			out.print("ÀÌ¸ŞÀÏ·Î ÀÓ½Ã ºñ¹Ğ¹øÈ£¸¦ ¹ß¼ÛÇÏ¿´½À´Ï´Ù.");
 			out.close();
 		}
 	}
@@ -73,25 +73,25 @@ public class FindIdServiceImpl implements FindIdService {
 		// Mail Server
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.naver.com"; 
-		String hostSMTPid = ""; //ê°ì ì‹¤ì œ ë©”ì¼ë¡œ
-		String hostSMTPpwd = ""; //ê°ì ì‹¤ì œ ë©”ì¼ ë¹„ë°€ë²ˆí˜¸ë¡œ
+		String hostSMTPid = ""; //°¢ÀÚ ½ÇÁ¦ ¸ŞÀÏ·Î
+		String hostSMTPpwd = ""; //°¢ÀÚ ½ÇÁ¦ ¸ŞÀÏ ºñ¹Ğ¹øÈ£·Î
 
-		// ë³´ë‚´ëŠ” ì‚¬ëŒ EMail, ì œëª©, ë‚´ìš©
-		String fromEmail = ""; //ê°ì ì‹¤ì œ ë©”ì¼ë¡œ
-		String fromName = "(ì£¼)ì „í†µì£¼ì˜";
+		// º¸³»´Â »ç¶÷ EMail, Á¦¸ñ, ³»¿ë
+		String fromEmail = ""; //°¢ÀÚ ½ÇÁ¦ ¸ŞÀÏ·Î
+		String fromName = "(ÁÖ)ÀüÅëÁÖÀÇ";
 		String subject = "";
 		String msg = "";
 
 		if(div.equals("findpw")) {
-			subject = "(ì£¼)ì „í†µì£¼ì˜ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ì…ë‹ˆë‹¤. .";
+			subject = "(ÁÖ)ÀüÅëÁÖÀÇ ÀÓ½Ã ºñ¹Ğ¹øÈ£ÀÔ´Ï´Ù. .";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
-			msg += mvo.getUser_id() + "ë‹˜ì˜ ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ì…ë‹ˆë‹¤. ë¹„ë°€ë²ˆí˜¸ë¥¼ ë³€ê²½í•˜ì—¬ ì‚¬ìš©í•´ì£¼ì„¸ìš”.</h3>";
-			msg += "<p>ì„ì‹œ ë¹„ë°€ë²ˆí˜¸ : ";
+			msg += mvo.getUser_id() + "´ÔÀÇ ÀÓ½Ã ºñ¹Ğ¹øÈ£ÀÔ´Ï´Ù. ºñ¹Ğ¹øÈ£¸¦ º¯°æÇÏ¿© »ç¿ëÇØÁÖ¼¼¿ä.</h3>";
+			msg += "<p>ÀÓ½Ã ºñ¹Ğ¹øÈ£ : ";
 			msg += mvo.getUser_pwd() + "</p></div>";
 		}
 
-		// ë°›ëŠ”ì‚¬ëŒ E-Mail
+		// ¹Ş´Â»ç¶÷ E-Mail
 		String mail = mvo.getUser_email();
 		try {
 			HtmlEmail email = new HtmlEmail();
@@ -109,7 +109,7 @@ public class FindIdServiceImpl implements FindIdService {
 			email.setHtmlMsg(msg);
 			email.send();
 		} catch (Exception e) {
-			System.out.println("ë©”ì¼ ë°œì†¡ ì‹¤íŒ¨ : " + e);
+			System.out.println("¸ŞÀÏ ¹ß¼Û ½ÇÆĞ : " + e);
 		}
 	}
 	

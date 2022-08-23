@@ -66,6 +66,8 @@ select#search {
 .contentContainer {margin-bottom: 50px;}
 .contentTB {margin-bottom: 40px;}
 .review-img {max-height: 250px;}
+.reply-com {font-size: 11px; color: green;}
+.reply-wait {font-size: 11px; color: orange;}
 
 /* footer */
 .site-footer a {text-decoration: none;}

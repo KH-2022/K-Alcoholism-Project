@@ -174,7 +174,9 @@
 									<tr data-num="${qna.qna_no}">
 										<td class="text-center">${qna.qna_no}</td>	
 										<td class="goDetail">${qna.qna_title}
-											<c:if test="${qna.qna_replycnt > 0}">&nbsp;<span class="reply_count">[${qna.qna_replycnt}]</span></c:if>
+										
+											<c:if test="${qna.qna_replycnt == 0}">&nbsp;<span class="reply-wait">[답변대기]</span></c:if>
+											<c:if test="${qna.qna_replycnt > 0}">&nbsp;<span class="reply-com">[답변완료]</span></c:if>
 										</td>	
 										<td class="name text-center">${qna.user_id}</td>
 										<td class="text-center">${qna.qna_date}</td>

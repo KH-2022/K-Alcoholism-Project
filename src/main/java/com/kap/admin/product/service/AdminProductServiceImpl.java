@@ -17,7 +17,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 	@Setter(onMethod_ = @Autowired)
 	private ProductDao productDao;
 	
-	//ëª©ë¡ì¡°íšŒ
+	//¸ñ·ÏÁ¶È¸
 	@Override
 	public List<ProductVO> productList(ProductVO pvo) {
 		List<ProductVO> aList = null;
@@ -25,7 +25,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return aList;
 	}
 	
-	//ì „ì²´ ë ˆì½”ë“œ ìˆ˜ í‘œí˜„
+	//ÀüÃ¼ ·¹ÄÚµå ¼ö Ç¥Çö
 	@Override
 	public int productListCnt(ProductVO pvo) {
 		int countNum = 0;
@@ -33,7 +33,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return countNum;
 	}
 	
-	//ì…ë ¥
+	//ÀÔ·Â
 	@Override
 	public int productInsert(ProductVO pvo) throws Exception {
 		int result = 0;
@@ -49,7 +49,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return result;
 	}
 	
-	//ìƒì„¸ì¡°íšŒ
+	//»ó¼¼Á¶È¸
 	@Override
 	public ProductVO productDetail(ProductVO pvo) {
 		ProductVO detail = null;
@@ -60,7 +60,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return detail;
 	}
 	
-	//ê¸€ìˆ˜ì •í¼êµ¬í˜„
+	//±Û¼öÁ¤Æû±¸Çö
 	@Override
 	public ProductVO updateForm(ProductVO pvo) {
 		ProductVO updateData = null;
@@ -68,7 +68,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return updateData;
 	}
 	
-	//ê¸€ìˆ˜ì •êµ¬í˜„
+	//±Û¼öÁ¤±¸Çö
 	@Override
 	public int productUpdate(ProductVO pvo) throws Exception {
 		int result = 0;
@@ -88,7 +88,7 @@ public class AdminProductServiceImpl implements AdminProductService {
 		return result;
 	}
 	
-	//ê¸€ì‚­ì œêµ¬í˜„
+	//±Û»èÁ¦±¸Çö
 	@Override
 	public int productDelete(ProductVO pvo) throws Exception {
 		int result = 0;

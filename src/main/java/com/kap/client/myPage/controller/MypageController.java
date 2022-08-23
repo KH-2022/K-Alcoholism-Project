@@ -52,6 +52,7 @@ public class MypageController {
 			orderCount.addAll(mypageService.orderCount(ovo));
 		}
 		model.addAttribute("orderList",orderList);
+		log.info("orderList = "+orderList);
 		model.addAttribute("orderCount",orderCount);
 		
 		int total = mypageService.orderListCnt(ovo);

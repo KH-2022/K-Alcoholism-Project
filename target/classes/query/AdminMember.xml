@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kap.admin.member.dao.AdminMemberDao">
+
+		<sql id="pdReplySearch">
+			<if test="search == 'user_no'">
+				<![CDATA[ user_no LIKE #{keyword} ]]>
+			</if>
+			<if test="search == 'user_id'">
+				<![CDATA[ user_id LIKE '%' || #{keyword} || '%' ]]>
+			</if>
+			<if test="search == 'user_name'">
+				<![CDATA[ user_name LIKE '%' || #{keyword} || '%' ]]>
+			</if>
+		</sql>
+		
 		<select id="memberList" parameterType="member" resultType="member">
 		<![CDATA[
 			select user_no, user_date, delete_YN
@@ -13,7 +26,11 @@
 	            select /*+ index_desc(kap_user kap_user_pk) */
 	                rownum as rnum, user_no, user_id, user_name, user_email, user_tel, user_date, delete_YN
 	                from kap_user
-	            where rownum <= #{pageNum} * #{amount}
+	            where ]]>
+	            <trim prefix="(" suffix=") AND " prefixOverrides="AND">
+				  		<include refid="pdReplySearch"></include>
+				 </trim>
+	          <![CDATA[ rownum <= #{pageNum} * #{amount}
 	        )
 	    where rnum > (#{pageNum} - 1) * #{amount}
 	    ]]>

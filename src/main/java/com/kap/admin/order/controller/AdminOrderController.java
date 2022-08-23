@@ -26,10 +26,10 @@ public class AdminOrderController {
 	
 	private AdminOrderService adminOrderService;
 	
-	//欤茧氇╇
+	//林巩格废
 	@RequestMapping(value="/order/orderList", method = RequestMethod.GET)
 	public String orderList(@ModelAttribute("data") OrderVO order, Model model) {
-		log.info("admin orderList 順胳稖 靹标车");
+		log.info("admin orderList 龋免 己傍");
 		
 		List<OrderVO> orderList = adminOrderService.orderList(order);
 		model.addAttribute("orderList",orderList);
@@ -37,10 +37,10 @@ public class AdminOrderController {
 		return "admin/order/orderList";
 	}
 	
-	//欤茧靸侅劯氇╇
+	//林巩惑技格废
 	@RequestMapping(value="/order/orderDetail", method = RequestMethod.GET)
 	public String orderDetail(@ModelAttribute("data") OrderDetailVO dvo, Model model) {
-		log.info("admin orderDetail 順胳稖 靹标车");
+		log.info("admin orderDetail 龋免 己傍");
 		
 		List<OrderDetailVO> orderDetail = adminOrderService.orderDetail(dvo);
 		model.addAttribute("orderDetail",orderDetail);

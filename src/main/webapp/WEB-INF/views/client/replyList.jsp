@@ -102,10 +102,42 @@
 					location.href = "/myPage/withdrawal";
 				});
 				
+				$(".pdReplyDelete").click(function() {
+					let pd_review_no = $(this).parents("tr").attr("data-no");	
+					$("#pd_review_no").val(pd_review_no);
+					
+					var choice = confirm("상품 리뷰를 삭제하시겠습니까?");
+					if(choice){
+						$("#pdReviewForm").attr({
+							"method" :"post",
+							"action" : "/reply/replyDelete"
+						});
+						$("#pdReviewForm").submit();
+					} else {
+						location.href = "/reply/replyList"
+					}
+					
+				});
+				
+				$(".bReplyDelete").click(function() {
+					let br_review_no = $(this).parents("tr").attr("data-no");	
+					$("#br_review_no").val(br_review_no);
+					
+					var choice = confirm("양조장 체험 리뷰를 삭제하시겠습니까?");
+					if(choice){
+						$("#brReviewForm").attr({
+							"method" :"post",
+							"action" : "/reply/bReplyDelete"
+						});
+						$("#brReviewForm").submit();
+					} else {
+						location.href = "/reply/replyList"
+					}
+					
+				});
 				
 			}); //메인 메서드 종료
 				function replyUpdateForm(){
-					
 					$("#reviewForm").attr({
 						"method" :"post",
 						"action" : "/reply/replyUpdateForm"
@@ -120,35 +152,7 @@
 					});
 					$("#reviewForm").submit();
 				}
-			
-				function replyDelete(e){
-					var choice = confirm("상품 리뷰를 삭제하시겠습니까?");
-					
-					if(choice){
-						
-						$("#reviewForm").attr({
-							"method" :"post",
-							"action" : "/reply/replyDelete"
-						});
-						$("#reviewForm").submit();
-					} else {
-						location.href = "/reply/replyList"
-					}
-				};
 				
-				function bReplyDelete(e){
-					var choice = confirm("양조장 체험 리뷰를 삭제하시겠습니까?");
-					if(choice){
-						
-						$("#reviewForm").attr({
-							"method" :"post",
-							"action" : "/reply/bReplyDelete"
-						});
-						$("#reviewForm").submit();
-					} else {
-						location.href = "/reply/replyList"
-					}
-			};
 		</script>
 	</head>
 	<body>
@@ -188,9 +192,13 @@
 					<div class="tab-content my-account-tab mt-30" id="pills-tabContent">
 					
 							<div class="tab-pane fade show active" id="pills-review" role="tabpanel" aria-labelledby="pills-review-tab">
-								<form id="reviewForm">
-									<input type="hidden" name="user_no" id="user_no" value="${login.user_no}" /> 
-									
+								<form id="brReviewForm">
+									<input type="hidden" name="br_review_no" id="br_review_no" /> 
+								</form>	
+								
+								<form id="pdReviewForm">
+									<input type="hidden" name="pd_review_no" id="pd_review_no" /> 
+								</form>	
 									<div class="my-account-download account-wrapper">
 										<div class="container">
 											<ul class="tab_title">
@@ -218,7 +226,7 @@
 												<tbody>
 													<c:forEach var="pdReply" items="${pdReplyList}" varStatus="status">
 														<input type="hidden" name="pd_review_no" name="pd_review_no" value="${pdReply.pd_review_no}" />
-														<tr class="text-center" data-num="${pdReply.pd_review_no}">
+														<tr class="text-center" data-no="${pdReply.pd_review_no}">
 															<td>
 																<c:if test="${not empty pdReply.pd_review_thumb}">
 																	<img src="/uploadStorage/pdReview/thumbnail/${pdReply.pd_review_thumb}" />
@@ -229,7 +237,7 @@
 															<td>${pdReply.pd_review_date}</td>
 															<td>
 																<a href="replyUpdateForm?pd_review_no=${pdReply.pd_review_no}">수정</a> / 
-																<a href="javascript:void(0);" onclick="replyDelete();">삭제</a>
+																<a href="javascript:void(0);" class="pdReplyDelete">삭제</a>
 															</td>
 														</tr>
 													</c:forEach>
@@ -260,7 +268,7 @@
 															<tbody>
 																<c:forEach var="brReply" items="${brReplyList}" varStatus="status">
 																<input type="hidden" name="br_review_no" name="br_review_no" value="${brReply.br_review_no}" />
-																	<tr class="text-center" data-num="${brReply.br_review_no}">
+																	<tr class="text-center" data-no="${brReply.br_review_no}">
 																		<td>
 																			<c:if test="${not empty brReply.br_review_thumb}">
 																				<img src="/uploadStorage/brReview/thumbnail/${brReply.br_review_thumb}" />
@@ -271,7 +279,7 @@
 																		<td>${brReply.br_review_date}</td>
 																		<td>
 																			<a href="bReplyUpdateForm?br_review_no=${brReply.br_review_no}">수정</a> / 
-																			<a href="javascript:void(0);" onclick="bReplyDelete();">삭제</a>
+																			<a href="javascript:void(0);" class="bReplyDelete">삭제</a>
 																		</td>
 																	</tr>
 																</c:forEach>
@@ -288,7 +296,6 @@
 													
 										</div>
 									</div>
-								</form>
 							</div>
 						</div>
 					</div>

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -27,18 +28,18 @@ public class BreweryController {
 	private BreweryService breweryService;
 	
 	/*******************************************************
-	 * ì–‘ì¡°ì¥ ë¦¬ìŠ¤íŠ¸ êµ¬í˜„
+	 * ¾çÁ¶Àå ¸®½ºÆ® ±¸Çö
 	 *******************************************************/
 	@GetMapping("/breweryList")
 	public String breweryList(@ModelAttribute("data") BreweryVO bvo, Model model) {
-		log.info("breweryList í˜¸ì¶œ ì„±ê³µ");
-		bvo.setAmount(9); //í˜ì´ì§€ ìˆ˜ ì„¤ì •
+		log.info("breweryList È£Ãâ ¼º°ø");
+		bvo.setAmount(9); //ÆäÀÌÁö ¼ö ¼³Á¤
 		
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<BreweryVO> breweryList = breweryService.breweryList(bvo);
 		model.addAttribute("breweryList", breweryList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í•˜ê¸°
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸ÇÏ±â
 		int total = breweryService.breweryListCnt(bvo);
 		model.addAttribute("pageMaker", new PageDTO(total, bvo));
 		
@@ -46,11 +47,11 @@ public class BreweryController {
 	}
 	
 	/*******************************************************
-	 * ì–‘ì¡°ì¥ ìƒì„¸ì •ë³´ êµ¬í˜„
+	 * ¾çÁ¶Àå »ó¼¼Á¤º¸ ±¸Çö
 	 *******************************************************/
 	@GetMapping("/breweryDetail")
 	public String breweryDetail(@ModelAttribute("data") BreweryVO bvo, Model model) {
-		log.info("breweryDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("breweryDetail È£Ãâ ¼º°ø");
 		
 		BreweryVO detail = breweryService.breweryDetail(bvo);
 		model.addAttribute("detail", detail);
@@ -59,14 +60,14 @@ public class BreweryController {
 	}
 	
 	/*******************************************************
-	 * ì²´í—˜ ì˜ˆì•½ í¼ í˜¸ì¶œ
+	 * Ã¼Çè ¿¹¾à Æû È£Ãâ
 	 *******************************************************/
-	@RequestMapping(value = "/reserveForm")
+	@PostMapping(value = "/reserveForm")
 	public String reserveForm(@ModelAttribute("data") BreweryVO bvo, @SessionAttribute("login") MemberVO loginMember, Model model, RedirectAttributes reAttr) {
-		log.info("reserveForm í˜¸ì¶œ ì„±ê³µ");
+		log.info("reserveForm È£Ãâ ¼º°ø");
 		
 		if (loginMember == null) {
-			reAttr.addFlashAttribute("errorMsg", "ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.");
+			reAttr.addFlashAttribute("errorMsg", "·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.");
 			return "redirect:/login/login";
 		}
 		model.addAttribute("loginMember", loginMember);
