@@ -18,7 +18,8 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/order')}">class="active"</c:if>>
 		<a href="/admin/order/orderList">상품 주문 관리</a>
 	</li>
-	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/pdReplyList')}">class="active"</c:if>>
+	<li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/pdReplyList')}">class="active"</c:if>
+		<c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/pdReplyDetail')}">class="active"</c:if>>
 		<a href="/admin/reply/pdReplyList">상품 리뷰 관리</a>
 	</li>
 </ul>
@@ -29,7 +30,8 @@
     <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reserve')}">class="active"</c:if>>
     	<a href="/admin/reserve/reserveList">체험 예약 관리</a>
     </li>
-    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/brReplyList')}">class="active"</c:if>>
+    <li <c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/brReplyList')}">class="active"</c:if>
+    	<c:if test="${fn:containsIgnoreCase(adminUri, '/admin/reply/brReplyDetail')}">class="active"</c:if>>
 		<a href="/admin/reply/brReplyList">체험 리뷰 관리</a>
 	</li>
 </ul>

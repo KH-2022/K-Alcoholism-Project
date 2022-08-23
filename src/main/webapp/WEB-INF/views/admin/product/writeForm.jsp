@@ -75,7 +75,7 @@
 							</tr>
 							<tr>
 								<td>상품 가격</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_price" name="pd_price" /></td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_price" name="pd_price" placeholder="숫자만 입력" /></td>
 							</tr>
 							<tr>
 								<td>상품 분류</td>
@@ -90,11 +90,11 @@
 							</tr>
 							<tr>
 								<td>상품 도수</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_degree" name="pd_degree" /></td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_degree" name="pd_degree" placeholder="숫자만 입력" /></td>
 							</tr>
 							<tr>
 								<td>상품 용량(ml 단위)</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_volume" name="pd_volume" /></td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_volume" name="pd_volume" placeholder="숫자만 입력" /></td>
 							</tr>
 							<tr>
 								<td>상품 정보</td>

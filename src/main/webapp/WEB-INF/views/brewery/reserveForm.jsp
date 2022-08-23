@@ -18,10 +18,7 @@
 			    var currentYear = thisMonth.getFullYear(); //달력에서 표기하는 연
 			    var currentMonth = thisMonth.getMonth(); //달력에서 표기하는 월
 			    var currentDate = thisMonth.getDate(); //달력에서 표기하는 일
-		
-			    //kst 기준 현재시간
-			    //console.log(thisMonth);
-		
+			    
 			    //캘린더 렌더링
 			    renderCalender(thisMonth);
 		

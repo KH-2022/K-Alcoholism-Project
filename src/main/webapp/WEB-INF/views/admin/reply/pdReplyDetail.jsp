@@ -35,7 +35,7 @@
 			<%-- 버튼 --%>
 			<div class="btnGroup text-right">
 				<input type="button" value="리뷰 삭제" id="pdReplyDeleteBtn" class="btn btn-primary" />
-				<input type="button" value="상품 리뷰 목록" id="replyListBtn" class="btn btn-primary" />
+				<input type="button" value="전통주 리뷰 목록" id="replyListBtn" class="btn btn-primary" />
 			</div>
 			
 			<%--==============상세정보 보여주기 시작=================== --%>
