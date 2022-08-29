@@ -2,23 +2,44 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 	<script type="text/javascript">
 		$(function(){
+			/* 초기값 설정 */
+			$("#br_region").val("${updateData.br_region}").prop("selected", true);
+			
 			/* 수정 버튼 클릭시 처리 이벤트 */
 			$("#brUpdateBtn").click(function(){
-				// 입력값 체크
+				//유효성 체크 + 정규표현식 체크
+				var phonCheck = RegExp(/^([0-9]{2,3})\-([0-9]{3,4})\-[0-9]{4}$/); //전화번호
+				var numCheck = RegExp(/[0-9]/g); //소요시간, 체험비용
+				
 				if (!chkData("#br_name", "양조장 이름을")) return;
 				else if (!chkData("#br_region", "지역을")) return;
 				else if (!chkData("#br_addr", "주소를")) return;
 				else if (!chkData("#br_tel", "전화번호를")) return;
+				else if(!(phonCheck.test($("#br_tel").val()))){
+					alert("전화번호 규칙에 맞게 입력해 주세요. 예시) ##-###-####");
+					$("#br_tel").val("");
+					return;
+				}
 				else if (!chkData("#br_info", "양조장 정보를")) return;
 				else if (!chkData("#br_type", "취급주종을")) return;
 				else if (!chkData("#br_program", "체험 프로그램을")) return;
 				else if (!chkData("#br_time", "소요시간을")) return;
+				else if(!(numCheck.test($("#br_time").val()))){
+					alert("소요시간은 분 단위로 숫자만 입력해 주세요.");
+					$("#br_time").val("");
+					return;
+				}
 				else if (!chkData("#br_price", "인당 체험비용을")) return;
+				else if(!(numCheck.test($("#br_price").val()))){
+					alert("인당 체험비용은 숫자만 입력해 주세요.");
+					$("#br_price").val("");
+					return;
+				}
 				else {
 					if ($("#file").val() != "") { //br_image
 						if (!chkFile($("#file"))) return;
 					}
-					
+				
 					$("#brUpdateForm").attr({
 						"method" : "post",
 						"enctype" : "multipart/form-data",
@@ -33,6 +54,7 @@
 			$("#brCancelBtn").click(function(){
 				$("#brUpdateForm").each(function(){
 					this.reset();
+					$("#br_region").val("${updateData.br_region}").prop("selected", true);
 				});
 			});
 			
@@ -40,17 +62,23 @@
 			$("#brListBtn").click(function(){
 				location.href="/admin/brewery/breweryList";
 			});
-			
 		});//최상위 $
-		
-		
 	</script>
-		
 	</head>
 	<body>
 		<div class="contentContainer container">
-			 <div class="contentTit page-header"><h3 class="text-center">양조장 정보 수정</h3></div>
-
+			 <div class="contentTit page-header text-center">
+				<h2>양조장 관리</h2>
+				<h4>양조장 수정</h4>
+			</div>
+			
+			<%-- 버튼 --%>
+			<div class="btnGroup text-right">
+				<button type="button" class="btn btn-primary" id="brUpdateBtn">양조장 수정</button>
+				<button type="button" class="btn btn-primary" id="brCancelBtn">초기화</button>
+				<button type="button" class="btn btn-primary" id="brListBtn">양조장 목록</button>
+			</div>
+			
 			 <div class="contentTB text-center">
 			 	<form id="brUpdateForm" name="brUpdateForm">
 			 		<input type="hidden" name="br_id" id="br_id" value="${updateData.br_id}" />
@@ -73,7 +101,23 @@
 							</tr>
 							<tr>
 								<td>양조장지역(도)</td>
-								<td class="text-left"><input type="text" class="form-control" id="br_region" name="br_region" value="${updateData.br_region}"/></td>
+								<td>
+									<select id="br_region" name="br_region" class="form-control">
+							            <option value="강원">강원</option>
+							            <option value="경기">경기</option>
+							            <option value="경상">경상</option>
+							            <option value="광주">광주</option>
+							            <option value="대구">대구</option>
+							            <option value="대전">대전</option>
+							            <option value="부산">부산</option>
+							            <option value="서울">서울</option>
+							            <option value="울산">울산</option>
+							            <option value="인천">인천</option>
+							            <option value="전라">전라</option>
+							            <option value="제주">제주</option>
+							            <option value="충청">충청</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td>양조장 주소</td>
@@ -100,7 +144,7 @@
 								<td class="text-left"><input type="text" class="form-control" id="br_program" name="br_program" value="${updateData.br_program}" /></td>
 							</tr>
 							<tr>
-								<td>소요시간(분단위) </td>
+								<td>소요시간(분) </td>
 								<td class="text-left"><input type="text" class="form-control" id="br_time" name="br_time" value="${updateData.br_time}"/></td>
 							</tr>
 							<tr>
@@ -113,15 +157,8 @@
 							</tr>
 						</tbody>
 			 		</table>
-			 		</form>
-			 	</div>
-			 		<div class="text-right">
-						<button type="button" class="btn btn-success" id="brUpdateBtn">수정</button>
-						<button type="button" class="btn btn-success" id="brCancelBtn">취소</button>
-						<button type="button" class="btn btn-success" id="brListBtn">목록</button>
-					</div>
-			 	
-			
+			 	</form>
+			 </div>
 		</div>	
 	</body>
 </html>

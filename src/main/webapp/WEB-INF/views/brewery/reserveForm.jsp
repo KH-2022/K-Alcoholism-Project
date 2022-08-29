@@ -165,12 +165,18 @@
 			    	$("#rsv_count").val($(".count").text()); //hidden타입 인원 값 설정
 			    	$("#rsv_price").val($(".price").text()); //hidden타입 총액 값 설정
 			    	
-			    	//유효성 검사
+			    	//유효성 검사 + 정규표현식 검사
+			    	var telCheck = RegExp(/^([0-9]{2,3})\-([0-9]{3,4})\-[0-9]{4}$/); //전화번호
 			    	if (!chkSelect("#rsv_day", "예약 날짜를")) return;
 					else if (!chkSelect("#rsv_time", "예약 시간을")) return;
 					else if (!chkSelect("#rsv_count", "예약 인원을")) return;
 					else if (!chkData("#rsv_name", "예약자 이름을")) return;
 					else if (!chkData("#rsv_tel", "예약자 전화번호를")) return;
+					else if(!(telCheck.test($("#rsv_tel").val()))){
+						alert("전화번호 규칙에 맞게 입력해 주세요. 예시) ###-####-####");
+						$("#rsv_tel").val("${loginMember.user_tel}");
+						return;
+					}
 					else {
 						$("#reserveForm").attr({
 				    		"method" : "post",

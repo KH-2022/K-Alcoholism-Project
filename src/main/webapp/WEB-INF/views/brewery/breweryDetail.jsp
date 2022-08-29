@@ -117,8 +117,8 @@
 									<form id="goReserveForm">
 										<input type="hidden" id="br_id" name="br_id" value="${detail.br_id}" />
 										<input type="hidden" id="user_no" name="user_no" value="${login.user_no}" />
-										<button type="button" id="goReserveBtn" class="btn btn-primary">예약하기</button>
 									</form>
+									<button type="button" id="goReserveBtn" class="btn btn-primary">예약하기</button>
 								</div>
 							</div>
 						</div>

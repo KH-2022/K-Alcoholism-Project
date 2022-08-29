@@ -2,14 +2,35 @@
 <%@ include file="/WEB-INF/views/common/common.jspf" %>
 		<script type="text/javascript">
 			$(function() {
+				/* 초기값 설정 */
+				$("#pd_sort").val("${updateData.pd_sort}").prop("selected", true);
+				
 				/* 수정 버튼 클릭시 처리 이벤트 */
-				$("#productUpdateBtn").click(function(){
+				$("#pdUpdateBtn").click(function(){
+					//유효성 체크 + 정규표현식 체크
+					var numChk = RegExp(/[0-9]/g);
+					
 					if (!chkData("#br_id", "양조장 번호를")) return;
 					else if (!chkData("#pd_name", "상품 이름을")) return;
-					else if (!chkData("#pd_price", "가격을")) return;
+					else if (!chkData("#pd_price", "상품 가격을")) return;
+					else if (!(numChk.test($("#pd_price").val()))) {
+						alert("상품 가격은 숫자만 입력해 주세요.");
+						$("#pd_price").val("");
+						return;
+					}	
 					else if (!chkData("#pd_sort", "분류를")) return;
-					else if (!chkData("#pd_degree", "도수를")) return;
-					else if (!chkData("#pd_volume", "용량을")) return;
+					else if (!chkData("#pd_degree", "상품 도수를")) return;
+					else if (!(numChk.test($("#pd_degree").val()))) {
+						alert("상품 도수는 숫자만 입력해 주세요.");
+						$("#pd_degree").val("");
+						return;
+					}
+					else if (!chkData("#pd_volume", "상품 용량을")) return;
+					else if (!(numChk.test($("#pd_volume").val()))) {
+						alert("상품 용량은 숫자만 입력해 주세요.");
+						$("#pd_volume").val("");
+						return;
+					}
 					else if (!chkData("#pd_info", "정보를")) return;
 					else {
 						if ($("#file").val() != "") { //pd_image
@@ -27,37 +48,40 @@
 				});
 				
 				/* 취소 버튼 클릭시 처리 이벤트 */
-				$("#productCancelBtn").click(function(){
+				$("#pdCancelBtn").click(function(){
 					$("#pdUpdateForm").each(function(){
 						this.reset();
+						$("#pd_sort").val("${updateData.pd_sort}").prop("selected", true);
 					});
 				});
 				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
-				$("#productListBtn").click(function(){
+				$("#pdListBtn").click(function(){
 					location.href="/admin/product/productList";
 				});
 			});
 		</script>
-		
-		
 	</head>
 	<body>
 		<div class="contentContainer container">
-			<div class="contentTit page-header"><h3 class="text-center">전통주 정보 수정</h3></div>
-
+			<div class="contentTit page-header text-center">
+				<h2>상품 관리</h2>
+				<h4>상품 수정</h4>
+			</div>
+			
+			<%-- 버튼 --%>
+			<div class="btnGroup text-right">
+				<button type="button" class="btn btn-primary" id="pdUpdateBtn">상품 수정</button>
+				<button type="button" class="btn btn-primary" id="pdCancelBtn">초기화</button>
+				<button type="button" class="btn btn-primary" id="pdListBtn">상품 목록</button>
+			</div>
+			
 			<div class="contentTB text-center">
 				<form id="pdUpdateForm" name="pdUpdateForm">
 					<input type="hidden" id="pd_id" name="pd_id" value="${updateData.pd_id}" />
 					<input type="hidden" id="pd_image" name="pd_image" value="${updateData.pd_image}" />
 					<input type="hidden" id="pd_thumb" name="pd_thumb" value="${updateData.pd_thumb}" />
-
-					<div class="contentBtn text-right">
-						<input type="button" value="수정" id="productUpdateBtn" class="btn btn-success" />
-						<input type="button" value="취소" id="productCancelBtn" class="btn btn-success" />
-						<input type="button" value="목록" id="productListBtn" class="btn btn-success" />
-					</div>
-
+					
 					<table class="table table-bordered">
 						<tbody>
 							<tr>
@@ -86,7 +110,7 @@
 							</tr>
 							<tr>
 								<td>상품 분류</td>
-								<td colspan="3" class="text-left ">
+								<td colspan="3" class="text-left">
 									<select id="pd_sort" name="pd_sort" class="form-control">
 										<option value="탁주">탁주</option>
 										<option value="약주/청주">약주/청주</option>
