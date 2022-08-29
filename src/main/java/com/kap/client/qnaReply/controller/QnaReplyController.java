@@ -27,11 +27,11 @@ public class QnaReplyController {
 	private QnaReplyService qnaReplyService;
 	
 	/***************************************************************************************
-	 * ëŒ“ê¸€ ëª©ë¡ êµ¬í˜„í•˜ê¸°
+	 * ´ñ±Û ¸ñ·Ï ±¸ÇöÇÏ±â
 	 ***************************************************************************************/
 	@GetMapping(value = "/all/{qna_no}", produces=MediaType.APPLICATION_JSON_VALUE)
 	public List<QnaReplyVO> qnaReplyList(@PathVariable("qna_no") Integer qna_no) {
-		log.info("qna reply list í˜¸ì¶œ ì„±ê³µ");
+		log.info("qna reply list È£Ãâ ¼º°ø");
 		
 		List<QnaReplyVO> entity = null;
 		entity = qnaReplyService.qnaReplyList(qna_no);
@@ -39,11 +39,11 @@ public class QnaReplyController {
 	}
 	
 	/***************************************************************************************
-	 * ëŒ“ê¸€ ë“±ë¡ êµ¬í˜„í•˜ê¸°
+	 * ´ñ±Û µî·Ï ±¸ÇöÇÏ±â
 	 **************************************************************************************/
 	@PostMapping(value = "/qnaReplyInsert", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String qnaReplyInsert(@RequestBody QnaReplyVO qrvo) {
-		log.info("qnaReplyInsert í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaReplyInsert È£Ãâ ¼º°ø");
 		log.info("QnaReplyVO : " + qrvo);
 		int result = 0;
 		
@@ -52,11 +52,11 @@ public class QnaReplyController {
 	}
 	
 	/***************************************************************************************
-	 * ëŒ“ê¸€ ìˆ˜ì • êµ¬í˜„í•˜ê¸°
+	 * ´ñ±Û ¼öÁ¤ ±¸ÇöÇÏ±â
 	 ***************************************************************************************/
 	@PutMapping(value = "/{qna_re_no}", consumes = "application/json", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String qnaReplyUpdate(@PathVariable("qna_re_no") int qna_re_no, @RequestBody QnaReplyVO qrvo) {
-		log.info("qnaReplyUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaReplyUpdate È£Ãâ ¼º°ø");
 		
 		qrvo.setQna_re_no(qna_re_no);
 		int result = qnaReplyService.qnaReplyUpdate(qrvo);
@@ -64,11 +64,11 @@ public class QnaReplyController {
 	}
 	
 	/***************************************************************************************
-	 * ëŒ“ê¸€ ì‚­ì œ êµ¬í˜„í•˜ê¸°
+	 * ´ñ±Û »èÁ¦ ±¸ÇöÇÏ±â
 	 ***************************************************************************************/
 	@DeleteMapping(value = "/{qna_re_no}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public String qnaReplyDelete(@PathVariable("qna_re_no") int qna_re_no) {
-		log.info("qnaReplyDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("qnaReplyDelete È£Ãâ ¼º°ø");
 		log.info("qna_re_no = " + qna_re_no);
 		
 		int result = qnaReplyService.qnaReplyDelete(qna_re_no);

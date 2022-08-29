@@ -22,10 +22,10 @@ public class ReviewController {
 	
 	private ReviewService reviewService;
 	
-	/* ìƒí’ˆí›„ê¸° ëª©ë¡ ì¡°íšŒ */
+	/* »óÇ°ÈÄ±â ¸ñ·Ï Á¶È¸ */
 	@GetMapping(value = "/pdReview/{pd_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReplyVO>> pdReviewList(@PathVariable("pd_id") Integer pd_id) {
-		log.info("pdReviewList í˜¸ì¶œ ì„±ê³µ");
+		log.info("pdReviewList È£Ãâ ¼º°ø");
 		
 		ResponseEntity<List<ReplyVO>> entity = null;
 		entity = new ResponseEntity<>(reviewService.pdReviewList(pd_id), HttpStatus.OK);
@@ -33,10 +33,10 @@ public class ReviewController {
 		return entity;
 	}
 	
-	/* ì–‘ì¡°ì¥í›„ê¸° ëª©ë¡ ì¡°íšŒ */
+	/* ¾çÁ¶ÀåÈÄ±â ¸ñ·Ï Á¶È¸ */
 	@GetMapping(value = "/brReview/{br_id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<BreplyVO>> brReviewList(@PathVariable("br_id") Integer br_id) {
-		log.info("brReviewList í˜¸ì¶œ ì„±ê³µ");
+		log.info("brReviewList È£Ãâ ¼º°ø");
 		
 		ResponseEntity<List<BreplyVO>> entity = null;
 		entity = new ResponseEntity<>(reviewService.brReviewList(br_id), HttpStatus.OK);
@@ -44,10 +44,10 @@ public class ReviewController {
 		return entity;
 	}
 	
-	/* ë©”ì¸í˜ì´ì§€ ìƒí’ˆí›„ê¸° ì¡°íšŒ */
+	/* ¸ŞÀÎÆäÀÌÁö »óÇ°ÈÄ±â Á¶È¸ */
 	@GetMapping(value = "/pdReview/main", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReplyVO>> mainPdReview() {
-		log.info("mainPdReview í˜¸ì¶œ ì„±ê³µ");
+		log.info("mainPdReview È£Ãâ ¼º°ø");
 		
 		ResponseEntity<List<ReplyVO>> entity = null;
 		entity = new ResponseEntity<>(reviewService.pdReviewMain(), HttpStatus.OK);
@@ -55,10 +55,10 @@ public class ReviewController {
 		return entity;
 	}
 	
-	/* ë©”ì¸í˜ì´ì§€ ì–‘ì¡°ì¥í›„ê¸° ì¡°íšŒ */
+	/* ¸ŞÀÎÆäÀÌÁö ¾çÁ¶ÀåÈÄ±â Á¶È¸ */
 	@GetMapping(value = "/brReview/main", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<BreplyVO>> mainBrReview() {
-		log.info("mainBrReview í˜¸ì¶œ ì„±ê³µ");
+		log.info("mainBrReview È£Ãâ ¼º°ø");
 		
 		ResponseEntity<List<BreplyVO>> entity = null;
 		entity = new ResponseEntity<>(reviewService.brReviewMain(), HttpStatus.OK);

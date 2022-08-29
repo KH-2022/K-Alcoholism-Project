@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j;
 
 @Controller
-@SessionAttributes("adminLogin") //Model ì •ë³´ë¥¼ HTTP ì„¸ì…˜ì— ì €ì¥í•´ì£¼ëŠ” ì–´ë…¸í…Œì´ì…˜
+@SessionAttributes("adminLogin") //Model Á¤º¸¸¦ HTTP ¼¼¼Ç¿¡ ÀúÀåÇØÁÖ´Â ¾î³ëÅ×ÀÌ¼Ç
 @Log4j
 @RequestMapping("/admin/*")
 @AllArgsConstructor
@@ -25,8 +25,8 @@ public class AdminLoginController {
 
 	private AdminLoginService adminLoginService;
 	
-	/* @SessionAttributesì˜ íŒŒë¼ë¯¸í„°ì™€ ê°™ì€ ì´ë¦„ì´ @ModelAttributeì— ìˆì„ ê²½ìš°
-	 * ì„¸ì…˜ì— ìˆëŠ” ê°ì²´ë¥¼ ê°€ì ¸ì˜¨ í›„, í´ë¼ì´ì–¸íŠ¸ë¡œ ì „ì†¡ë°›ì€ ê°’ì„ ì„¤ì •í•œë‹¤. */
+	/* @SessionAttributesÀÇ ÆÄ¶ó¹ÌÅÍ¿Í °°Àº ÀÌ¸§ÀÌ @ModelAttribute¿¡ ÀÖÀ» °æ¿ì
+	 * ¼¼¼Ç¿¡ ÀÖ´Â °´Ã¼¸¦ °¡Á®¿Â ÈÄ, Å¬¶óÀÌ¾ğÆ®·Î Àü¼Û¹ŞÀº °ªÀ» ¼³Á¤ÇÑ´Ù. */
 	@ModelAttribute
 	public AdminLoginVO adminLogin() {
 		return new AdminLoginVO();
@@ -34,23 +34,23 @@ public class AdminLoginController {
 	
 	
 	/***************************************************************
-	 * ë¡œê·¸ì¸ í™”ë©´ êµ¬í˜„ ë©”ì„œë“œ
-	 * ìš”ì²­ URL : http://localhost:8080/admin/loginìœ¼ë¡œ ìš”ì²­
+	 * ·Î±×ÀÎ È­¸é ±¸Çö ¸Ş¼­µå
+	 * ¿äÃ» URL : http://localhost:8080/admin/loginÀ¸·Î ¿äÃ»
 	 ***************************************************************/
 	@GetMapping("/login")
 	public String loginForm() {
-		log.info("admin ë¡œê·¸ì¸ í™”ë©´ í˜¸ì¶œ");
+		log.info("admin ·Î±×ÀÎ È­¸é È£Ãâ");
 		
-		return "admin/main"; // /WEB-INF/views/admin/main.jsp ë¡œ í¬ì›Œë“œ. (ê´€ë¦¬ì ì‹œì‘í˜ì´ì§€ë¡œ êµ¬ë¶„)
+		return "admin/main"; // /WEB-INF/views/admin/main.jsp ·Î Æ÷¿öµå. (°ü¸®ÀÚ ½ÃÀÛÆäÀÌÁö·Î ±¸ºĞ)
 	}
 	
 	
 	/***************************************************************
-	 * ë¡œê·¸ì¸ ì²˜ë¦¬ ë©”ì„œë“œ
-	 * ì°¸ê³  : ìë°”ë‹¨ì—ì„œ ì„¸ì…˜ì˜ ê°’ì„ ì‚¬ìš©í•  ê²½ìš° Controller ë‚´ ë©”ì„œë“œì— 
-	 * @SessionAttributes("adminLogin") ëª…ì‹œí•´ ì¤€ ì´ë¦„ì„
-	 * public ë°˜í™˜í˜• ë©”ì„œë“œëª…(@SessionAtrribute("adminLogin") VOí´ë˜ìŠ¤ëª… ì°¸ì¡°ë³€ìˆ˜)ë¡œ
-	 * ì •ì˜í•˜ê³  ì‚¬ìš©í•˜ë©´ ëœë‹¤.
+	 * ·Î±×ÀÎ Ã³¸® ¸Ş¼­µå
+	 * Âü°í : ÀÚ¹Ù´Ü¿¡¼­ ¼¼¼ÇÀÇ °ªÀ» »ç¿ëÇÒ °æ¿ì Controller ³» ¸Ş¼­µå¿¡ 
+	 * @SessionAttributes("adminLogin") ¸í½ÃÇØ ÁØ ÀÌ¸§À»
+	 * public ¹İÈ¯Çü ¸Ş¼­µå¸í(@SessionAtrribute("adminLogin") VOÅ¬·¡½º¸í ÂüÁ¶º¯¼ö)·Î
+	 * Á¤ÀÇÇÏ°í »ç¿ëÇÏ¸é µÈ´Ù.
 	 ***************************************************************/
 	@PostMapping("/login")
 	public String loginProcess(AdminLoginVO login, Model model, RedirectAttributes ras) {
@@ -61,7 +61,7 @@ public class AdminLoginController {
 			model.addAttribute("adminLogin", adminLogin);
 			url = "/admin/member/memberList";
 		} else {
-			ras.addFlashAttribute("errorMsg", "ë¡œê·¸ì¸ ì‹¤íŒ¨");
+			ras.addFlashAttribute("errorMsg", "·Î±×ÀÎ ½ÇÆĞ");
 			url = "/admin/login";
 		}
 		return "redirect:" + url;
@@ -69,11 +69,11 @@ public class AdminLoginController {
 	
 	
 	/***************************************************************
-	 * ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬ ë©”ì„œë“œ
+	 * ·Î±×¾Æ¿ô Ã³¸® ¸Ş¼­µå
 	 ***************************************************************/
 	@RequestMapping("/logout")
 	public String logout(SessionStatus sessionStatus) {
-		log.info("admin ë¡œê·¸ì•„ì›ƒ ì²˜ë¦¬");
+		log.info("admin ·Î±×¾Æ¿ô Ã³¸®");
 		sessionStatus.setComplete();
 		return "redirect:/admin/login";
 	}

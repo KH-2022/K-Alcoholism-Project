@@ -21,7 +21,7 @@ public class TabController {
 	private ProductService productService;
 	private BreweryService breweryService;
 
-	/* ìƒí’ˆ ì •ë³´ include */
+	/* »óÇ° Á¤º¸ include */
 	@GetMapping("/pdInfo")
 	public String tabPdInfo(@RequestParam("pd_id") int pd_id, Model model) {
 		ProductVO pvo = new ProductVO();
@@ -31,20 +31,20 @@ public class TabController {
 		return "tab/pdInfo";
 	}
 	
-	/* ìƒí’ˆ ë°°ì†¡ì•ˆë‚´ include */
+	/* »óÇ° ¹è¼Û¾È³» include */
 	@GetMapping("/pdNotice")
 	public String tabPdNotice() {
 		return "tab/pdNotice";
 	}
 	
-	/* ìƒí’ˆ í›„ê¸° include */
+	/* »óÇ° ÈÄ±â include */
 	@GetMapping("/pdReview")
 	public String tabPdReview(@RequestParam("pd_id") int pd_id, Model model) {
 		model.addAttribute("pd_id", pd_id);
 		return "tab/pdReview";
 	}
 	
-	/* ìƒí’ˆ ì •ë³´ include */
+	/* »óÇ° Á¤º¸ include */
 	@GetMapping("/brInfo")
 	public String tabBrInfo(@RequestParam("br_id") int br_id, Model model) {
 		BreweryVO bvo = new BreweryVO();
@@ -54,13 +54,13 @@ public class TabController {
 		return "tab/brInfo";
 	}
 	
-	/* ìƒí’ˆ ë°°ì†¡ì•ˆë‚´ include */
+	/* »óÇ° ¹è¼Û¾È³» include */
 	@GetMapping("/brNotice")
 	public String tabBrNotice() {
 		return "tab/brNotice";
 	}
 	
-	/* ìƒí’ˆ í›„ê¸° include */
+	/* »óÇ° ÈÄ±â include */
 	@GetMapping("/brReview")
 	public String tabBrReview(@RequestParam("br_id") int br_id, Model model) {
 		model.addAttribute("br_id", br_id);

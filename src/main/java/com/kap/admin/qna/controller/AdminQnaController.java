@@ -25,30 +25,30 @@ public class AdminQnaController {
 	private AdminQnaService adminQnaService;
 	
 	/***************************************************
-	 * ê¸€ ëª©ë¡ êµ¬í˜„í•˜ê¸°(í˜ì´ì§• ì²˜ë¦¬ ëª©ë¡ ì¡°íšŒ)
+	 * ±Û ¸ñ·Ï ±¸ÇöÇÏ±â(ÆäÀÌÂ¡ Ã³¸® ¸ñ·Ï Á¶È¸)
 	 ***************************************************/
 	@RequestMapping(value="/qna/qnaList", method = RequestMethod.GET)
 	public String qnaList(@ModelAttribute QnaVO qvo, Model model) {
-		log.info("qnaList í˜¸ì¶œ ì„±ê³µ");
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		log.info("qnaList È£Ãâ ¼º°ø");
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<QnaVO> qnaList = adminQnaService.qnaList(qvo);
 		model.addAttribute("qnaList", qnaList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 		int total = adminQnaService.qnaListCnt(qvo);
 		
-		// í˜ì´ì§• ì²˜ë¦¬
+		// ÆäÀÌÂ¡ Ã³¸®
 		model.addAttribute("pageMaker", new PageDTO(total, qvo));
 		
 		return "admin/qna/qnaList";
 	}
 	
 	/***************************************************
-	 * ê¸€ ìƒì„¸ë³´ê¸° êµ¬í˜„
+	 * ±Û »ó¼¼º¸±â ±¸Çö
 	 ***************************************************/
 	@RequestMapping(value="/qna/qnaDetail", method=RequestMethod.GET)
 	public String qnaDetail(@ModelAttribute QnaVO qvo, Model model) {
-		log.info("admin qnaDetail í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin qnaDetail È£Ãâ ¼º°ø");
 		
 		QnaVO detail = adminQnaService.qnaDetail(qvo);
 		model.addAttribute("detail", detail);

@@ -24,14 +24,14 @@ public class SignUpController {
 	
 	@RequestMapping(value="/signUpForm")
 	public String signUpForm(@ModelAttribute("data") MemberVO mvo) {
-		log.info("signUpForm 順胳稖靹标车");
+		log.info("signUpForm 龋免己傍");
 		return "signUp/signUpForm";
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/idCheck", produces="application/json")
 	public int idCheck(@RequestBody MemberVO mvo){
-		log.info("idCheck 順胳稖靹标车");
+		log.info("idCheck 龋免己傍");
 		
 		int result = signUpService.idCheck(mvo);
 		return result;
@@ -40,7 +40,7 @@ public class SignUpController {
 	@ResponseBody
 	@PostMapping(value="/emailCheck", produces="application/json")
 	public int emailCheck(@RequestBody MemberVO mvo){
-		log.info("emailCheck 順胳稖靹标车");
+		log.info("emailCheck 龋免己傍");
 		
 		int result = signUpService.emailCheck(mvo);
 		return result;
@@ -48,7 +48,7 @@ public class SignUpController {
 	
 	@RequestMapping(value="/signUpInsert", method = RequestMethod.POST)
 	public String signUpInsert(MemberVO mvo, Model model) {
-		log.info("signUpInsert 順胳稖靹标车");
+		log.info("signUpInsert 龋免己傍");
 		
 		int result = 0;
 		String url = "";

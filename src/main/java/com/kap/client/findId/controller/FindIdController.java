@@ -24,23 +24,23 @@ public class FindIdController {
 	
 	@RequestMapping(value="/findIdForm")
 	public String findIdForm(MemberVO mvo) {
-		log.info("findIdForm 順胳稖 靹标车");
+		log.info("findIdForm 龋免 己傍");
 		return "findId/findIdForm";
 	}
 	
 	@ResponseBody
 	@RequestMapping(value="/findId",method=RequestMethod.POST)
 	public String findId(MemberVO mvo, Model model) throws Exception{
-		log.info("findId 順胳稖 靹标车");
+		log.info("findId龋免 己傍");
 		
 		String result = findIdService.findId(mvo);
-		log.info("findId 鞁ろ枆 靹标车");
+		log.info("findId 龋免 己傍");
 		return result;
 	}
 	
 	@RequestMapping(value="/findPw",method=RequestMethod.POST)
 	public void findPw(@ModelAttribute MemberVO mvo, HttpServletResponse response) throws Exception{
-		log.info("findPw 順胳稖 靹标车");
+		log.info("findPw 龋免 己傍");
 		
 		findIdService.findPw(response, mvo);	
 	}

@@ -84,7 +84,7 @@ public class AdminReviewController {
 		adminReviewService.pdReplyDelete(rvo);
 		ras.addFlashAttribute("sendMsg", "상품 리뷰가 삭제되었습니다.");
 		
-		return "redirect:/admin/reply/replyList";
+		return "redirect:/admin/reply/pdReplyList";
 	}
 	
 	@RequestMapping(value="/reply/brReplyDetail",method=RequestMethod.GET)
@@ -104,7 +104,7 @@ public class AdminReviewController {
 		adminReviewService.brReplyDelete(bvo);
 		ras.addFlashAttribute("sendMsg", "양조장 리뷰가 삭제되었습니다.");
 		
-		return "redirect:/admin/reply/replyList";
+		return "redirect:/admin/reply/brReplyList";
 	}
 	
 }

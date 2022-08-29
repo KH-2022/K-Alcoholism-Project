@@ -25,41 +25,41 @@ public class AdminBreweryController {
 	private AdminBreweryService adminBreweryService;
 	
 	/****************************************************
-	 * ì–‘ì¡°ì¥ ëª©ë¡ êµ¬í˜„í•˜ê¸°
+	 * ¾çÁ¶Àå ¸ñ·Ï ±¸ÇöÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/brewery/breweryList",method=RequestMethod.GET)
 	public String breweryList(@ModelAttribute("data") BreweryVO bvo, Model model) {
-		log.info("admin breweryList í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin breweryList È£Ãâ ¼º°ø");
 		
-		// ì „ì²´ ë ˆì½”ë“œ ì¡°íšŒ
+		// ÀüÃ¼ ·¹ÄÚµå Á¶È¸
 		List<BreweryVO> breweryList = adminBreweryService.breweryList(bvo);
 		model.addAttribute("breweryList",breweryList);
 		
-		// ì „ì²´ ë ˆì½”ë“œ ìˆ˜ êµ¬í˜„
+		// ÀüÃ¼ ·¹ÄÚµå ¼ö ±¸Çö
 		int total = adminBreweryService.breweryListCnt(bvo);
 		
-		// í˜ì´ì§• ì²˜ë¦¬
+		// ÆäÀÌÂ¡ Ã³¸®
 		model.addAttribute("pageMaker", new PageDTO(total, bvo));
 		
 		return "admin/brewery/breweryList";
 	}
 	
 	/******************************************************
-	 * ê¸€ì“°ê¸° í¼ ì¶œë ¥í•˜ê¸°
+	 * ±Û¾²±â Æû Ãâ·ÂÇÏ±â
 	 ******************************************************/
 	@RequestMapping(value="/brewery/writeForm")
 	public String writeForm(@ModelAttribute("data") BreweryVO bvo) {
-		log.info("admin writeForm í˜¸ì¶œì„±ê³µ");
+		log.info("admin writeForm È£Ãâ¼º°ø");
 		
 		return "admin/brewery/writeForm";
 	}
 	
 	/******************************************************
-	 * ê¸€ì“°ê¸° êµ¬í˜„í•˜ê¸°
+	 * ±Û¾²±â ±¸ÇöÇÏ±â
 	 ******************************************************/	
 	@RequestMapping(value="/brewery/breweryInsert", method=RequestMethod.POST)
 	public String breweryInsert(BreweryVO bvo, Model model) throws Exception{
-		log.info("admin breweryInsert í˜¸ì¶œì„±ê³µ");
+		log.info("admin breweryInsert È£Ãâ¼º°ø");
 		
 		int result = 0;
 		String url = "";
@@ -74,11 +74,11 @@ public class AdminBreweryController {
 	}
 	
 	/****************************************************
-	 * ì–‘ì¡°ì¥ ìƒì„¸ë³´ê¸° êµ¬í˜„
+	 * ¾çÁ¶Àå »ó¼¼º¸±â ±¸Çö
 	 ****************************************************/
 	@RequestMapping(value="/brewery/breweryDetail",method=RequestMethod.GET)
 	public String breweryDetail(@ModelAttribute BreweryVO bvo, Model model) {
-		log.info("admin breweryDetailí˜¸ì¶œì„±ê³µ");
+		log.info("admin breweryDetailÈ£Ãâ¼º°ø");
 		
 		BreweryVO detail = adminBreweryService.breweryDetail(bvo);
 		model.addAttribute("detail",detail);
@@ -87,11 +87,11 @@ public class AdminBreweryController {
 	}
 	
 	/****************************************************
-	 * ê¸€ìˆ˜ì • í¼ ì¶œë ¥í•˜ê¸°
+	 * ±Û¼öÁ¤ Æû Ãâ·ÂÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/brewery/updateForm")
 	public String updateForm(@ModelAttribute("data") BreweryVO bvo, Model model) {
-		log.info("admin writeForm í˜¸ì¶œì„±ê³µ");
+		log.info("admin writeForm È£Ãâ¼º°ø");
 		log.info("br_id = " + bvo.getBr_id());
 		
 		BreweryVO updateData = adminBreweryService.updateForm(bvo);
@@ -102,11 +102,11 @@ public class AdminBreweryController {
 	}
 	
 	/****************************************************
-	 * ê¸€ìˆ˜ì • êµ¬í˜„í•˜ê¸°
+	 * ±Û¼öÁ¤ ±¸ÇöÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/brewery/breweryUpdate", method=RequestMethod.POST)
 	public String breweryUpdate(@ModelAttribute BreweryVO bvo, RedirectAttributes ras) throws Exception{
-		log.info("admin breweryUpdate í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin breweryUpdate È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url="";
@@ -124,11 +124,11 @@ public class AdminBreweryController {
 	}
 	
 	/****************************************************
-	 * ê¸€ì‚­ì œ êµ¬í˜„í•˜ê¸°
+	 * ±Û»èÁ¦ ±¸ÇöÇÏ±â
 	 ****************************************************/
 	@RequestMapping(value="/brewery/breweryDelete")
 	public String boardDelete(@ModelAttribute BreweryVO bvo, RedirectAttributes ras)throws Exception{
-		log.info("admin boardDelete í˜¸ì¶œ ì„±ê³µ");
+		log.info("admin boardDelete È£Ãâ ¼º°ø");
 		
 		int result = 0;
 		String url = "";

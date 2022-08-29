@@ -71,7 +71,8 @@
 				            ORDER BY o.order_no desc
 				        ) A
 				        WHERE rownum <= #{pageNum} * #{amount} and user_no=#{user_no}
-				        and orderdetail_no=(select min(orderdetail_no) FROM orders o LEFT OUTER JOIN order_detail od ON o.order_no = od.order_no where o.order_no = #{order_no})
+				        and orderdetail_no=(select min(orderdetail_no) FROM orders o LEFT OUTER JOIN order_detail od 
+				        ON o.order_no = od.order_no where o.order_no = #{order_no})
 				        order by orderdetail_no desc
 				    )WHERE rnum > (#{pageNum} - 1) * #{amount}
 		    ]]>
