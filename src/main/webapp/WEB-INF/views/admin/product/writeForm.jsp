@@ -4,13 +4,30 @@
 			$(function(){
 				/* 상품 등록 버튼 클릭시 처리 이벤트 */
 				$("#pdInsertBtn").click(function(){
-					// 입력값 체크\
+					//유효성 체크 + 정규표현식 체크
+					var numChk = RegExp(/[0-9]/g);
+					
 					if (!chkData("#br_id", "양조장 번호를")) return;
 					else if (!chkData("#pd_name", "상품 이름을")) return;
-					else if (!chkData("#pd_price", "가격을")) return;
+					else if (!chkData("#pd_price", "상품 가격을")) return;
+					else if (!(numChk.test($("#pd_price").val()))) {
+						alert("상품 가격은 숫자만 입력해 주세요.");
+						$("#pd_price").val("");
+						return;
+					}	
 					else if (!chkData("#pd_sort", "분류를")) return;
-					else if (!chkData("#pd_degree", "도수를")) return;
-					else if (!chkData("#pd_volume", "용량을")) return;
+					else if (!chkData("#pd_degree", "상품 도수를")) return;
+					else if (!(numChk.test($("#pd_degree").val()))) {
+						alert("상품 도수는 숫자만 입력해 주세요.");
+						$("#pd_degree").val("");
+						return;
+					}
+					else if (!chkData("#pd_volume", "상품 용량을")) return;
+					else if (!(numChk.test($("#pd_volume").val()))) {
+						alert("상품 용량은 숫자만 입력해 주세요.");
+						$("#pd_volume").val("");
+						return;
+					}
 					else if (!chkData("#pd_info", "정보를")) return;
 					else {
 						if ($("#file").val() != "") { //pd_image
@@ -38,7 +55,7 @@
 				$("#pdListBtn").click(function(){
 					location.href="/admin/product/productList";
 				});
-			});
+			}); 
 		</script>
 	</head>
 	<body>
@@ -47,18 +64,17 @@
 				<h2>상품 관리</h2>
 				<h4>상품 등록</h4>
 			</div>
+			
+			<%-- 버튼 --%>
+			<div class="btnGroup text-right">
+				<button type="button" class="btn btn-primary" id="pdInsertBtn">상품 등록</button>
+				<button type="button" class="btn btn-primary" id="pdCancelBtn">초기화</button>
+				<button type="button" class="btn btn-primary" id="pdListBtn">상품 목록</button>
+			</div>
 			 
 			 <%-- ===================== 상품등록 양식 ===================== --%>
 			 <div class="contentTB text-center">
 			 	<form id="pdWriteForm" name="pdWriteForm" class="form-horizontal">
-			 		
-			 		<%-- ===================== 버튼 추가 ===================== --%>
-			 		<div class="text-right">
-						<button type="button" class="btn btn-success" id="pdInsertBtn">저장</button>
-						<button type="button" class="btn btn-success" id="pdCancelBtn">취소</button>
-						<button type="button" class="btn btn-success" id="pdListBtn">목록</button>
-					</div>
-					
 			 		<table class="table table-bordered">
 			 			<colgroup>
 							<col width="20%" />
@@ -75,7 +91,7 @@
 							</tr>
 							<tr>
 								<td>상품 가격</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_price" name="pd_price" placeholder="숫자만 입력" /></td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_price" name="pd_price" /></td>
 							</tr>
 							<tr>
 								<td>상품 분류</td>
@@ -89,12 +105,12 @@
 								</td>
 							</tr>
 							<tr>
-								<td>상품 도수</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_degree" name="pd_degree" placeholder="숫자만 입력" /></td>
+								<td>상품 도수(%)</td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_degree" name="pd_degree" /></td>
 							</tr>
 							<tr>
-								<td>상품 용량(ml 단위)</td>
-								<td class="text-left"><input type="text" class="form-control" id="pd_volume" name="pd_volume" placeholder="숫자만 입력" /></td>
+								<td>상품 용량(ml)</td>
+								<td class="text-left"><input type="text" class="form-control" id="pd_volume" name="pd_volume" /></td>
 							</tr>
 							<tr>
 								<td>상품 정보</td>
@@ -106,7 +122,6 @@
 							</tr>
 						</tbody>
 			 		</table>
-			 		
 			 	</form>
 			 </div>
 		</div>	

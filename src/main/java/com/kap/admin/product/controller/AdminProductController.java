@@ -50,7 +50,7 @@ public class AdminProductController {
 	} 
 	
 	/******************************************************
-	 * 상품등록 폼 출력하기
+	 * 상품 등록 폼 출력하기
 	 ******************************************************/
 	@RequestMapping(value="/product/writeForm")
 	public String writeForm(@ModelAttribute("data") ProductVO pvo) {
@@ -60,7 +60,7 @@ public class AdminProductController {
 	}
 	
 	/******************************************************
-	 * 글쓰기 구현하기
+	 * 상품 등록 구현하기
 	 ******************************************************/
 	@RequestMapping(value="/product/productInsert", method=RequestMethod.POST)
 	public String productInsert(ProductVO pvo, Model model) throws Exception {
@@ -80,7 +80,7 @@ public class AdminProductController {
 	}
 	
 	/******************************************************
-	 * 글상세보기 구현
+	 * 상품 상세 구현
 	 ******************************************************/
 	@RequestMapping(value="/product/productDetail", method=RequestMethod.GET)
 	public String productDetail(@ModelAttribute ProductVO pvo, Model model) {
@@ -94,7 +94,7 @@ public class AdminProductController {
 	
 	
 	/****************************************************
-	 * 글수정 폼 출력하기
+	 * 상품 수정 폼 출력하기
 	 ****************************************************/
 	@RequestMapping(value="/product/updateForm")
 	public String updateForm(@ModelAttribute("data") ProductVO pvo, Model model) {
@@ -109,7 +109,7 @@ public class AdminProductController {
 	}
 	
 	/****************************************************
-	 * 글수정 구현하기
+	 * 상품 수정 구현하기
 	 ****************************************************/
 	@RequestMapping(value="/product/productUpdate", method=RequestMethod.POST)
 	public String productUpdate(@ModelAttribute ProductVO pvo, RedirectAttributes ras) throws Exception {
@@ -131,7 +131,7 @@ public class AdminProductController {
 	}
 	
 	/****************************************************
-	 * 글삭제 구현하기
+	 * 상품 삭제 구현하기
 	 ****************************************************/
 	@RequestMapping(value="/product/productDelete")
 	public String productDelete(@ModelAttribute ProductVO pvo, RedirectAttributes ras) throws Exception {

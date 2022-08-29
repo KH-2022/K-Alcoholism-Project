@@ -27,7 +27,6 @@ import lombok.extern.log4j.Log4j;
 
 @Controller
 @Log4j
-/* @SessionAttributes("login") */
 @RequestMapping("/myPage/*")
 @RequiredArgsConstructor
 public class MypageController {
